@@ -1,0 +1,15 @@
+sources:
+  filebeat:
+    type: logstash
+    address: 0.0.0.0:5044
+
+sinks:
+  logs_por_app:
+    type: file
+    inputs:
+      - filebeat
+    path: "/mnt/logs/{{ fields.app }}/%Y-%m-%d/{{ fields.instance }}/{{ fields.app }}-%H.log"
+    encoding:
+      codec: text
+    healthcheck:
+      enabled: true

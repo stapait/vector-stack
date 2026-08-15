@@ -1,0 +1,4 @@
+# HELP log_app_disk_bytes Espaco em disco ocupado pela aplicacao em /mnt/logs
+# TYPE log_app_disk_bytes gauge
+# HELP log_app_last_write_timestamp_seconds Timestamp do ultimo log recebido da aplicacao
+# TYPE log_app_last_write_timestamp_seconds gauge
