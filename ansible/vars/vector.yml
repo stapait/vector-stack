@@ -1,0 +1,46 @@
+---
+# Variáveis únicas de provisionamento — um único ambiente de teste, uma
+# única máquina. Se isso crescer para múltiplos ambientes, este arquivo vira
+# vars/<ambiente>.yml e o -e @vars/<ambiente>.yml na hora de rodar.
+
+# --- Identificação AWS (informativo/documentação) --------------------------
+# O Ansible NÃO chama a API da AWS com nada disso — a instância já existe,
+# já tem o volume EBS montado, e o IP é usado só no inventário (SSH). Esses
+# IDs ficam aqui centralizados como referência única do ambiente (para quem
+# for automatizar rede/segurança depois, ou só para documentar onde a
+# máquina vive).
+aws_region: us-east-1
+aws_vpc_id: "vpc-CHANGE_ME"
+aws_subnet_id: "subnet-CHANGE_ME"
+aws_security_group_id: "sg-CHANGE_ME"
+aws_instance_id: "i-CHANGE_ME"
+
+# --- Usuário/grupo de sistema -----------------------------------------------
+vector_system_user: vector
+vector_system_group: vector
+
+# --- Filesystem de logs (EBS já montado fora do Ansible) --------------------
+# A EC2 já sobe com o volume EBS montado neste caminho (fora do escopo do
+# Ansible — provisionamento de infraestrutura cuida disso). O Ansible só lê
+# esta variável para saber onde criar logs/ e archive/, e valida no início
+# do playbook que o caminho é de fato um ponto de montagem (falha cedo se
+# não for, em vez de gravar sem querer no disco raiz).
+vector_data_root: /mnt/vector
+# Dispositivo do EBS — só para referência/documentação (ex.: aparece em
+# `lsblk`/`df` para conferência manual); nenhuma task usa este valor.
+vector_ebs_device: /dev/nvme1n1
+
+# --- Vector (recepção de logs) ----------------------------------------------
+vector_version: "0.43.0"
+vector_target: "x86_64-unknown-linux-musl"   # aarch64-unknown-linux-musl em instâncias Graviton
+vector_listen_port: 5044
+
+# --- node_exporter + textfile collector (métricas) --------------------------
+node_exporter_version: "1.8.2"
+node_exporter_arch: "amd64"                  # arm64 em instâncias Graviton
+node_exporter_port: 9100
+textfile_collector_dir: /var/lib/node_exporter/textfile_collector
+metrics_interval_seconds: 900                # 15 min, igual ao ambiente Docker
+
+# --- Rotação (logrotate) e arquivamento -------------------------------------
+log_archive_retention_days: 30

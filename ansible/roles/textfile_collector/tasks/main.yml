@@ -1,0 +1,29 @@
+---
+# Depende da role node_exporter já ter criado {{ textfile_collector_dir }}
+# e da role vector já ter criado {{ vector_data_root }}/logs — ordem
+# garantida pela lista de roles em vector-provision.yml.
+
+- name: Instalar script de métricas por app
+  template:
+    src: log-metrics.sh.j2
+    dest: /usr/local/bin/log-metrics.sh
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Instalar service/timer de métricas
+  template:
+    src: "{{ item }}"
+    dest: "/etc/systemd/system/{{ item | replace('.j2', '') }}"
+    mode: "0644"
+  loop:
+    - vector-metrics.service.j2
+    - vector-metrics.timer.j2
+  notify: Restart vector-metrics.timer
+
+- name: Habilitar e iniciar o timer de métricas
+  systemd:
+    name: vector-metrics.timer
+    enabled: true
+    state: started
+    daemon_reload: true

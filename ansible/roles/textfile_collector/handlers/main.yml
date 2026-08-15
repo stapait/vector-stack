@@ -1,0 +1,6 @@
+---
+- name: Restart vector-metrics.timer
+  systemd:
+    name: vector-metrics.timer
+    daemon_reload: true
+    state: restarted

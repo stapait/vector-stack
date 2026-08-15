@@ -1,0 +1,9 @@
+# Gerado pelo Ansible (vector-provision.yml) — não editar manualmente.
+[Unit]
+Description=Arquivamento de logs com mais de {{ log_archive_retention_days }} dias
+
+[Service]
+Type=oneshot
+User={{ vector_system_user }}
+Group={{ vector_system_group }}
+ExecStart=/usr/local/bin/archive-logs.sh

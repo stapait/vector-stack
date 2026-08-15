@@ -1,0 +1,19 @@
+# Gerado pelo Ansible (vector-provision.yml) — não editar manualmente.
+[Unit]
+Description=Prometheus node_exporter
+Documentation=https://github.com/prometheus/node_exporter
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User={{ vector_system_user }}
+Group={{ vector_system_group }}
+ExecStart=/usr/local/bin/node_exporter \
+  --web.listen-address=:{{ node_exporter_port }} \
+  --collector.textfile.directory={{ textfile_collector_dir }}
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,37 @@
+---
+# Depende da role common (usuário vector) e da role vector (diretório
+# {{ vector_data_root }}/logs já existir) — ordem garantida pela lista de
+# roles em vector-provision.yml.
+
+- name: Criar diretório de archive
+  file:
+    path: "{{ vector_data_root }}/archive"
+    state: directory
+    owner: "{{ vector_system_user }}"
+    group: "{{ vector_system_group }}"
+    mode: "0755"
+
+- name: Instalar script de arquivamento
+  template:
+    src: archive-logs.sh.j2
+    dest: /usr/local/bin/archive-logs.sh
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Instalar service/timer de arquivamento
+  template:
+    src: "{{ item }}"
+    dest: "/etc/systemd/system/{{ item | replace('.j2', '') }}"
+    mode: "0644"
+  loop:
+    - vector-archive.service.j2
+    - vector-archive.timer.j2
+  notify: Restart vector-archive.timer
+
+- name: Habilitar e iniciar o timer de arquivamento
+  systemd:
+    name: vector-archive.timer
+    enabled: true
+    state: started
+    daemon_reload: true

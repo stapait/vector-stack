@@ -1,0 +1,6 @@
+---
+- name: Restart vector-logrotate.timer
+  systemd:
+    name: vector-logrotate.timer
+    daemon_reload: true
+    state: restarted

@@ -1,0 +1,37 @@
+#!/bin/bash
+# Gerado pelo Ansible (vector-provision.yml) — não editar manualmente.
+#
+# Move para {{ vector_data_root }}/archive os .gz de pastas de data com mais
+# de {{ log_archive_retention_days }} dias, mantendo a estrutura
+# {app}/{data}/{instancia}/ — mesma lógica do ambiente Docker
+# (docker/concentrador/scripts/archive-logs.sh), adaptada para rodar direto
+# no host via systemd timer (vector-archive.timer) em vez de script avulso.
+set -euo pipefail
+
+LOG_ROOT="{{ vector_data_root }}/logs"
+ARCHIVE_ROOT="{{ vector_data_root }}/archive"
+RETENTION_DAYS="{{ log_archive_retention_days }}"
+CUTOFF=$(date -d "-${RETENTION_DAYS} days" +%Y-%m-%d)
+
+mkdir -p "$ARCHIVE_ROOT"
+
+find "$LOG_ROOT" -mindepth 2 -maxdepth 2 -type d | while read -r date_dir; do
+  date_name="$(basename "$date_dir")"
+  app_name="$(basename "$(dirname "$date_dir")")"
+
+  [[ "$date_name" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] || continue
+  [[ "$date_name" < "$CUTOFF" ]] || continue
+
+  dest_date_dir="$ARCHIVE_ROOT/$app_name/$date_name"
+
+  find "$date_dir" -type f -name '*.gz' -print0 | while IFS= read -r -d '' f; do
+    rel="${f#"$date_dir"/}"
+    dest="$dest_date_dir/$rel"
+    mkdir -p "$(dirname "$dest")"
+    mv "$f" "$dest"
+    echo "$(date -Iseconds) arquivado: $f -> $dest"
+  done
+
+  find "$date_dir" -mindepth 1 -type d -empty -delete 2>/dev/null || true
+  find "$date_dir" -mindepth 0 -maxdepth 0 -empty -delete 2>/dev/null || true
+done

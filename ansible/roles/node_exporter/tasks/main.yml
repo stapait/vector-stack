@@ -1,0 +1,38 @@
+---
+- name: Criar diretório do textfile collector
+  file:
+    path: "{{ textfile_collector_dir }}"
+    state: directory
+    owner: "{{ vector_system_user }}"
+    group: "{{ vector_system_group }}"
+    mode: "0755"
+
+- name: "Baixar e extrair node_exporter {{ node_exporter_version }}"
+  unarchive:
+    src: "https://github.com/prometheus/node_exporter/releases/download/v{{ node_exporter_version }}/node_exporter-{{ node_exporter_version }}.linux-{{ node_exporter_arch }}.tar.gz" # noqa: yaml[line-length]
+    dest: /opt
+    remote_src: true
+    creates: "/opt/node_exporter-{{ node_exporter_version }}.linux-{{ node_exporter_arch }}/node_exporter"
+
+- name: Apontar /usr/local/bin/node_exporter para a versão instalada
+  file:
+    src: "/opt/node_exporter-{{ node_exporter_version }}.linux-{{ node_exporter_arch }}/node_exporter"
+    dest: /usr/local/bin/node_exporter
+    state: link
+    force: true
+
+- name: Instalar unit systemd do node_exporter
+  template:
+    src: node_exporter.service.j2
+    dest: /etc/systemd/system/node_exporter.service
+    mode: "0644"
+  notify:
+    - Reload systemd daemon
+    - Restart node_exporter
+
+- name: Habilitar e iniciar o node_exporter
+  systemd:
+    name: node_exporter
+    enabled: true
+    state: started
+    daemon_reload: true

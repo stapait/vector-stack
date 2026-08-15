@@ -1,0 +1,18 @@
+# Gerado pelo Ansible (vector-provision.yml) — não editar manualmente.
+[Unit]
+Description=Vector - concentrador de logs
+Documentation=https://vector.dev/docs/
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User={{ vector_system_user }}
+Group={{ vector_system_group }}
+ExecStart=/usr/local/bin/vector --config /etc/vector/vector.yaml
+Restart=on-failure
+RestartSec=5
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

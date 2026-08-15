@@ -1,0 +1,36 @@
+---
+# Provisiona (ou atualiza) a EC2 concentradora de logs: Vector, rotação
+# (logrotate), arquivamento e métricas (node_exporter + textfile collector).
+#
+# A instância já existe (Amazon Linux 2023) e já tem o volume EBS montado —
+# isso é responsabilidade de quem provisiona a infraestrutura, não deste
+# playbook. Idempotente: rodar de novo depois de mudar uma variável (ex.
+# vector_version) atualiza o que precisar e reinicia só o que mudou.
+#
+# Uso:
+#   ansible-playbook -i inventory/hosts.ini vector-provision.yml \
+#     -e @vars/vector.yml
+#
+# Detalhes completos em ../AWS.md (seção "Provisionamento com Ansible").
+#
+# A ordem das roles importa (não são independentes):
+#   common         -> usuário/grupo de sistema, pacotes base, valida o mount
+#   vector         -> cria {{ vector_data_root }}/logs, precisa vir antes de
+#                      textfile_collector, logrotate e archive_logs
+#   node_exporter  -> cria {{ textfile_collector_dir }}, precisa vir antes
+#                      de textfile_collector
+#   textfile_collector, logrotate, archive_logs -> sem ordem entre si
+
+- name: Provisionar concentrador de logs (Vector)
+  hosts: vector
+  become: true
+  gather_facts: true
+  vars_files:
+    - vars/vector.yml
+  roles:
+    - common
+    - vector
+    - node_exporter
+    - textfile_collector
+    - logrotate
+    - archive_logs

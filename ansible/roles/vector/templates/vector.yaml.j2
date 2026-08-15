@@ -1,0 +1,16 @@
+# Gerado pelo Ansible (vector-provision.yml) — não editar manualmente.
+sources:
+  filebeat:
+    type: logstash
+    address: 0.0.0.0:{{ vector_listen_port }}
+
+sinks:
+  logs_por_app:
+    type: file
+    inputs:
+      - filebeat
+    path: "{{ vector_data_root }}/logs/{% raw %}{{ fields.app }}{% endraw %}/%Y-%m-%d/{% raw %}{{ fields.instance }}{% endraw %}/{% raw %}{{ fields.app }}{% endraw %}.log"
+    encoding:
+      codec: text
+    healthcheck:
+      enabled: true

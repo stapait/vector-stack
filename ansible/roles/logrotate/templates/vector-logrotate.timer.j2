@@ -1,0 +1,10 @@
+# Gerado pelo Ansible (vector-provision.yml) — não editar manualmente.
+[Unit]
+Description=Dispara vector-logrotate.service de hora em hora
+
+[Timer]
+OnCalendar=hourly
+Persistent=true
+
+[Install]
+WantedBy=timers.target

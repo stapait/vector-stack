@@ -1,0 +1,11 @@
+# Gerado pelo Ansible (vector-provision.yml) — não editar manualmente.
+[Unit]
+Description=Dispara vector-archive.service uma vez por dia
+
+[Timer]
+OnCalendar=daily
+RandomizedDelaySec=1800
+Persistent=true
+
+[Install]
+WantedBy=timers.target

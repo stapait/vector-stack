@@ -1,0 +1,37 @@
+# Gerado pelo Ansible (vector-provision.yml) — não editar manualmente.
+#
+# Path glob dinâmico: cobre qualquer app/data/instância que já exista sob
+# {{ vector_data_root }}/logs, inclusive apps novas que nunca precisaram de
+# nenhuma alteração aqui — o glob é resolvido a cada execução do logrotate.
+#
+# Sem diretiva de frequência (daily/weekly) de propósito: este arquivo NÃO
+# fica em /etc/logrotate.d (não é pego pelo cron.daily padrão do sistema) —
+# é invocado pelo timer próprio vector-logrotate.timer, de hora em hora, com
+# --state próprio. O logrotate não tem uma diretiva "hourly" nativa; girar
+# de hora em hora é simplesmente "rodar o logrotate a cada hora sem
+# diretiva de frequência", que é o padrão usado aqui.
+#
+# dateext + dateformat + extension geram exatamente "{app}-{HH}.log", que o
+# compress comprime para "{app}-{HH}.log.gz" — mesma convenção de nome do
+# ambiente Docker. A hora no nome é a hora em que a rotação aconteceu (não
+# necessariamente a hora do conteúdo do arquivo, já que o timer roda no
+# início de cada hora) — se precisar que a hora reflita o conteúdo em vez do
+# momento da rotação, ajuste vector-logrotate.timer para dispar em xx:59.
+"{{ vector_data_root }}/logs/*/*/*/*.log" {
+    missingok
+    notifempty
+    nocreate
+    copytruncate
+    compress
+    dateext
+    dateformat -%H
+    extension .log
+    # rotate precisa de um número bem alto (não 0/padrão): testado que, com
+    # copytruncate + dateext, rotate 0 faz o logrotate pular a cópia
+    # silenciosamente (gera erro "unable to open ... for compression",
+    # arquivo .log.gz nunca é criado). Quem decide quando apagar um .gz não
+    # é o logrotate — é o archive-logs.sh (30 dias, move em vez de apagar) —
+    # por isso o número é só uma trava de segurança bem folgada.
+    rotate 100000
+    su {{ vector_system_user }} {{ vector_system_group }}
+}

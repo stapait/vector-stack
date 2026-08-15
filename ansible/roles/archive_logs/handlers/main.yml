@@ -1,0 +1,6 @@
+---
+- name: Restart vector-archive.timer
+  systemd:
+    name: vector-archive.timer
+    daemon_reload: true
+    state: restarted

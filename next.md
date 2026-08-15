@@ -1,5 +1,8 @@
-Vamos agora focar nos testes.
+Eu vi que os logs não estão no .gitignore localmente:
 
-Crie um README.md na raiz explicando o que essa arquitetura faz em alto nível.
-Adicione uma seção de como executar e testar essa arquitetura com Docker.
-Depois disso vou executar.
+	modified:   data/logs/orders-app/2026-08-15/f0b86efc28c4/orders-app.log
+	modified:   data/logs/payments-app/2026-08-15/f41e9453ecd6/payments-app.log
+	modified:   data/logs/shipping-app/2026-08-15/89cfdefbdfaa/shipping-app.log
+	modified:   data/textfile/log_app_metrics.prom
+
+Adicione a pasta de dados no .gitignore:

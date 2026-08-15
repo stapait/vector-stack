@@ -1,0 +1,11 @@
+# Gerado pelo Ansible (vector-provision.yml) — não editar manualmente.
+[Unit]
+Description=Dispara vector-metrics.service a cada {{ metrics_interval_seconds }}s
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec={{ metrics_interval_seconds }}s
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,37 @@
+---
+# Pré-requisitos compartilhados por todas as outras roles: confirma que o
+# volume EBS já está montado, pacotes base usados nos downloads (vector e
+# node_exporter), e o usuário/grupo de sistema que vector, node_exporter,
+# textfile_collector e o logrotate (via diretiva "su") usam.
+
+- name: Confirmar ponto de montagem esperado {{ vector_data_root }}
+  assert:
+    that:
+      - vector_data_root in (ansible_facts['mounts'] | map(attribute='mount') | list)
+    fail_msg: >-
+      {{ vector_data_root }} não aparece como ponto de montagem em
+      /proc/mounts. O volume EBS precisa já estar montado ali antes de
+      rodar este playbook — isso não é feito por ele (ver AWS.md).
+    success_msg: "{{ vector_data_root }} confirmado como ponto de montagem."
+
+- name: Instalar pacotes base
+  dnf:
+    name:
+      - tar
+      - gzip
+    state: present
+
+- name: Criar grupo de sistema
+  group:
+    name: "{{ vector_system_group }}"
+    system: true
+    state: present
+
+- name: Criar usuário de sistema
+  user:
+    name: "{{ vector_system_user }}"
+    group: "{{ vector_system_group }}"
+    system: true
+    shell: /sbin/nologin
+    create_home: false
+    state: present
