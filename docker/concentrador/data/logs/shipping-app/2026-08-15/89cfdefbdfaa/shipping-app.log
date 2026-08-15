@@ -1,0 +1,412 @@
+2026-08-15T17:51:19.577Z [INFO] shipping-app: job agendado executado
+2026-08-15T17:51:20.816Z [DEBUG] shipping-app: requisição processada com sucesso
+2026-08-15T17:51:21.944Z [INFO] shipping-app: timeout ao chamar serviço externo
+2026-08-15T17:51:23.142Z [INFO] shipping-app: fila de processamento com atraso
+2026-08-15T17:51:25.188Z [WARN] shipping-app: conexão com banco reestabelecida
+2026-08-15T17:51:26.980Z [DEBUG] shipping-app: cache miss, buscando do banco
+2026-08-15T17:51:28.571Z [INFO] shipping-app: job agendado executado
+2026-08-15T17:51:30.292Z [DEBUG] shipping-app: fila de processamento com atraso
+2026-08-15T17:51:32.577Z [INFO] shipping-app: job agendado executado
+2026-08-15T17:51:34.241Z [DEBUG] shipping-app: payload inválido recebido
+2026-08-15T17:51:37.052Z [INFO] shipping-app: cache miss, buscando do banco
+2026-08-15T17:51:38.437Z [WARN] shipping-app: payload inválido recebido
+2026-08-15T17:51:40.818Z [ERROR] shipping-app: conexão com banco reestabelecida
+2026-08-15T17:51:43.062Z [WARN] shipping-app: fila de processamento com atraso
+2026-08-15T17:51:45.469Z [ERROR] shipping-app: job agendado executado
+2026-08-15T17:51:48.284Z [WARN] shipping-app: requisição processada com sucesso
+2026-08-15T17:51:50.411Z [ERROR] shipping-app: fila de processamento com atraso
+2026-08-15T17:51:52.225Z [INFO] shipping-app: timeout ao chamar serviço externo
+2026-08-15T17:51:53.830Z [WARN] shipping-app: timeout ao chamar serviço externo
+2026-08-15T17:51:55.396Z [WARN] shipping-app: job agendado executado
+2026-08-15T17:51:57.387Z [INFO] shipping-app: job agendado executado
+2026-08-15T17:52:00.285Z [DEBUG] shipping-app: timeout ao chamar serviço externo
+2026-08-15T17:52:03.120Z [WARN] shipping-app: usuário autenticado
+2026-08-15T17:52:05.583Z [ERROR] shipping-app: timeout ao chamar serviço externo
+2026-08-15T17:52:07.149Z [ERROR] shipping-app: usuário autenticado
+2026-08-15T17:52:09.187Z [DEBUG] shipping-app: conexão com banco reestabelecida
+2026-08-15T17:52:10.481Z [WARN] shipping-app: fila de processamento com atraso
+2026-08-15T17:52:13.218Z [INFO] shipping-app: usuário autenticado
+2026-08-15T17:52:15.090Z [INFO] shipping-app: cache miss, buscando do banco
+2026-08-15T17:52:16.870Z [ERROR] shipping-app: usuário autenticado
+2026-08-15T17:52:19.157Z [INFO] shipping-app: fila de processamento com atraso
+2026-08-15T17:52:21.519Z [INFO] shipping-app: job agendado executado
+2026-08-15T17:52:23.928Z [DEBUG] shipping-app: timeout ao chamar serviço externo
+2026-08-15T17:52:25.190Z [INFO] shipping-app: usuário autenticado
+2026-08-15T17:52:28.022Z [INFO] shipping-app: timeout ao chamar serviço externo
+2026-08-15T17:52:29.398Z [WARN] shipping-app: requisição processada com sucesso
+2026-08-15T17:52:31.135Z [INFO] shipping-app: usuário autenticado
+2026-08-15T17:52:33.419Z [WARN] shipping-app: payload inválido recebido
+2026-08-15T17:52:35.057Z [DEBUG] shipping-app: job agendado executado
+2026-08-15T17:52:37.258Z [INFO] shipping-app: fila de processamento com atraso
+2026-08-15T17:52:38.525Z [INFO] shipping-app: usuário autenticado
+2026-08-15T17:52:41.374Z [INFO] shipping-app: job agendado executado
+2026-08-15T17:52:42.797Z [DEBUG] shipping-app: job agendado executado
+2026-08-15T17:52:44.850Z [INFO] shipping-app: timeout ao chamar serviço externo
+2026-08-15T17:52:47.466Z [ERROR] shipping-app: cache miss, buscando do banco
+2026-08-15T17:52:50.253Z [ERROR] shipping-app: payload inválido recebido
+2026-08-15T17:52:51.946Z [INFO] shipping-app: usuário autenticado
+2026-08-15T17:52:54.706Z [DEBUG] shipping-app: timeout ao chamar serviço externo
+2026-08-15T17:52:56.506Z [WARN] shipping-app: usuário autenticado
+2026-08-15T17:52:57.981Z [ERROR] shipping-app: job agendado executado
+2026-08-15T17:52:59.046Z [INFO] shipping-app: conexão com banco reestabelecida
+2026-08-15T17:53:00.460Z [INFO] shipping-app: fila de processamento com atraso
+2026-08-15T17:53:02.575Z [DEBUG] shipping-app: job agendado executado
+2026-08-15T17:53:04.269Z [ERROR] shipping-app: job agendado executado
+2026-08-15T17:53:05.791Z [INFO] shipping-app: requisição processada com sucesso
+2026-08-15T17:53:07.475Z [INFO] shipping-app: conexão com banco reestabelecida
+2026-08-15T17:53:10.003Z [DEBUG] shipping-app: cache miss, buscando do banco
+2026-08-15T17:53:12.527Z [ERROR] shipping-app: usuário autenticado
+2026-08-15T17:53:13.915Z [DEBUG] shipping-app: conexão com banco reestabelecida
+2026-08-15T17:53:16.125Z [WARN] shipping-app: job agendado executado
+2026-08-15T17:53:18.399Z [INFO] shipping-app: conexão com banco reestabelecida
+2026-08-15T17:53:20.745Z [WARN] shipping-app: payload inválido recebido
+2026-08-15T17:53:22.890Z [DEBUG] shipping-app: payload inválido recebido
+2026-08-15T17:53:25.279Z [INFO] shipping-app: conexão com banco reestabelecida
+2026-08-15T17:53:27.311Z [ERROR] shipping-app: usuário autenticado
+2026-08-15T17:53:29.593Z [INFO] shipping-app: cache miss, buscando do banco
+2026-08-15T17:53:31.923Z [WARN] shipping-app: requisição processada com sucesso
+2026-08-15T17:53:34.300Z [DEBUG] shipping-app: conexão com banco reestabelecida
+2026-08-15T17:53:35.990Z [INFO] shipping-app: requisição processada com sucesso
+2026-08-15T17:53:38.026Z [INFO] shipping-app: usuário autenticado
+2026-08-15T17:53:39.412Z [INFO] shipping-app: job agendado executado
+2026-08-15T17:53:40.494Z [INFO] shipping-app: conexão com banco reestabelecida
+2026-08-15T17:53:43.401Z [DEBUG] shipping-app: payload inválido recebido
+2026-08-15T17:53:45.435Z [DEBUG] shipping-app: requisição processada com sucesso
+2026-08-15T17:53:47.647Z [INFO] shipping-app: requisição processada com sucesso
+2026-08-15T17:53:50.561Z [WARN] shipping-app: usuário autenticado
+2026-08-15T17:53:53.488Z [INFO] shipping-app: payload inválido recebido
+2026-08-15T17:53:55.779Z [INFO] shipping-app: job agendado executado
+2026-08-15T17:53:56.825Z [DEBUG] shipping-app: fila de processamento com atraso
+2026-08-15T17:53:59.037Z [DEBUG] shipping-app: cache miss, buscando do banco
+2026-08-15T17:54:01.421Z [ERROR] shipping-app: payload inválido recebido
+2026-08-15T17:54:02.488Z [INFO] shipping-app: requisição processada com sucesso
+2026-08-15T17:54:03.982Z [INFO] shipping-app: job agendado executado
+2026-08-15T17:54:06.964Z [INFO] shipping-app: fila de processamento com atraso
+2026-08-15T17:54:09.635Z [WARN] shipping-app: timeout ao chamar serviço externo
+2026-08-15T17:54:11.847Z [INFO] shipping-app: cache miss, buscando do banco
+2026-08-15T17:54:13.185Z [ERROR] shipping-app: requisição processada com sucesso
+2026-08-15T17:54:15.852Z [DEBUG] shipping-app: conexão com banco reestabelecida
+2026-08-15T17:54:17.978Z [INFO] shipping-app: conexão com banco reestabelecida
+2026-08-15T17:54:20.529Z [INFO] shipping-app: payload inválido recebido
+2026-08-15T17:54:23.400Z [DEBUG] shipping-app: job agendado executado
+2026-08-15T17:54:25.048Z [INFO] shipping-app: conexão com banco reestabelecida
+2026-08-15T17:54:27.753Z [DEBUG] shipping-app: payload inválido recebido
+2026-08-15T17:54:30.342Z [WARN] shipping-app: payload inválido recebido
+2026-08-15T17:54:31.546Z [INFO] shipping-app: job agendado executado
+2026-08-15T17:54:34.400Z [INFO] shipping-app: payload inválido recebido
+2026-08-15T17:54:35.511Z [DEBUG] shipping-app: fila de processamento com atraso
+2026-08-15T17:54:36.878Z [INFO] shipping-app: conexão com banco reestabelecida
+2026-08-15T17:54:37.954Z [INFO] shipping-app: conexão com banco reestabelecida
+2026-08-15T17:54:39.744Z [DEBUG] shipping-app: requisição processada com sucesso
+2026-08-15T17:54:41.917Z [INFO] shipping-app: fila de processamento com atraso
+2026-08-15T17:54:43.882Z [INFO] shipping-app: conexão com banco reestabelecida
+2026-08-15T17:54:45.302Z [DEBUG] shipping-app: fila de processamento com atraso
+2026-08-15T17:54:47.083Z [INFO] shipping-app: cache miss, buscando do banco
+2026-08-15T17:54:50.077Z [WARN] shipping-app: requisição processada com sucesso
+2026-08-15T17:54:52.902Z [WARN] shipping-app: conexão com banco reestabelecida
+2026-08-15T17:54:53.980Z [ERROR] shipping-app: timeout ao chamar serviço externo
+2026-08-15T17:54:56.584Z [ERROR] shipping-app: fila de processamento com atraso
+2026-08-15T17:54:57.972Z [INFO] shipping-app: usuário autenticado
+2026-08-15T17:54:59.104Z [INFO] shipping-app: timeout ao chamar serviço externo
+2026-08-15T17:55:00.519Z [INFO] shipping-app: conexão com banco reestabelecida
+2026-08-15T17:55:03.286Z [DEBUG] shipping-app: requisição processada com sucesso
+2026-08-15T17:55:04.431Z [INFO] shipping-app: fila de processamento com atraso
+2026-08-15T17:55:06.615Z [ERROR] shipping-app: job agendado executado
+2026-08-15T17:55:07.886Z [WARN] shipping-app: usuário autenticado
+2026-08-15T17:55:09.748Z [WARN] shipping-app: usuário autenticado
+2026-08-15T17:55:10.911Z [INFO] shipping-app: cache miss, buscando do banco
+2026-08-15T17:55:12.796Z [INFO] shipping-app: fila de processamento com atraso
+2026-08-15T17:55:15.559Z [INFO] shipping-app: job agendado executado
+2026-08-15T17:55:16.942Z [DEBUG] shipping-app: payload inválido recebido
+2026-08-15T17:55:19.405Z [WARN] shipping-app: job agendado executado
+2026-08-15T17:55:20.941Z [WARN] shipping-app: usuário autenticado
+2026-08-15T17:55:22.328Z [INFO] shipping-app: payload inválido recebido
+2026-08-15T17:55:24.207Z [ERROR] shipping-app: conexão com banco reestabelecida
+2026-08-15T17:55:26.149Z [DEBUG] shipping-app: requisição processada com sucesso
+2026-08-15T17:55:28.458Z [DEBUG] shipping-app: fila de processamento com atraso
+2026-08-15T17:55:30.993Z [INFO] shipping-app: requisição processada com sucesso
+2026-08-15T17:55:33.125Z [DEBUG] shipping-app: fila de processamento com atraso
+2026-08-15T17:55:35.989Z [WARN] shipping-app: job agendado executado
+2026-08-15T17:55:37.105Z [DEBUG] shipping-app: cache miss, buscando do banco
+2026-08-15T17:55:38.272Z [INFO] shipping-app: timeout ao chamar serviço externo
+2026-08-15T17:55:39.559Z [INFO] shipping-app: usuário autenticado
+2026-08-15T17:55:41.060Z [ERROR] shipping-app: usuário autenticado
+2026-08-15T17:55:42.142Z [INFO] shipping-app: requisição processada com sucesso
+2026-08-15T17:55:44.535Z [DEBUG] shipping-app: job agendado executado
+2026-08-15T17:55:46.212Z [DEBUG] shipping-app: usuário autenticado
+2026-08-15T17:55:48.536Z [INFO] shipping-app: payload inválido recebido
+2026-08-15T17:55:50.492Z [INFO] shipping-app: fila de processamento com atraso
+2026-08-15T17:55:51.722Z [INFO] shipping-app: requisição processada com sucesso
+2026-08-15T17:55:54.255Z [WARN] shipping-app: payload inválido recebido
+2026-08-15T17:55:56.157Z [ERROR] shipping-app: timeout ao chamar serviço externo
+2026-08-15T17:55:57.950Z [INFO] shipping-app: fila de processamento com atraso
+2026-08-15T17:56:00.886Z [INFO] shipping-app: cache miss, buscando do banco
+2026-08-15T17:56:02.134Z [DEBUG] shipping-app: payload inválido recebido
+2026-08-15T17:56:04.456Z [INFO] shipping-app: payload inválido recebido
+2026-08-15T17:56:06.919Z [INFO] shipping-app: requisição processada com sucesso
+2026-08-15T17:56:08.040Z [ERROR] shipping-app: timeout ao chamar serviço externo
+2026-08-15T17:56:09.696Z [WARN] shipping-app: requisição processada com sucesso
+2026-08-15T17:56:12.253Z [INFO] shipping-app: job agendado executado
+2026-08-15T17:56:14.064Z [INFO] shipping-app: timeout ao chamar serviço externo
+2026-08-15T17:56:15.250Z [ERROR] shipping-app: timeout ao chamar serviço externo
+2026-08-15T17:56:17.876Z [DEBUG] shipping-app: fila de processamento com atraso
+2026-08-15T17:56:19.862Z [INFO] shipping-app: requisição processada com sucesso
+2026-08-15T17:56:22.811Z [INFO] shipping-app: payload inválido recebido
+2026-08-15T17:56:25.347Z [WARN] shipping-app: cache miss, buscando do banco
+2026-08-15T17:56:26.931Z [DEBUG] shipping-app: requisição processada com sucesso
+2026-08-15T17:56:29.202Z [INFO] shipping-app: requisição processada com sucesso
+2026-08-15T17:56:30.703Z [WARN] shipping-app: requisição processada com sucesso
+2026-08-15T17:56:32.557Z [WARN] shipping-app: cache miss, buscando do banco
+2026-08-15T17:56:34.350Z [INFO] shipping-app: fila de processamento com atraso
+2026-08-15T17:56:37.329Z [WARN] shipping-app: fila de processamento com atraso
+2026-08-15T17:56:39.979Z [DEBUG] shipping-app: requisição processada com sucesso
+2026-08-15T17:56:42.968Z [WARN] shipping-app: timeout ao chamar serviço externo
+2026-08-15T17:56:44.189Z [INFO] shipping-app: payload inválido recebido
+2026-08-15T17:56:47.080Z [DEBUG] shipping-app: fila de processamento com atraso
+2026-08-15T17:56:48.424Z [ERROR] shipping-app: fila de processamento com atraso
+2026-08-15T17:56:50.144Z [INFO] shipping-app: payload inválido recebido
+2026-08-15T17:56:52.182Z [DEBUG] shipping-app: requisição processada com sucesso
+2026-08-15T17:56:53.925Z [DEBUG] shipping-app: job agendado executado
+2026-08-15T17:56:56.636Z [INFO] shipping-app: cache miss, buscando do banco
+2026-08-15T17:56:57.935Z [DEBUG] shipping-app: timeout ao chamar serviço externo
+2026-08-15T17:57:00.885Z [DEBUG] shipping-app: conexão com banco reestabelecida
+2026-08-15T17:57:03.648Z [DEBUG] shipping-app: timeout ao chamar serviço externo
+2026-08-15T17:57:05.059Z [WARN] shipping-app: usuário autenticado
+2026-08-15T17:57:08.029Z [INFO] shipping-app: usuário autenticado
+2026-08-15T17:57:10.366Z [INFO] shipping-app: usuário autenticado
+2026-08-15T17:57:13.292Z [INFO] shipping-app: job agendado executado
+2026-08-15T17:57:15.315Z [INFO] shipping-app: cache miss, buscando do banco
+2026-08-15T17:57:16.592Z [INFO] shipping-app: requisição processada com sucesso
+2026-08-15T17:57:18.198Z [ERROR] shipping-app: job agendado executado
+2026-08-15T17:57:21.120Z [INFO] shipping-app: conexão com banco reestabelecida
+2026-08-15T17:57:22.477Z [INFO] shipping-app: requisição processada com sucesso
+2026-08-15T17:57:24.997Z [ERROR] shipping-app: fila de processamento com atraso
+2026-08-15T17:57:27.969Z [WARN] shipping-app: requisição processada com sucesso
+2026-08-15T17:57:30.382Z [ERROR] shipping-app: conexão com banco reestabelecida
+2026-08-15T17:57:31.505Z [INFO] shipping-app: job agendado executado
+2026-08-15T17:57:33.654Z [DEBUG] shipping-app: payload inválido recebido
+2026-08-15T17:57:35.679Z [ERROR] shipping-app: fila de processamento com atraso
+2026-08-15T17:57:36.697Z [WARN] shipping-app: timeout ao chamar serviço externo
+2026-08-15T17:57:38.397Z [INFO] shipping-app: payload inválido recebido
+2026-08-15T17:57:39.426Z [ERROR] shipping-app: timeout ao chamar serviço externo
+2026-08-15T17:57:41.316Z [INFO] shipping-app: conexão com banco reestabelecida
+2026-08-15T17:57:43.505Z [ERROR] shipping-app: cache miss, buscando do banco
+2026-08-15T17:57:45.034Z [ERROR] shipping-app: fila de processamento com atraso
+2026-08-15T17:57:47.831Z [INFO] shipping-app: job agendado executado
+2026-08-15T17:57:49.014Z [INFO] shipping-app: timeout ao chamar serviço externo
+2026-08-15T17:57:50.312Z [ERROR] shipping-app: payload inválido recebido
+2026-08-15T17:57:51.466Z [DEBUG] shipping-app: requisição processada com sucesso
+2026-08-15T17:57:53.199Z [INFO] shipping-app: conexão com banco reestabelecida
+2026-08-15T17:57:54.662Z [INFO] shipping-app: job agendado executado
+2026-08-15T17:57:57.032Z [ERROR] shipping-app: timeout ao chamar serviço externo
+2026-08-15T17:57:59.152Z [INFO] shipping-app: payload inválido recebido
+2026-08-15T17:58:01.295Z [INFO] shipping-app: timeout ao chamar serviço externo
+2026-08-15T17:58:04.064Z [ERROR] shipping-app: fila de processamento com atraso
+2026-08-15T17:58:06.123Z [WARN] shipping-app: requisição processada com sucesso
+2026-08-15T17:58:07.662Z [INFO] shipping-app: requisição processada com sucesso
+2026-08-15T17:58:09.099Z [ERROR] shipping-app: job agendado executado
+2026-08-15T17:58:10.749Z [WARN] shipping-app: conexão com banco reestabelecida
+2026-08-15T17:58:13.585Z [INFO] shipping-app: payload inválido recebido
+2026-08-15T17:58:15.346Z [DEBUG] shipping-app: timeout ao chamar serviço externo
+2026-08-15T17:58:16.579Z [INFO] shipping-app: requisição processada com sucesso
+2026-08-15T17:58:18.903Z [INFO] shipping-app: job agendado executado
+2026-08-15T17:58:21.820Z [ERROR] shipping-app: conexão com banco reestabelecida
+2026-08-15T17:58:24.442Z [INFO] shipping-app: requisição processada com sucesso
+2026-08-15T17:58:25.509Z [INFO] shipping-app: payload inválido recebido
+2026-08-15T17:58:27.066Z [DEBUG] shipping-app: conexão com banco reestabelecida
+2026-08-15T17:58:30.007Z [INFO] shipping-app: cache miss, buscando do banco
+2026-08-15T17:58:32.095Z [INFO] shipping-app: job agendado executado
+2026-08-15T17:58:33.804Z [INFO] shipping-app: conexão com banco reestabelecida
+2026-08-15T17:58:35.697Z [WARN] shipping-app: requisição processada com sucesso
+2026-08-15T17:58:38.621Z [INFO] shipping-app: fila de processamento com atraso
+2026-08-15T17:58:40.898Z [ERROR] shipping-app: usuário autenticado
+2026-08-15T17:58:42.980Z [INFO] shipping-app: fila de processamento com atraso
+2026-08-15T17:58:45.070Z [WARN] shipping-app: timeout ao chamar serviço externo
+2026-08-15T17:58:47.034Z [WARN] shipping-app: conexão com banco reestabelecida
+2026-08-15T17:58:48.245Z [INFO] shipping-app: requisição processada com sucesso
+2026-08-15T17:58:50.670Z [INFO] shipping-app: payload inválido recebido
+2026-08-15T17:58:52.192Z [ERROR] shipping-app: fila de processamento com atraso
+2026-08-15T17:58:53.500Z [ERROR] shipping-app: fila de processamento com atraso
+2026-08-15T17:58:55.837Z [INFO] shipping-app: fila de processamento com atraso
+2026-08-15T17:58:58.670Z [DEBUG] shipping-app: payload inválido recebido
+2026-08-15T17:59:00.376Z [INFO] shipping-app: cache miss, buscando do banco
+2026-08-15T17:59:03.338Z [DEBUG] shipping-app: job agendado executado
+2026-08-15T17:59:05.158Z [INFO] shipping-app: fila de processamento com atraso
+2026-08-15T17:59:07.667Z [DEBUG] shipping-app: conexão com banco reestabelecida
+2026-08-15T17:59:10.283Z [INFO] shipping-app: requisição processada com sucesso
+2026-08-15T17:59:12.545Z [DEBUG] shipping-app: requisição processada com sucesso
+2026-08-15T17:59:14.092Z [ERROR] shipping-app: cache miss, buscando do banco
+2026-08-15T17:59:16.131Z [DEBUG] shipping-app: usuário autenticado
+2026-08-15T17:59:19.027Z [DEBUG] shipping-app: fila de processamento com atraso
+2026-08-15T17:59:21.929Z [DEBUG] shipping-app: usuário autenticado
+2026-08-15T17:59:24.399Z [INFO] shipping-app: timeout ao chamar serviço externo
+2026-08-15T17:59:26.553Z [INFO] shipping-app: job agendado executado
+2026-08-15T17:59:29.487Z [DEBUG] shipping-app: fila de processamento com atraso
+2026-08-15T17:59:30.495Z [WARN] shipping-app: timeout ao chamar serviço externo
+2026-08-15T17:59:32.292Z [ERROR] shipping-app: job agendado executado
+2026-08-15T17:59:34.485Z [WARN] shipping-app: requisição processada com sucesso
+2026-08-15T17:59:37.307Z [INFO] shipping-app: timeout ao chamar serviço externo
+2026-08-15T17:59:38.319Z [INFO] shipping-app: conexão com banco reestabelecida
+2026-08-15T17:59:39.857Z [DEBUG] shipping-app: job agendado executado
+2026-08-15T17:59:41.214Z [DEBUG] shipping-app: requisição processada com sucesso
+2026-08-15T17:59:42.854Z [INFO] shipping-app: fila de processamento com atraso
+2026-08-15T17:59:44.906Z [ERROR] shipping-app: timeout ao chamar serviço externo
+2026-08-15T17:59:47.712Z [WARN] shipping-app: usuário autenticado
+2026-08-15T17:59:48.747Z [INFO] shipping-app: fila de processamento com atraso
+2026-08-15T17:59:50.611Z [DEBUG] shipping-app: cache miss, buscando do banco
+2026-08-15T17:59:52.198Z [ERROR] shipping-app: cache miss, buscando do banco
+2026-08-15T17:59:54.532Z [ERROR] shipping-app: cache miss, buscando do banco
+2026-08-15T17:59:55.891Z [WARN] shipping-app: cache miss, buscando do banco
+2026-08-15T17:59:58.590Z [INFO] shipping-app: cache miss, buscando do banco
+2026-08-15T18:00:00.219Z [WARN] shipping-app: fila de processamento com atraso
+2026-08-15T18:00:01.333Z [WARN] shipping-app: timeout ao chamar serviço externo
+2026-08-15T18:00:03.303Z [INFO] shipping-app: conexão com banco reestabelecida
+2026-08-15T18:00:05.993Z [INFO] shipping-app: fila de processamento com atraso
+2026-08-15T18:00:07.856Z [ERROR] shipping-app: requisição processada com sucesso
+2026-08-15T18:00:10.838Z [INFO] shipping-app: cache miss, buscando do banco
+2026-08-15T18:00:13.000Z [INFO] shipping-app: cache miss, buscando do banco
+2026-08-15T18:00:14.484Z [INFO] shipping-app: timeout ao chamar serviço externo
+2026-08-15T18:00:17.240Z [INFO] shipping-app: requisição processada com sucesso
+2026-08-15T18:00:19.875Z [INFO] shipping-app: job agendado executado
+2026-08-15T18:00:21.344Z [INFO] shipping-app: timeout ao chamar serviço externo
+2026-08-15T18:00:22.950Z [DEBUG] shipping-app: requisição processada com sucesso
+2026-08-15T18:00:25.183Z [ERROR] shipping-app: timeout ao chamar serviço externo
+2026-08-15T18:00:27.637Z [INFO] shipping-app: job agendado executado
+2026-08-15T18:00:30.231Z [INFO] shipping-app: usuário autenticado
+2026-08-15T18:00:32.349Z [WARN] shipping-app: requisição processada com sucesso
+2026-08-15T18:00:33.874Z [ERROR] shipping-app: cache miss, buscando do banco
+2026-08-15T18:00:35.927Z [INFO] shipping-app: usuário autenticado
+2026-08-15T18:00:37.367Z [INFO] shipping-app: usuário autenticado
+2026-08-15T18:00:39.838Z [INFO] shipping-app: conexão com banco reestabelecida
+2026-08-15T18:00:40.906Z [ERROR] shipping-app: fila de processamento com atraso
+2026-08-15T18:00:43.470Z [INFO] shipping-app: timeout ao chamar serviço externo
+2026-08-15T18:00:45.842Z [INFO] shipping-app: payload inválido recebido
+2026-08-15T18:00:48.081Z [WARN] shipping-app: payload inválido recebido
+2026-08-15T18:00:49.209Z [ERROR] shipping-app: requisição processada com sucesso
+2026-08-15T18:00:51.006Z [DEBUG] shipping-app: payload inválido recebido
+2026-08-15T18:00:53.792Z [INFO] shipping-app: job agendado executado
+2026-08-15T18:00:55.167Z [WARN] shipping-app: conexão com banco reestabelecida
+2026-08-15T18:00:56.592Z [WARN] shipping-app: usuário autenticado
+2026-08-15T18:00:58.334Z [INFO] shipping-app: conexão com banco reestabelecida
+2026-08-15T18:01:00.050Z [DEBUG] shipping-app: timeout ao chamar serviço externo
+2026-08-15T18:01:02.659Z [WARN] shipping-app: conexão com banco reestabelecida
+2026-08-15T18:01:04.941Z [INFO] shipping-app: fila de processamento com atraso
+2026-08-15T18:01:06.279Z [INFO] shipping-app: payload inválido recebido
+2026-08-15T18:01:08.961Z [INFO] shipping-app: usuário autenticado
+2026-08-15T18:01:10.649Z [INFO] shipping-app: timeout ao chamar serviço externo
+2026-08-15T18:01:12.022Z [WARN] shipping-app: payload inválido recebido
+2026-08-15T18:01:14.767Z [INFO] shipping-app: conexão com banco reestabelecida
+2026-08-15T18:01:15.794Z [INFO] shipping-app: fila de processamento com atraso
+2026-08-15T18:01:16.850Z [DEBUG] shipping-app: timeout ao chamar serviço externo
+2026-08-15T18:01:18.437Z [INFO] shipping-app: fila de processamento com atraso
+2026-08-15T18:01:21.356Z [INFO] shipping-app: payload inválido recebido
+2026-08-15T18:01:22.367Z [DEBUG] shipping-app: requisição processada com sucesso
+2026-08-15T18:01:23.396Z [WARN] shipping-app: cache miss, buscando do banco
+2026-08-15T18:01:25.722Z [WARN] shipping-app: usuário autenticado
+2026-08-15T18:01:27.108Z [INFO] shipping-app: job agendado executado
+2026-08-15T18:01:29.531Z [INFO] shipping-app: job agendado executado
+2026-08-15T18:01:31.105Z [INFO] shipping-app: requisição processada com sucesso
+2026-08-15T18:01:34.051Z [INFO] shipping-app: job agendado executado
+2026-08-15T18:01:36.692Z [WARN] shipping-app: usuário autenticado
+2026-08-15T18:01:38.974Z [ERROR] shipping-app: fila de processamento com atraso
+2026-08-15T18:01:40.059Z [INFO] shipping-app: fila de processamento com atraso
+2026-08-15T18:01:41.919Z [WARN] shipping-app: conexão com banco reestabelecida
+2026-08-15T18:01:44.268Z [INFO] shipping-app: conexão com banco reestabelecida
+2026-08-15T18:01:45.526Z [ERROR] shipping-app: conexão com banco reestabelecida
+2026-08-15T18:01:46.797Z [DEBUG] shipping-app: fila de processamento com atraso
+2026-08-15T18:01:48.653Z [DEBUG] shipping-app: requisição processada com sucesso
+2026-08-15T18:01:51.361Z [ERROR] shipping-app: job agendado executado
+2026-08-15T18:01:54.256Z [INFO] shipping-app: payload inválido recebido
+2026-08-15T18:01:56.528Z [INFO] shipping-app: cache miss, buscando do banco
+2026-08-15T18:01:59.374Z [WARN] shipping-app: requisição processada com sucesso
+2026-08-15T18:02:01.220Z [ERROR] shipping-app: conexão com banco reestabelecida
+2026-08-15T18:02:03.201Z [INFO] shipping-app: timeout ao chamar serviço externo
+2026-08-15T18:02:05.374Z [INFO] shipping-app: usuário autenticado
+2026-08-15T18:02:08.176Z [INFO] shipping-app: fila de processamento com atraso
+2026-08-15T18:02:10.464Z [ERROR] shipping-app: job agendado executado
+2026-08-15T18:02:13.424Z [WARN] shipping-app: usuário autenticado
+2026-08-15T18:02:14.783Z [ERROR] shipping-app: usuário autenticado
+2026-08-15T18:02:16.050Z [INFO] shipping-app: payload inválido recebido
+2026-08-15T18:02:18.339Z [ERROR] shipping-app: cache miss, buscando do banco
+2026-08-15T18:02:20.738Z [INFO] shipping-app: usuário autenticado
+2026-08-15T18:02:22.322Z [WARN] shipping-app: job agendado executado
+2026-08-15T18:02:24.108Z [DEBUG] shipping-app: timeout ao chamar serviço externo
+2026-08-15T18:02:26.210Z [INFO] shipping-app: cache miss, buscando do banco
+2026-08-15T18:02:27.598Z [INFO] shipping-app: conexão com banco reestabelecida
+2026-08-15T18:02:30.354Z [WARN] shipping-app: job agendado executado
+2026-08-15T18:02:32.321Z [INFO] shipping-app: requisição processada com sucesso
+2026-08-15T18:02:34.857Z [ERROR] shipping-app: usuário autenticado
+2026-08-15T18:02:37.220Z [DEBUG] shipping-app: fila de processamento com atraso
+2026-08-15T18:02:39.238Z [ERROR] shipping-app: timeout ao chamar serviço externo
+2026-08-15T18:02:41.931Z [INFO] shipping-app: usuário autenticado
+2026-08-15T18:02:43.050Z [DEBUG] shipping-app: usuário autenticado
+2026-08-15T18:02:45.162Z [INFO] shipping-app: job agendado executado
+2026-08-15T18:02:47.087Z [INFO] shipping-app: conexão com banco reestabelecida
+2026-08-15T18:02:49.523Z [INFO] shipping-app: conexão com banco reestabelecida
+2026-08-15T18:02:51.535Z [INFO] shipping-app: job agendado executado
+2026-08-15T18:02:52.662Z [DEBUG] shipping-app: fila de processamento com atraso
+2026-08-15T18:02:53.764Z [INFO] shipping-app: cache miss, buscando do banco
+2026-08-15T18:02:56.605Z [WARN] shipping-app: usuário autenticado
+2026-08-15T18:02:58.018Z [DEBUG] shipping-app: requisição processada com sucesso
+2026-08-15T18:03:00.648Z [INFO] shipping-app: cache miss, buscando do banco
+2026-08-15T18:03:02.509Z [INFO] shipping-app: conexão com banco reestabelecida
+2026-08-15T18:03:03.600Z [INFO] shipping-app: cache miss, buscando do banco
+2026-08-15T18:03:05.230Z [INFO] shipping-app: fila de processamento com atraso
+2026-08-15T18:03:07.645Z [ERROR] shipping-app: job agendado executado
+2026-08-15T18:03:09.495Z [INFO] shipping-app: usuário autenticado
+2026-08-15T18:03:10.868Z [INFO] shipping-app: usuário autenticado
+2026-08-15T18:03:12.395Z [ERROR] shipping-app: usuário autenticado
+2026-08-15T18:03:13.522Z [WARN] shipping-app: usuário autenticado
+2026-08-15T18:03:14.625Z [INFO] shipping-app: usuário autenticado
+2026-08-15T18:03:17.323Z [INFO] shipping-app: job agendado executado
+2026-08-15T18:03:19.545Z [DEBUG] shipping-app: fila de processamento com atraso
+2026-08-15T18:03:22.329Z [WARN] shipping-app: requisição processada com sucesso
+2026-08-15T18:03:23.339Z [DEBUG] shipping-app: conexão com banco reestabelecida
+2026-08-15T18:03:25.702Z [INFO] shipping-app: usuário autenticado
+2026-08-15T18:03:27.107Z [INFO] shipping-app: requisição processada com sucesso
+2026-08-15T18:03:28.648Z [INFO] shipping-app: requisição processada com sucesso
+2026-08-15T18:03:31.553Z [INFO] shipping-app: job agendado executado
+2026-08-15T18:03:32.810Z [WARN] shipping-app: timeout ao chamar serviço externo
+2026-08-15T18:03:34.218Z [INFO] shipping-app: conexão com banco reestabelecida
+2026-08-15T18:03:36.463Z [INFO] shipping-app: fila de processamento com atraso
+2026-08-15T18:03:39.202Z [DEBUG] shipping-app: payload inválido recebido
+2026-08-15T18:03:41.777Z [ERROR] shipping-app: usuário autenticado
+2026-08-15T18:03:44.333Z [INFO] shipping-app: cache miss, buscando do banco
+2026-08-15T18:03:46.509Z [INFO] shipping-app: fila de processamento com atraso
+2026-08-15T18:03:47.516Z [INFO] shipping-app: usuário autenticado
+2026-08-15T18:03:50.442Z [ERROR] shipping-app: payload inválido recebido
+2026-08-15T18:03:52.106Z [INFO] shipping-app: payload inválido recebido
+2026-08-15T18:03:53.421Z [DEBUG] shipping-app: usuário autenticado
+2026-08-15T18:03:56.014Z [DEBUG] shipping-app: job agendado executado
+2026-08-15T18:03:58.615Z [ERROR] shipping-app: job agendado executado
+2026-08-15T18:04:00.384Z [ERROR] shipping-app: cache miss, buscando do banco
+2026-08-15T18:04:02.822Z [INFO] shipping-app: requisição processada com sucesso
+2026-08-15T18:04:04.584Z [INFO] shipping-app: conexão com banco reestabelecida
+2026-08-15T18:04:06.060Z [WARN] shipping-app: job agendado executado
+2026-08-15T18:04:08.651Z [ERROR] shipping-app: payload inválido recebido
+2026-08-15T18:04:11.228Z [WARN] shipping-app: payload inválido recebido
+2026-08-15T18:04:13.020Z [ERROR] shipping-app: requisição processada com sucesso
+2026-08-15T18:04:14.408Z [INFO] shipping-app: cache miss, buscando do banco
+2026-08-15T18:04:17.192Z [INFO] shipping-app: conexão com banco reestabelecida
+2026-08-15T18:04:18.359Z [WARN] shipping-app: conexão com banco reestabelecida
+2026-08-15T18:04:21.178Z [INFO] shipping-app: timeout ao chamar serviço externo
+2026-08-15T18:04:22.768Z [INFO] shipping-app: conexão com banco reestabelecida
+2026-08-15T18:04:24.433Z [WARN] shipping-app: fila de processamento com atraso
+2026-08-15T18:04:26.529Z [INFO] shipping-app: requisição processada com sucesso
+2026-08-15T18:04:27.989Z [INFO] shipping-app: cache miss, buscando do banco
+2026-08-15T18:04:29.200Z [WARN] shipping-app: timeout ao chamar serviço externo
+2026-08-15T18:04:30.976Z [WARN] shipping-app: fila de processamento com atraso
+2026-08-15T18:04:33.487Z [DEBUG] shipping-app: job agendado executado
+2026-08-15T18:04:35.654Z [ERROR] shipping-app: requisição processada com sucesso
+2026-08-15T18:04:36.993Z [INFO] shipping-app: job agendado executado
+2026-08-15T18:04:39.088Z [INFO] shipping-app: usuário autenticado
+2026-08-15T18:04:41.183Z [INFO] shipping-app: timeout ao chamar serviço externo
+2026-08-15T18:04:43.879Z [INFO] shipping-app: fila de processamento com atraso
+2026-08-15T18:04:46.297Z [INFO] shipping-app: job agendado executado
+2026-08-15T18:04:48.249Z [INFO] shipping-app: payload inválido recebido
+2026-08-15T18:04:50.001Z [WARN] shipping-app: job agendado executado
+2026-08-15T18:04:52.494Z [INFO] shipping-app: fila de processamento com atraso
+2026-08-15T18:04:53.586Z [INFO] shipping-app: fila de processamento com atraso
+2026-08-15T18:04:55.137Z [WARN] shipping-app: usuário autenticado
+2026-08-15T18:04:56.541Z [INFO] shipping-app: usuário autenticado
+2026-08-15T18:04:59.173Z [DEBUG] shipping-app: conexão com banco reestabelecida

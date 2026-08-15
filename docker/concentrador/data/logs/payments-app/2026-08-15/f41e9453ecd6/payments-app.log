@@ -1,0 +1,421 @@
+2026-08-15T17:51:20.936Z [INFO] payments-app: job agendado executado
+2026-08-15T17:51:22.332Z [INFO] payments-app: requisição processada com sucesso
+2026-08-15T17:51:24.327Z [INFO] payments-app: fila de processamento com atraso
+2026-08-15T17:51:26.834Z [INFO] payments-app: timeout ao chamar serviço externo
+2026-08-15T17:51:29.143Z [DEBUG] payments-app: cache miss, buscando do banco
+2026-08-15T17:51:31.619Z [ERROR] payments-app: fila de processamento com atraso
+2026-08-15T17:51:33.273Z [WARN] payments-app: payload inválido recebido
+2026-08-15T17:51:34.938Z [ERROR] payments-app: requisição processada com sucesso
+2026-08-15T17:51:36.102Z [INFO] payments-app: timeout ao chamar serviço externo
+2026-08-15T17:51:38.546Z [ERROR] payments-app: requisição processada com sucesso
+2026-08-15T17:51:39.996Z [DEBUG] payments-app: usuário autenticado
+2026-08-15T17:51:42.871Z [INFO] payments-app: timeout ao chamar serviço externo
+2026-08-15T17:51:44.298Z [INFO] payments-app: fila de processamento com atraso
+2026-08-15T17:51:45.600Z [INFO] payments-app: requisição processada com sucesso
+2026-08-15T17:51:48.120Z [DEBUG] payments-app: cache miss, buscando do banco
+2026-08-15T17:51:49.333Z [INFO] payments-app: job agendado executado
+2026-08-15T17:51:50.805Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T17:51:52.413Z [DEBUG] payments-app: conexão com banco reestabelecida
+2026-08-15T17:51:54.578Z [INFO] payments-app: usuário autenticado
+2026-08-15T17:51:56.443Z [INFO] payments-app: payload inválido recebido
+2026-08-15T17:51:57.533Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T17:52:00.210Z [DEBUG] payments-app: job agendado executado
+2026-08-15T17:52:01.701Z [INFO] payments-app: requisição processada com sucesso
+2026-08-15T17:52:04.094Z [INFO] payments-app: timeout ao chamar serviço externo
+2026-08-15T17:52:05.560Z [INFO] payments-app: usuário autenticado
+2026-08-15T17:52:07.708Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T17:52:08.782Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T17:52:11.783Z [ERROR] payments-app: fila de processamento com atraso
+2026-08-15T17:52:14.100Z [DEBUG] payments-app: conexão com banco reestabelecida
+2026-08-15T17:52:16.895Z [WARN] payments-app: job agendado executado
+2026-08-15T17:52:17.916Z [WARN] payments-app: conexão com banco reestabelecida
+2026-08-15T17:52:19.797Z [INFO] payments-app: timeout ao chamar serviço externo
+2026-08-15T17:52:22.499Z [WARN] payments-app: usuário autenticado
+2026-08-15T17:52:24.364Z [WARN] payments-app: job agendado executado
+2026-08-15T17:52:25.775Z [WARN] payments-app: job agendado executado
+2026-08-15T17:52:27.917Z [DEBUG] payments-app: requisição processada com sucesso
+2026-08-15T17:52:29.290Z [ERROR] payments-app: job agendado executado
+2026-08-15T17:52:30.984Z [ERROR] payments-app: conexão com banco reestabelecida
+2026-08-15T17:52:33.670Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T17:52:36.163Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T17:52:38.211Z [DEBUG] payments-app: job agendado executado
+2026-08-15T17:52:39.496Z [INFO] payments-app: job agendado executado
+2026-08-15T17:52:42.447Z [ERROR] payments-app: fila de processamento com atraso
+2026-08-15T17:52:44.039Z [INFO] payments-app: fila de processamento com atraso
+2026-08-15T17:52:45.990Z [INFO] payments-app: usuário autenticado
+2026-08-15T17:52:48.239Z [INFO] payments-app: job agendado executado
+2026-08-15T17:52:50.227Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T17:52:53.145Z [DEBUG] payments-app: usuário autenticado
+2026-08-15T17:52:54.595Z [ERROR] payments-app: payload inválido recebido
+2026-08-15T17:52:56.747Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T17:52:58.095Z [INFO] payments-app: job agendado executado
+2026-08-15T17:52:59.792Z [INFO] payments-app: payload inválido recebido
+2026-08-15T17:53:01.639Z [ERROR] payments-app: fila de processamento com atraso
+2026-08-15T17:53:03.490Z [ERROR] payments-app: conexão com banco reestabelecida
+2026-08-15T17:53:04.764Z [WARN] payments-app: cache miss, buscando do banco
+2026-08-15T17:53:07.679Z [INFO] payments-app: requisição processada com sucesso
+2026-08-15T17:53:10.413Z [WARN] payments-app: conexão com banco reestabelecida
+2026-08-15T17:53:13.124Z [INFO] payments-app: fila de processamento com atraso
+2026-08-15T17:53:16.061Z [WARN] payments-app: conexão com banco reestabelecida
+2026-08-15T17:53:17.360Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T17:53:18.395Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T17:53:19.778Z [DEBUG] payments-app: payload inválido recebido
+2026-08-15T17:53:20.872Z [INFO] payments-app: requisição processada com sucesso
+2026-08-15T17:53:22.358Z [WARN] payments-app: fila de processamento com atraso
+2026-08-15T17:53:24.931Z [DEBUG] payments-app: timeout ao chamar serviço externo
+2026-08-15T17:53:27.576Z [WARN] payments-app: payload inválido recebido
+2026-08-15T17:53:29.310Z [DEBUG] payments-app: timeout ao chamar serviço externo
+2026-08-15T17:53:31.592Z [INFO] payments-app: timeout ao chamar serviço externo
+2026-08-15T17:53:33.059Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T17:53:35.559Z [DEBUG] payments-app: cache miss, buscando do banco
+2026-08-15T17:53:37.161Z [DEBUG] payments-app: requisição processada com sucesso
+2026-08-15T17:53:39.699Z [INFO] payments-app: usuário autenticado
+2026-08-15T17:53:41.001Z [ERROR] payments-app: requisição processada com sucesso
+2026-08-15T17:53:42.222Z [INFO] payments-app: requisição processada com sucesso
+2026-08-15T17:53:44.807Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T17:53:46.180Z [ERROR] payments-app: payload inválido recebido
+2026-08-15T17:53:47.737Z [INFO] payments-app: requisição processada com sucesso
+2026-08-15T17:53:48.794Z [ERROR] payments-app: fila de processamento com atraso
+2026-08-15T17:53:51.664Z [WARN] payments-app: payload inválido recebido
+2026-08-15T17:53:54.192Z [INFO] payments-app: usuário autenticado
+2026-08-15T17:53:55.245Z [DEBUG] payments-app: payload inválido recebido
+2026-08-15T17:53:57.090Z [DEBUG] payments-app: cache miss, buscando do banco
+2026-08-15T17:53:59.684Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T17:54:01.041Z [DEBUG] payments-app: job agendado executado
+2026-08-15T17:54:02.990Z [WARN] payments-app: requisição processada com sucesso
+2026-08-15T17:54:05.212Z [INFO] payments-app: payload inválido recebido
+2026-08-15T17:54:07.715Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T17:54:09.551Z [INFO] payments-app: fila de processamento com atraso
+2026-08-15T17:54:11.166Z [ERROR] payments-app: usuário autenticado
+2026-08-15T17:54:13.569Z [ERROR] payments-app: payload inválido recebido
+2026-08-15T17:54:15.548Z [DEBUG] payments-app: requisição processada com sucesso
+2026-08-15T17:54:16.770Z [INFO] payments-app: job agendado executado
+2026-08-15T17:54:18.740Z [INFO] payments-app: requisição processada com sucesso
+2026-08-15T17:54:21.725Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T17:54:24.139Z [DEBUG] payments-app: requisição processada com sucesso
+2026-08-15T17:54:26.344Z [ERROR] payments-app: fila de processamento com atraso
+2026-08-15T17:54:28.906Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T17:54:30.442Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T17:54:32.007Z [INFO] payments-app: fila de processamento com atraso
+2026-08-15T17:54:33.772Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T17:54:34.897Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T17:54:37.351Z [DEBUG] payments-app: cache miss, buscando do banco
+2026-08-15T17:54:39.824Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T17:54:42.110Z [DEBUG] payments-app: fila de processamento com atraso
+2026-08-15T17:54:44.698Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T17:54:46.785Z [WARN] payments-app: usuário autenticado
+2026-08-15T17:54:49.036Z [INFO] payments-app: job agendado executado
+2026-08-15T17:54:51.506Z [INFO] payments-app: payload inválido recebido
+2026-08-15T17:54:52.821Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T17:54:54.708Z [ERROR] payments-app: payload inválido recebido
+2026-08-15T17:54:57.450Z [DEBUG] payments-app: fila de processamento com atraso
+2026-08-15T17:54:59.114Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T17:55:00.900Z [WARN] payments-app: usuário autenticado
+2026-08-15T17:55:02.653Z [ERROR] payments-app: fila de processamento com atraso
+2026-08-15T17:55:03.932Z [ERROR] payments-app: fila de processamento com atraso
+2026-08-15T17:55:05.292Z [INFO] payments-app: usuário autenticado
+2026-08-15T17:55:06.495Z [ERROR] payments-app: job agendado executado
+2026-08-15T17:55:09.063Z [WARN] payments-app: job agendado executado
+2026-08-15T17:55:11.856Z [INFO] payments-app: requisição processada com sucesso
+2026-08-15T17:55:13.860Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T17:55:15.382Z [WARN] payments-app: requisição processada com sucesso
+2026-08-15T17:55:17.303Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T17:55:20.259Z [INFO] payments-app: requisição processada com sucesso
+2026-08-15T17:55:22.808Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T17:55:24.485Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T17:55:25.766Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T17:55:28.259Z [ERROR] payments-app: timeout ao chamar serviço externo
+2026-08-15T17:55:30.281Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T17:55:32.488Z [DEBUG] payments-app: job agendado executado
+2026-08-15T17:55:35.250Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T17:55:36.253Z [DEBUG] payments-app: timeout ao chamar serviço externo
+2026-08-15T17:55:38.880Z [INFO] payments-app: job agendado executado
+2026-08-15T17:55:41.142Z [DEBUG] payments-app: requisição processada com sucesso
+2026-08-15T17:55:43.052Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T17:55:44.440Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T17:55:45.960Z [WARN] payments-app: requisição processada com sucesso
+2026-08-15T17:55:48.320Z [INFO] payments-app: usuário autenticado
+2026-08-15T17:55:51.241Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T17:55:53.784Z [ERROR] payments-app: fila de processamento com atraso
+2026-08-15T17:55:55.245Z [DEBUG] payments-app: cache miss, buscando do banco
+2026-08-15T17:55:57.674Z [DEBUG] payments-app: usuário autenticado
+2026-08-15T17:55:59.447Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T17:56:02.321Z [INFO] payments-app: timeout ao chamar serviço externo
+2026-08-15T17:56:04.165Z [INFO] payments-app: job agendado executado
+2026-08-15T17:56:06.980Z [WARN] payments-app: payload inválido recebido
+2026-08-15T17:56:08.502Z [INFO] payments-app: timeout ao chamar serviço externo
+2026-08-15T17:56:10.358Z [ERROR] payments-app: conexão com banco reestabelecida
+2026-08-15T17:56:12.931Z [ERROR] payments-app: conexão com banco reestabelecida
+2026-08-15T17:56:15.157Z [WARN] payments-app: job agendado executado
+2026-08-15T17:56:17.472Z [INFO] payments-app: usuário autenticado
+2026-08-15T17:56:18.894Z [ERROR] payments-app: job agendado executado
+2026-08-15T17:56:20.186Z [INFO] payments-app: job agendado executado
+2026-08-15T17:56:23.040Z [INFO] payments-app: timeout ao chamar serviço externo
+2026-08-15T17:56:25.699Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T17:56:27.323Z [WARN] payments-app: cache miss, buscando do banco
+2026-08-15T17:56:29.281Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T17:56:31.248Z [ERROR] payments-app: payload inválido recebido
+2026-08-15T17:56:33.412Z [INFO] payments-app: requisição processada com sucesso
+2026-08-15T17:56:35.236Z [INFO] payments-app: timeout ao chamar serviço externo
+2026-08-15T17:56:36.987Z [DEBUG] payments-app: job agendado executado
+2026-08-15T17:56:39.739Z [INFO] payments-app: payload inválido recebido
+2026-08-15T17:56:41.915Z [ERROR] payments-app: requisição processada com sucesso
+2026-08-15T17:56:43.454Z [INFO] payments-app: fila de processamento com atraso
+2026-08-15T17:56:45.215Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T17:56:47.492Z [INFO] payments-app: payload inválido recebido
+2026-08-15T17:56:49.788Z [INFO] payments-app: fila de processamento com atraso
+2026-08-15T17:56:51.490Z [INFO] payments-app: timeout ao chamar serviço externo
+2026-08-15T17:56:53.437Z [INFO] payments-app: job agendado executado
+2026-08-15T17:56:54.997Z [DEBUG] payments-app: fila de processamento com atraso
+2026-08-15T17:56:56.071Z [INFO] payments-app: fila de processamento com atraso
+2026-08-15T17:56:58.312Z [WARN] payments-app: fila de processamento com atraso
+2026-08-15T17:56:59.702Z [ERROR] payments-app: conexão com banco reestabelecida
+2026-08-15T17:57:01.215Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T17:57:02.273Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T17:57:04.314Z [INFO] payments-app: payload inválido recebido
+2026-08-15T17:57:06.082Z [WARN] payments-app: timeout ao chamar serviço externo
+2026-08-15T17:57:08.925Z [DEBUG] payments-app: usuário autenticado
+2026-08-15T17:57:10.691Z [INFO] payments-app: payload inválido recebido
+2026-08-15T17:57:11.835Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T17:57:13.175Z [WARN] payments-app: job agendado executado
+2026-08-15T17:57:15.518Z [WARN] payments-app: payload inválido recebido
+2026-08-15T17:57:16.651Z [WARN] payments-app: job agendado executado
+2026-08-15T17:57:19.219Z [WARN] payments-app: requisição processada com sucesso
+2026-08-15T17:57:21.299Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T17:57:24.245Z [WARN] payments-app: payload inválido recebido
+2026-08-15T17:57:25.830Z [ERROR] payments-app: cache miss, buscando do banco
+2026-08-15T17:57:27.885Z [INFO] payments-app: usuário autenticado
+2026-08-15T17:57:30.452Z [INFO] payments-app: usuário autenticado
+2026-08-15T17:57:32.431Z [INFO] payments-app: fila de processamento com atraso
+2026-08-15T17:57:34.767Z [INFO] payments-app: payload inválido recebido
+2026-08-15T17:57:36.364Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T17:57:39.193Z [INFO] payments-app: requisição processada com sucesso
+2026-08-15T17:57:40.606Z [INFO] payments-app: usuário autenticado
+2026-08-15T17:57:42.465Z [WARN] payments-app: payload inválido recebido
+2026-08-15T17:57:44.357Z [WARN] payments-app: usuário autenticado
+2026-08-15T17:57:45.642Z [DEBUG] payments-app: fila de processamento com atraso
+2026-08-15T17:57:48.207Z [INFO] payments-app: timeout ao chamar serviço externo
+2026-08-15T17:57:50.870Z [ERROR] payments-app: conexão com banco reestabelecida
+2026-08-15T17:57:52.530Z [WARN] payments-app: fila de processamento com atraso
+2026-08-15T17:57:55.412Z [WARN] payments-app: job agendado executado
+2026-08-15T17:57:57.122Z [ERROR] payments-app: fila de processamento com atraso
+2026-08-15T17:57:58.304Z [ERROR] payments-app: cache miss, buscando do banco
+2026-08-15T17:58:00.036Z [WARN] payments-app: usuário autenticado
+2026-08-15T17:58:02.168Z [INFO] payments-app: fila de processamento com atraso
+2026-08-15T17:58:03.611Z [INFO] payments-app: usuário autenticado
+2026-08-15T17:58:05.538Z [DEBUG] payments-app: cache miss, buscando do banco
+2026-08-15T17:58:08.050Z [WARN] payments-app: job agendado executado
+2026-08-15T17:58:10.976Z [INFO] payments-app: payload inválido recebido
+2026-08-15T17:58:12.165Z [WARN] payments-app: requisição processada com sucesso
+2026-08-15T17:58:15.018Z [INFO] payments-app: usuário autenticado
+2026-08-15T17:58:16.091Z [INFO] payments-app: payload inválido recebido
+2026-08-15T17:58:17.440Z [DEBUG] payments-app: requisição processada com sucesso
+2026-08-15T17:58:19.697Z [ERROR] payments-app: conexão com banco reestabelecida
+2026-08-15T17:58:22.439Z [DEBUG] payments-app: cache miss, buscando do banco
+2026-08-15T17:58:23.812Z [ERROR] payments-app: job agendado executado
+2026-08-15T17:58:24.943Z [WARN] payments-app: fila de processamento com atraso
+2026-08-15T17:58:26.551Z [INFO] payments-app: job agendado executado
+2026-08-15T17:58:28.078Z [WARN] payments-app: cache miss, buscando do banco
+2026-08-15T17:58:30.465Z [ERROR] payments-app: job agendado executado
+2026-08-15T17:58:32.959Z [WARN] payments-app: conexão com banco reestabelecida
+2026-08-15T17:58:34.335Z [INFO] payments-app: fila de processamento com atraso
+2026-08-15T17:58:37.107Z [ERROR] payments-app: fila de processamento com atraso
+2026-08-15T17:58:39.798Z [ERROR] payments-app: job agendado executado
+2026-08-15T17:58:40.867Z [WARN] payments-app: payload inválido recebido
+2026-08-15T17:58:43.712Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T17:58:45.603Z [INFO] payments-app: timeout ao chamar serviço externo
+2026-08-15T17:58:47.217Z [INFO] payments-app: payload inválido recebido
+2026-08-15T17:58:48.362Z [INFO] payments-app: usuário autenticado
+2026-08-15T17:58:49.694Z [INFO] payments-app: job agendado executado
+2026-08-15T17:58:50.809Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T17:58:53.441Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T17:58:54.811Z [DEBUG] payments-app: payload inválido recebido
+2026-08-15T17:58:56.409Z [WARN] payments-app: requisição processada com sucesso
+2026-08-15T17:58:57.996Z [ERROR] payments-app: payload inválido recebido
+2026-08-15T17:58:59.185Z [INFO] payments-app: fila de processamento com atraso
+2026-08-15T17:59:00.190Z [INFO] payments-app: payload inválido recebido
+2026-08-15T17:59:02.240Z [WARN] payments-app: conexão com banco reestabelecida
+2026-08-15T17:59:03.274Z [ERROR] payments-app: payload inválido recebido
+2026-08-15T17:59:04.829Z [ERROR] payments-app: requisição processada com sucesso
+2026-08-15T17:59:07.274Z [DEBUG] payments-app: payload inválido recebido
+2026-08-15T17:59:08.305Z [INFO] payments-app: payload inválido recebido
+2026-08-15T17:59:10.164Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T17:59:11.476Z [DEBUG] payments-app: fila de processamento com atraso
+2026-08-15T17:59:12.809Z [WARN] payments-app: timeout ao chamar serviço externo
+2026-08-15T17:59:14.878Z [WARN] payments-app: fila de processamento com atraso
+2026-08-15T17:59:16.001Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T17:59:18.589Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T17:59:20.608Z [ERROR] payments-app: job agendado executado
+2026-08-15T17:59:22.771Z [INFO] payments-app: timeout ao chamar serviço externo
+2026-08-15T17:59:24.774Z [DEBUG] payments-app: requisição processada com sucesso
+2026-08-15T17:59:26.556Z [INFO] payments-app: job agendado executado
+2026-08-15T17:59:27.567Z [INFO] payments-app: timeout ao chamar serviço externo
+2026-08-15T17:59:30.152Z [INFO] payments-app: usuário autenticado
+2026-08-15T17:59:31.339Z [INFO] payments-app: usuário autenticado
+2026-08-15T17:59:33.164Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T17:59:34.273Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T17:59:35.419Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T17:59:36.455Z [DEBUG] payments-app: usuário autenticado
+2026-08-15T17:59:38.765Z [INFO] payments-app: usuário autenticado
+2026-08-15T17:59:41.574Z [INFO] payments-app: payload inválido recebido
+2026-08-15T17:59:43.941Z [ERROR] payments-app: job agendado executado
+2026-08-15T17:59:45.187Z [WARN] payments-app: usuário autenticado
+2026-08-15T17:59:46.410Z [ERROR] payments-app: payload inválido recebido
+2026-08-15T17:59:48.244Z [INFO] payments-app: timeout ao chamar serviço externo
+2026-08-15T17:59:50.226Z [ERROR] payments-app: timeout ao chamar serviço externo
+2026-08-15T17:59:52.559Z [WARN] payments-app: job agendado executado
+2026-08-15T17:59:55.426Z [DEBUG] payments-app: job agendado executado
+2026-08-15T17:59:57.931Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T17:59:59.532Z [INFO] payments-app: timeout ao chamar serviço externo
+2026-08-15T18:00:01.081Z [DEBUG] payments-app: cache miss, buscando do banco
+2026-08-15T18:00:02.110Z [DEBUG] payments-app: timeout ao chamar serviço externo
+2026-08-15T18:00:05.050Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T18:00:07.644Z [ERROR] payments-app: requisição processada com sucesso
+2026-08-15T18:00:09.934Z [INFO] payments-app: usuário autenticado
+2026-08-15T18:00:12.038Z [INFO] payments-app: fila de processamento com atraso
+2026-08-15T18:00:13.867Z [INFO] payments-app: timeout ao chamar serviço externo
+2026-08-15T18:00:16.296Z [ERROR] payments-app: conexão com banco reestabelecida
+2026-08-15T18:00:17.540Z [INFO] payments-app: payload inválido recebido
+2026-08-15T18:00:20.010Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T18:00:21.667Z [INFO] payments-app: fila de processamento com atraso
+2026-08-15T18:00:24.474Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T18:00:25.843Z [INFO] payments-app: fila de processamento com atraso
+2026-08-15T18:00:27.735Z [WARN] payments-app: cache miss, buscando do banco
+2026-08-15T18:00:29.127Z [ERROR] payments-app: cache miss, buscando do banco
+2026-08-15T18:00:30.220Z [WARN] payments-app: fila de processamento com atraso
+2026-08-15T18:00:32.012Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T18:00:33.819Z [INFO] payments-app: requisição processada com sucesso
+2026-08-15T18:00:36.571Z [ERROR] payments-app: conexão com banco reestabelecida
+2026-08-15T18:00:38.215Z [ERROR] payments-app: timeout ao chamar serviço externo
+2026-08-15T18:00:39.611Z [DEBUG] payments-app: payload inválido recebido
+2026-08-15T18:00:41.167Z [INFO] payments-app: fila de processamento com atraso
+2026-08-15T18:00:43.167Z [WARN] payments-app: usuário autenticado
+2026-08-15T18:00:45.196Z [ERROR] payments-app: conexão com banco reestabelecida
+2026-08-15T18:00:46.718Z [INFO] payments-app: usuário autenticado
+2026-08-15T18:00:49.005Z [INFO] payments-app: fila de processamento com atraso
+2026-08-15T18:00:50.723Z [INFO] payments-app: fila de processamento com atraso
+2026-08-15T18:00:52.571Z [INFO] payments-app: job agendado executado
+2026-08-15T18:00:54.618Z [DEBUG] payments-app: job agendado executado
+2026-08-15T18:00:56.136Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T18:00:57.982Z [ERROR] payments-app: cache miss, buscando do banco
+2026-08-15T18:00:59.127Z [INFO] payments-app: timeout ao chamar serviço externo
+2026-08-15T18:01:00.903Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T18:01:02.163Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T18:01:04.306Z [DEBUG] payments-app: payload inválido recebido
+2026-08-15T18:01:06.656Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T18:01:08.513Z [WARN] payments-app: cache miss, buscando do banco
+2026-08-15T18:01:09.593Z [INFO] payments-app: job agendado executado
+2026-08-15T18:01:11.174Z [INFO] payments-app: timeout ao chamar serviço externo
+2026-08-15T18:01:12.354Z [INFO] payments-app: fila de processamento com atraso
+2026-08-15T18:01:13.530Z [INFO] payments-app: requisição processada com sucesso
+2026-08-15T18:01:16.267Z [DEBUG] payments-app: conexão com banco reestabelecida
+2026-08-15T18:01:17.373Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T18:01:19.094Z [DEBUG] payments-app: conexão com banco reestabelecida
+2026-08-15T18:01:21.362Z [DEBUG] payments-app: requisição processada com sucesso
+2026-08-15T18:01:24.310Z [INFO] payments-app: requisição processada com sucesso
+2026-08-15T18:01:25.818Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T18:01:27.564Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T18:01:28.846Z [INFO] payments-app: job agendado executado
+2026-08-15T18:01:30.682Z [INFO] payments-app: fila de processamento com atraso
+2026-08-15T18:01:33.597Z [ERROR] payments-app: usuário autenticado
+2026-08-15T18:01:36.135Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T18:01:38.027Z [DEBUG] payments-app: usuário autenticado
+2026-08-15T18:01:40.394Z [INFO] payments-app: requisição processada com sucesso
+2026-08-15T18:01:42.280Z [INFO] payments-app: timeout ao chamar serviço externo
+2026-08-15T18:01:43.900Z [DEBUG] payments-app: usuário autenticado
+2026-08-15T18:01:45.183Z [DEBUG] payments-app: payload inválido recebido
+2026-08-15T18:01:46.471Z [DEBUG] payments-app: requisição processada com sucesso
+2026-08-15T18:01:47.746Z [ERROR] payments-app: fila de processamento com atraso
+2026-08-15T18:01:50.503Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T18:01:52.638Z [WARN] payments-app: conexão com banco reestabelecida
+2026-08-15T18:01:54.138Z [WARN] payments-app: fila de processamento com atraso
+2026-08-15T18:01:56.938Z [WARN] payments-app: fila de processamento com atraso
+2026-08-15T18:01:58.658Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T18:02:00.290Z [INFO] payments-app: timeout ao chamar serviço externo
+2026-08-15T18:02:02.746Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T18:02:05.183Z [INFO] payments-app: fila de processamento com atraso
+2026-08-15T18:02:07.088Z [WARN] payments-app: cache miss, buscando do banco
+2026-08-15T18:02:09.933Z [INFO] payments-app: usuário autenticado
+2026-08-15T18:02:12.835Z [ERROR] payments-app: requisição processada com sucesso
+2026-08-15T18:02:14.034Z [INFO] payments-app: job agendado executado
+2026-08-15T18:02:16.311Z [WARN] payments-app: job agendado executado
+2026-08-15T18:02:18.412Z [INFO] payments-app: fila de processamento com atraso
+2026-08-15T18:02:20.362Z [INFO] payments-app: timeout ao chamar serviço externo
+2026-08-15T18:02:22.226Z [INFO] payments-app: payload inválido recebido
+2026-08-15T18:02:25.090Z [ERROR] payments-app: usuário autenticado
+2026-08-15T18:02:27.534Z [ERROR] payments-app: timeout ao chamar serviço externo
+2026-08-15T18:02:29.083Z [INFO] payments-app: payload inválido recebido
+2026-08-15T18:02:31.266Z [ERROR] payments-app: timeout ao chamar serviço externo
+2026-08-15T18:02:32.680Z [INFO] payments-app: job agendado executado
+2026-08-15T18:02:35.145Z [WARN] payments-app: usuário autenticado
+2026-08-15T18:02:36.482Z [INFO] payments-app: payload inválido recebido
+2026-08-15T18:02:38.313Z [DEBUG] payments-app: timeout ao chamar serviço externo
+2026-08-15T18:02:41.019Z [WARN] payments-app: requisição processada com sucesso
+2026-08-15T18:02:42.732Z [INFO] payments-app: fila de processamento com atraso
+2026-08-15T18:02:45.164Z [INFO] payments-app: payload inválido recebido
+2026-08-15T18:02:46.758Z [INFO] payments-app: job agendado executado
+2026-08-15T18:02:47.822Z [ERROR] payments-app: payload inválido recebido
+2026-08-15T18:02:49.156Z [INFO] payments-app: usuário autenticado
+2026-08-15T18:02:50.303Z [INFO] payments-app: usuário autenticado
+2026-08-15T18:02:52.485Z [ERROR] payments-app: job agendado executado
+2026-08-15T18:02:54.383Z [INFO] payments-app: timeout ao chamar serviço externo
+2026-08-15T18:02:56.189Z [WARN] payments-app: fila de processamento com atraso
+2026-08-15T18:02:57.289Z [INFO] payments-app: fila de processamento com atraso
+2026-08-15T18:02:59.910Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T18:03:01.034Z [WARN] payments-app: timeout ao chamar serviço externo
+2026-08-15T18:03:03.383Z [WARN] payments-app: fila de processamento com atraso
+2026-08-15T18:03:05.389Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T18:03:07.923Z [INFO] payments-app: timeout ao chamar serviço externo
+2026-08-15T18:03:10.387Z [WARN] payments-app: fila de processamento com atraso
+2026-08-15T18:03:12.915Z [DEBUG] payments-app: fila de processamento com atraso
+2026-08-15T18:03:15.485Z [WARN] payments-app: conexão com banco reestabelecida
+2026-08-15T18:03:18.201Z [DEBUG] payments-app: job agendado executado
+2026-08-15T18:03:19.289Z [ERROR] payments-app: requisição processada com sucesso
+2026-08-15T18:03:21.411Z [DEBUG] payments-app: payload inválido recebido
+2026-08-15T18:03:23.906Z [DEBUG] payments-app: job agendado executado
+2026-08-15T18:03:26.571Z [INFO] payments-app: requisição processada com sucesso
+2026-08-15T18:03:27.853Z [DEBUG] payments-app: timeout ao chamar serviço externo
+2026-08-15T18:03:29.679Z [ERROR] payments-app: requisição processada com sucesso
+2026-08-15T18:03:31.196Z [ERROR] payments-app: conexão com banco reestabelecida
+2026-08-15T18:03:32.913Z [INFO] payments-app: fila de processamento com atraso
+2026-08-15T18:03:34.181Z [WARN] payments-app: cache miss, buscando do banco
+2026-08-15T18:03:36.684Z [INFO] payments-app: usuário autenticado
+2026-08-15T18:03:39.016Z [ERROR] payments-app: usuário autenticado
+2026-08-15T18:03:40.861Z [ERROR] payments-app: fila de processamento com atraso
+2026-08-15T18:03:42.166Z [INFO] payments-app: job agendado executado
+2026-08-15T18:03:44.603Z [WARN] payments-app: usuário autenticado
+2026-08-15T18:03:47.308Z [DEBUG] payments-app: timeout ao chamar serviço externo
+2026-08-15T18:03:49.018Z [WARN] payments-app: cache miss, buscando do banco
+2026-08-15T18:03:50.146Z [INFO] payments-app: requisição processada com sucesso
+2026-08-15T18:03:52.228Z [INFO] payments-app: job agendado executado
+2026-08-15T18:03:55.032Z [WARN] payments-app: timeout ao chamar serviço externo
+2026-08-15T18:03:58.017Z [WARN] payments-app: conexão com banco reestabelecida
+2026-08-15T18:03:59.939Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T18:04:02.848Z [WARN] payments-app: payload inválido recebido
+2026-08-15T18:04:04.344Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T18:04:05.765Z [INFO] payments-app: usuário autenticado
+2026-08-15T18:04:07.703Z [INFO] payments-app: payload inválido recebido
+2026-08-15T18:04:10.639Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T18:04:12.445Z [INFO] payments-app: cache miss, buscando do banco
+2026-08-15T18:04:14.360Z [ERROR] payments-app: job agendado executado
+2026-08-15T18:04:15.937Z [INFO] payments-app: fila de processamento com atraso
+2026-08-15T18:04:17.141Z [ERROR] payments-app: job agendado executado
+2026-08-15T18:04:18.646Z [INFO] payments-app: requisição processada com sucesso
+2026-08-15T18:04:20.334Z [ERROR] payments-app: cache miss, buscando do banco
+2026-08-15T18:04:22.888Z [DEBUG] payments-app: cache miss, buscando do banco
+2026-08-15T18:04:24.285Z [ERROR] payments-app: timeout ao chamar serviço externo
+2026-08-15T18:04:26.156Z [INFO] payments-app: fila de processamento com atraso
+2026-08-15T18:04:28.880Z [INFO] payments-app: payload inválido recebido
+2026-08-15T18:04:30.623Z [INFO] payments-app: fila de processamento com atraso
+2026-08-15T18:04:32.591Z [INFO] payments-app: conexão com banco reestabelecida
+2026-08-15T18:04:35.118Z [DEBUG] payments-app: payload inválido recebido
+2026-08-15T18:04:37.411Z [ERROR] payments-app: requisição processada com sucesso
+2026-08-15T18:04:38.523Z [INFO] payments-app: usuário autenticado
+2026-08-15T18:04:40.900Z [ERROR] payments-app: payload inválido recebido
+2026-08-15T18:04:43.894Z [INFO] payments-app: requisição processada com sucesso
+2026-08-15T18:04:45.316Z [ERROR] payments-app: fila de processamento com atraso
+2026-08-15T18:04:46.681Z [INFO] payments-app: fila de processamento com atraso
+2026-08-15T18:04:48.117Z [INFO] payments-app: requisição processada com sucesso
+2026-08-15T18:04:49.147Z [ERROR] payments-app: cache miss, buscando do banco
+2026-08-15T18:04:50.948Z [WARN] payments-app: requisição processada com sucesso
+2026-08-15T18:04:53.945Z [ERROR] payments-app: payload inválido recebido

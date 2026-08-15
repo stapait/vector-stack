@@ -1,14 +1,31 @@
+networks:
+  vector-stack:
+    name: vector-stack
+
 services:
   vector:
     image: timberio/vector:0.43.0-debian
     container_name: concentrador-vector
     restart: unless-stopped
+    user: "${UID:-0}:${GID:-0}"
     ports:
       - "5044:5044"
     volumes:
       - ./vector/vector.yaml:/etc/vector/vector.yaml:ro
       - ./data/logs:/mnt/logs
     command: ["--config", "/etc/vector/vector.yaml"]
+    networks:
+      - vector-stack
+
+  rotator:
+    build: ./rotator
+    container_name: concentrador-rotator
+    restart: unless-stopped
+    user: "${UID:-0}:${GID:-0}"
+    volumes:
+      - ./data/logs:/mnt/logs
+    networks:
+      - vector-stack
 
   node-exporter:
     image: prom/node-exporter:v1.8.2
@@ -28,6 +45,8 @@ services:
       - "--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)"
     ports:
       - "9100:9100"
+    networks:
+      - vector-stack
 
   textfile-collector:
     build: ./textfile-collector
@@ -38,6 +57,8 @@ services:
       - ./data/textfile:/var/lib/node_exporter/textfile_collector
     environment:
       - INTERVAL_SECONDS=900
+    networks:
+      - vector-stack
 
   prometheus:
     image: prom/prometheus:v2.54.1
@@ -50,6 +71,8 @@ services:
       - "9091:9090"
     depends_on:
       - node-exporter
+    networks:
+      - vector-stack
 
   grafana:
     image: grafana/grafana:11.2.0
@@ -68,6 +91,8 @@ services:
       - "3001:3000"
     depends_on:
       - prometheus
+    networks:
+      - vector-stack
 
 volumes:
   prometheus-data:

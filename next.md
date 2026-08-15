@@ -1,3 +1,5 @@
-No caso, eu vi que existem já 3 pastas de logs com 3 apps.
-Por que essas pastas existem se não tem logs enviados?
-Se for só para testes, pode excluir todas essas pastas e essas 3 apps fictícias, quero partir do zero.
+Vamos agora focar nos testes.
+
+Crie um README.md na raiz explicando o que essa arquitetura faz em alto nível.
+Adicione uma seção de como executar e testar essa arquitetura com Docker.
+Depois disso vou executar.

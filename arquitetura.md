@@ -14,6 +14,8 @@ de novas aplicações sem alterações no lado do servidor.
 3. Fácil adicionar uma nova aplicação — idealmente zero mudança no servidor,
    bastando a aplicação/instância enviar no formato certo.
 4. Suportar instâncias EC2 e containers (Nomad).
+5. Rotacionamneto de logs. Uma vez a cada hora, o log atual é movido para um log com o sufixo -{hora}.log e mantido separadamente, equanto que um novo .log é gerado. Esse log antigo deve ser compactado com extensão .gz
+6. Após um período de 30 dias, os logs .gz deverão ser movidos para uma pasta /archive dentro da pasta de logs do filesystem do vector, mantendo a mesma estrutura. A ideia é deixar na pasta principal apenas os logs mais novos.
 
 ## Decisões
 
@@ -50,12 +52,15 @@ de novas aplicações sem alterações no lado do servidor.
               |       dos fields do evento              |
               |     sink: file, path templado            |
               |                           |
-              |   /mnt/logs/{app}/{data}/{instancia}/{app}-{hora}.log |
+              |   /mnt/logs/{app}/{data}/{instancia}/{app}.log (arquivo atual) |
+              |                           |
+              |   [rotator] (hora em hora)                |
+              |     copytruncate {app}.log -> {app}-{hora}.log.gz |
               ============================
                           |
                           v
                  tail -f / multitail
-                 (acompanhamento em tempo real)
+                 (acompanhamento em tempo real, sempre em {app}.log)
 ```
 
 ## Por que Vector em vez de Logstash
@@ -67,9 +72,9 @@ de novas aplicações sem alterações no lado do servidor.
   Filebeat/Logstash), então não é necessário trocar o agente na origem.
 - **Sink de arquivo com templating dinâmico**: o sink `file` do Vector aceita
   o `path` como template usando campos do evento (ex:
-  `/mnt/logs/{{ app }}/%Y-%m-%d/{{ instance }}/{{ app }}-%H.log`), o que
-  resolve automaticamente a criação de pastas por app/dia/instância/hora sem
-  nenhuma configuração adicional por aplicação.
+  `/mnt/logs/{{ app }}/%Y-%m-%d/{{ instance }}/{{ app }}.log`), o que resolve
+  automaticamente a criação de pastas por app/dia/instância sem nenhuma
+  configuração adicional por aplicação.
 - Configuração declarativa em TOML/YAML, mais simples de ler e versionar que
   pipelines Logstash (Ruby/grok).
 
@@ -106,18 +111,24 @@ output.logstash:
 - **Vector** roda como serviço (systemd), com:
   - **Source**: `logstash` (escuta na porta usada pelo Filebeat, ex. 5044).
   - **Sink**: `file`, com `path` templado a partir de `fields.app`,
-    `fields.instance` e o timestamp do evento, gerando a estrutura já prevista
-    no README:
+    `fields.instance` e a data, sempre escrevendo no mesmo arquivo "atual":
     ```
-    /mnt/logs/{app}/{YYYY-MM-DD}/{instancia}/{app}-{HH}.log
+    /mnt/logs/{app}/{YYYY-MM-DD}/{instancia}/{app}.log
     ```
-  - Rotação horária é resolvida naturalmente pelo próprio template de path
-    (novo arquivo a cada mudança de hora); não depende de logrotate.
 - **Disco**: volume EBS dedicado montado em `/mnt/logs`, dimensionado com
   folga sobre a estimativa de volume diário (a definir quando houver dados
   reais de volume).
-- **Retenção**: job de limpeza (cron/systemd timer) removendo diretórios de
-  data mais antigos que 30 dias. Ajustável por app se necessário no futuro.
+- **Rotação horária** (requisito 5): job separado (cron/systemd timer, hora
+  em hora) faz *copytruncate* do `{app}.log` corrente — copia para
+  `{app}-{HH}.log`, trunca o original no lugar (o Vector continua escrevendo
+  no mesmo arquivo sem interrupção, pois escreve em modo append) — e
+  compacta a cópia para `{app}-{HH}.log.gz`. Implementado em Docker pelo
+  serviço `rotator` (`docker/concentrador/rotator/`).
+- **Retenção/arquivamento** (requisito 6): job separado (cron/systemd timer,
+  diário) move os `.gz` de pastas de data com mais de 30 dias para
+  `/mnt/logs/archive/{app}/{YYYY-MM-DD}/{instancia}/`, mantendo a mesma
+  estrutura — mantém a pasta principal só com os logs mais recentes.
+  Implementado como script avulso: `docker/concentrador/scripts/archive-logs.sh`.
 
 ## Tempo real
 
@@ -125,7 +136,7 @@ Como os logs já ficam em arquivos organizados em disco na concentradora, o
 acompanhamento em tempo real é feito diretamente via:
 
 ```
-tail -f /mnt/logs/customers-app/2026-08-11/i-0abc123/customers-app-10.log
+tail -f /mnt/logs/customers-app/2026-08-11/i-0abc123/customers-app.log
 ```
 
 ou `multitail` para acompanhar várias aplicações/instâncias ao mesmo tempo,

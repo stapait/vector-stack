@@ -1,0 +1,403 @@
+2026-08-15T17:51:20.467Z [DEBUG] orders-app: payload inválido recebido
+2026-08-15T17:51:21.473Z [INFO] orders-app: payload inválido recebido
+2026-08-15T17:51:24.045Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T17:51:26.492Z [ERROR] orders-app: cache miss, buscando do banco
+2026-08-15T17:51:28.084Z [DEBUG] orders-app: requisição processada com sucesso
+2026-08-15T17:51:29.676Z [DEBUG] orders-app: cache miss, buscando do banco
+2026-08-15T17:51:32.471Z [INFO] orders-app: fila de processamento com atraso
+2026-08-15T17:51:33.551Z [INFO] orders-app: job agendado executado
+2026-08-15T17:51:34.911Z [DEBUG] orders-app: usuário autenticado
+2026-08-15T17:51:37.811Z [INFO] orders-app: job agendado executado
+2026-08-15T17:51:39.261Z [INFO] orders-app: requisição processada com sucesso
+2026-08-15T17:51:40.414Z [INFO] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:51:43.373Z [WARN] orders-app: payload inválido recebido
+2026-08-15T17:51:44.927Z [DEBUG] orders-app: fila de processamento com atraso
+2026-08-15T17:51:47.318Z [WARN] orders-app: cache miss, buscando do banco
+2026-08-15T17:51:49.812Z [DEBUG] orders-app: requisição processada com sucesso
+2026-08-15T17:51:52.392Z [INFO] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:51:53.468Z [ERROR] orders-app: job agendado executado
+2026-08-15T17:51:55.711Z [ERROR] orders-app: cache miss, buscando do banco
+2026-08-15T17:51:57.805Z [ERROR] orders-app: job agendado executado
+2026-08-15T17:51:59.068Z [ERROR] orders-app: payload inválido recebido
+2026-08-15T17:52:00.734Z [INFO] orders-app: conexão com banco reestabelecida
+2026-08-15T17:52:02.383Z [INFO] orders-app: requisição processada com sucesso
+2026-08-15T17:52:05.110Z [ERROR] orders-app: job agendado executado
+2026-08-15T17:52:06.481Z [ERROR] orders-app: conexão com banco reestabelecida
+2026-08-15T17:52:08.155Z [ERROR] orders-app: conexão com banco reestabelecida
+2026-08-15T17:52:10.568Z [DEBUG] orders-app: conexão com banco reestabelecida
+2026-08-15T17:52:12.408Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T17:52:13.882Z [INFO] orders-app: conexão com banco reestabelecida
+2026-08-15T17:52:15.755Z [INFO] orders-app: conexão com banco reestabelecida
+2026-08-15T17:52:17.245Z [WARN] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:52:19.922Z [ERROR] orders-app: cache miss, buscando do banco
+2026-08-15T17:52:21.702Z [INFO] orders-app: requisição processada com sucesso
+2026-08-15T17:52:23.445Z [DEBUG] orders-app: payload inválido recebido
+2026-08-15T17:52:24.671Z [DEBUG] orders-app: payload inválido recebido
+2026-08-15T17:52:25.989Z [DEBUG] orders-app: requisição processada com sucesso
+2026-08-15T17:52:27.320Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T17:52:30.031Z [INFO] orders-app: conexão com banco reestabelecida
+2026-08-15T17:52:31.188Z [WARN] orders-app: payload inválido recebido
+2026-08-15T17:52:32.430Z [INFO] orders-app: fila de processamento com atraso
+2026-08-15T17:52:33.732Z [INFO] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:52:36.356Z [DEBUG] orders-app: usuário autenticado
+2026-08-15T17:52:39.168Z [WARN] orders-app: requisição processada com sucesso
+2026-08-15T17:52:40.748Z [DEBUG] orders-app: cache miss, buscando do banco
+2026-08-15T17:52:42.205Z [INFO] orders-app: conexão com banco reestabelecida
+2026-08-15T17:52:45.082Z [WARN] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:52:47.796Z [WARN] orders-app: job agendado executado
+2026-08-15T17:52:50.290Z [INFO] orders-app: payload inválido recebido
+2026-08-15T17:52:51.711Z [WARN] orders-app: fila de processamento com atraso
+2026-08-15T17:52:53.408Z [INFO] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:52:55.509Z [ERROR] orders-app: fila de processamento com atraso
+2026-08-15T17:52:56.800Z [ERROR] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:52:58.426Z [ERROR] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:52:59.724Z [INFO] orders-app: payload inválido recebido
+2026-08-15T17:53:02.104Z [INFO] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:53:05.027Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T17:53:07.738Z [INFO] orders-app: payload inválido recebido
+2026-08-15T17:53:09.174Z [INFO] orders-app: fila de processamento com atraso
+2026-08-15T17:53:11.812Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T17:53:13.724Z [ERROR] orders-app: cache miss, buscando do banco
+2026-08-15T17:53:16.492Z [INFO] orders-app: usuário autenticado
+2026-08-15T17:53:17.696Z [INFO] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:53:20.206Z [WARN] orders-app: payload inválido recebido
+2026-08-15T17:53:22.784Z [ERROR] orders-app: cache miss, buscando do banco
+2026-08-15T17:53:25.213Z [ERROR] orders-app: payload inválido recebido
+2026-08-15T17:53:27.973Z [DEBUG] orders-app: cache miss, buscando do banco
+2026-08-15T17:53:29.808Z [WARN] orders-app: fila de processamento com atraso
+2026-08-15T17:53:32.076Z [INFO] orders-app: usuário autenticado
+2026-08-15T17:53:34.466Z [INFO] orders-app: conexão com banco reestabelecida
+2026-08-15T17:53:36.216Z [INFO] orders-app: payload inválido recebido
+2026-08-15T17:53:37.568Z [INFO] orders-app: payload inválido recebido
+2026-08-15T17:53:40.372Z [INFO] orders-app: usuário autenticado
+2026-08-15T17:53:42.682Z [DEBUG] orders-app: fila de processamento com atraso
+2026-08-15T17:53:45.669Z [DEBUG] orders-app: payload inválido recebido
+2026-08-15T17:53:48.548Z [INFO] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:53:51.374Z [INFO] orders-app: requisição processada com sucesso
+2026-08-15T17:53:52.708Z [DEBUG] orders-app: usuário autenticado
+2026-08-15T17:53:54.071Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T17:53:55.449Z [WARN] orders-app: payload inválido recebido
+2026-08-15T17:53:57.458Z [INFO] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:53:58.562Z [ERROR] orders-app: requisição processada com sucesso
+2026-08-15T17:53:59.712Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T17:54:01.572Z [INFO] orders-app: conexão com banco reestabelecida
+2026-08-15T17:54:04.387Z [INFO] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:54:07.035Z [ERROR] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:54:08.788Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T17:54:11.426Z [DEBUG] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:54:13.970Z [ERROR] orders-app: job agendado executado
+2026-08-15T17:54:16.453Z [DEBUG] orders-app: job agendado executado
+2026-08-15T17:54:17.816Z [ERROR] orders-app: usuário autenticado
+2026-08-15T17:54:19.546Z [INFO] orders-app: usuário autenticado
+2026-08-15T17:54:20.579Z [ERROR] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:54:22.825Z [INFO] orders-app: requisição processada com sucesso
+2026-08-15T17:54:25.008Z [INFO] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:54:26.664Z [INFO] orders-app: fila de processamento com atraso
+2026-08-15T17:54:29.191Z [INFO] orders-app: job agendado executado
+2026-08-15T17:54:30.721Z [DEBUG] orders-app: payload inválido recebido
+2026-08-15T17:54:32.785Z [INFO] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:54:34.721Z [DEBUG] orders-app: usuário autenticado
+2026-08-15T17:54:36.466Z [WARN] orders-app: fila de processamento com atraso
+2026-08-15T17:54:38.629Z [DEBUG] orders-app: job agendado executado
+2026-08-15T17:54:41.378Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T17:54:42.954Z [INFO] orders-app: fila de processamento com atraso
+2026-08-15T17:54:44.894Z [INFO] orders-app: job agendado executado
+2026-08-15T17:54:45.953Z [DEBUG] orders-app: fila de processamento com atraso
+2026-08-15T17:54:48.746Z [INFO] orders-app: conexão com banco reestabelecida
+2026-08-15T17:54:51.327Z [WARN] orders-app: usuário autenticado
+2026-08-15T17:54:52.457Z [WARN] orders-app: conexão com banco reestabelecida
+2026-08-15T17:54:54.991Z [INFO] orders-app: payload inválido recebido
+2026-08-15T17:54:57.758Z [INFO] orders-app: fila de processamento com atraso
+2026-08-15T17:54:59.647Z [ERROR] orders-app: cache miss, buscando do banco
+2026-08-15T17:55:01.664Z [DEBUG] orders-app: fila de processamento com atraso
+2026-08-15T17:55:03.943Z [INFO] orders-app: fila de processamento com atraso
+2026-08-15T17:55:05.524Z [INFO] orders-app: requisição processada com sucesso
+2026-08-15T17:55:07.452Z [DEBUG] orders-app: usuário autenticado
+2026-08-15T17:55:09.948Z [DEBUG] orders-app: job agendado executado
+2026-08-15T17:55:11.858Z [ERROR] orders-app: requisição processada com sucesso
+2026-08-15T17:55:14.056Z [ERROR] orders-app: conexão com banco reestabelecida
+2026-08-15T17:55:15.742Z [DEBUG] orders-app: fila de processamento com atraso
+2026-08-15T17:55:18.473Z [WARN] orders-app: job agendado executado
+2026-08-15T17:55:20.816Z [WARN] orders-app: conexão com banco reestabelecida
+2026-08-15T17:55:22.779Z [DEBUG] orders-app: fila de processamento com atraso
+2026-08-15T17:55:25.561Z [ERROR] orders-app: usuário autenticado
+2026-08-15T17:55:27.172Z [ERROR] orders-app: payload inválido recebido
+2026-08-15T17:55:28.285Z [WARN] orders-app: requisição processada com sucesso
+2026-08-15T17:55:30.556Z [INFO] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:55:33.202Z [INFO] orders-app: conexão com banco reestabelecida
+2026-08-15T17:55:34.689Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T17:55:37.362Z [ERROR] orders-app: payload inválido recebido
+2026-08-15T17:55:39.504Z [INFO] orders-app: conexão com banco reestabelecida
+2026-08-15T17:55:41.873Z [INFO] orders-app: requisição processada com sucesso
+2026-08-15T17:55:43.382Z [INFO] orders-app: usuário autenticado
+2026-08-15T17:55:46.140Z [WARN] orders-app: conexão com banco reestabelecida
+2026-08-15T17:55:48.555Z [DEBUG] orders-app: payload inválido recebido
+2026-08-15T17:55:49.953Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T17:55:51.533Z [INFO] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:55:54.443Z [INFO] orders-app: conexão com banco reestabelecida
+2026-08-15T17:55:56.211Z [INFO] orders-app: payload inválido recebido
+2026-08-15T17:55:57.293Z [DEBUG] orders-app: conexão com banco reestabelecida
+2026-08-15T17:55:58.932Z [INFO] orders-app: payload inválido recebido
+2026-08-15T17:56:00.447Z [INFO] orders-app: fila de processamento com atraso
+2026-08-15T17:56:01.747Z [INFO] orders-app: usuário autenticado
+2026-08-15T17:56:04.544Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T17:56:06.011Z [INFO] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:56:07.788Z [ERROR] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:56:10.370Z [INFO] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:56:13.282Z [INFO] orders-app: fila de processamento com atraso
+2026-08-15T17:56:14.497Z [ERROR] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:56:15.905Z [INFO] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:56:18.806Z [INFO] orders-app: job agendado executado
+2026-08-15T17:56:19.807Z [INFO] orders-app: payload inválido recebido
+2026-08-15T17:56:22.236Z [WARN] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:56:24.267Z [INFO] orders-app: requisição processada com sucesso
+2026-08-15T17:56:26.541Z [ERROR] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:56:28.157Z [WARN] orders-app: usuário autenticado
+2026-08-15T17:56:30.584Z [INFO] orders-app: payload inválido recebido
+2026-08-15T17:56:31.954Z [INFO] orders-app: usuário autenticado
+2026-08-15T17:56:34.112Z [ERROR] orders-app: usuário autenticado
+2026-08-15T17:56:36.357Z [INFO] orders-app: conexão com banco reestabelecida
+2026-08-15T17:56:38.610Z [DEBUG] orders-app: conexão com banco reestabelecida
+2026-08-15T17:56:40.157Z [WARN] orders-app: payload inválido recebido
+2026-08-15T17:56:42.492Z [INFO] orders-app: payload inválido recebido
+2026-08-15T17:56:44.546Z [WARN] orders-app: job agendado executado
+2026-08-15T17:56:47.095Z [INFO] orders-app: payload inválido recebido
+2026-08-15T17:56:49.129Z [DEBUG] orders-app: payload inválido recebido
+2026-08-15T17:56:50.319Z [INFO] orders-app: fila de processamento com atraso
+2026-08-15T17:56:51.937Z [WARN] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:56:53.408Z [ERROR] orders-app: conexão com banco reestabelecida
+2026-08-15T17:56:55.964Z [ERROR] orders-app: requisição processada com sucesso
+2026-08-15T17:56:58.353Z [ERROR] orders-app: requisição processada com sucesso
+2026-08-15T17:57:00.374Z [INFO] orders-app: payload inválido recebido
+2026-08-15T17:57:02.867Z [WARN] orders-app: fila de processamento com atraso
+2026-08-15T17:57:05.078Z [INFO] orders-app: requisição processada com sucesso
+2026-08-15T17:57:06.828Z [INFO] orders-app: conexão com banco reestabelecida
+2026-08-15T17:57:08.193Z [INFO] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:57:09.945Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T17:57:11.571Z [INFO] orders-app: fila de processamento com atraso
+2026-08-15T17:57:13.562Z [DEBUG] orders-app: fila de processamento com atraso
+2026-08-15T17:57:15.059Z [INFO] orders-app: job agendado executado
+2026-08-15T17:57:16.580Z [ERROR] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:57:18.913Z [WARN] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:57:21.582Z [ERROR] orders-app: requisição processada com sucesso
+2026-08-15T17:57:23.129Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T17:57:25.897Z [INFO] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:57:28.197Z [ERROR] orders-app: conexão com banco reestabelecida
+2026-08-15T17:57:30.924Z [INFO] orders-app: job agendado executado
+2026-08-15T17:57:32.763Z [INFO] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:57:33.863Z [INFO] orders-app: job agendado executado
+2026-08-15T17:57:35.530Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T17:57:36.875Z [ERROR] orders-app: conexão com banco reestabelecida
+2026-08-15T17:57:39.518Z [INFO] orders-app: job agendado executado
+2026-08-15T17:57:41.137Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T17:57:42.395Z [DEBUG] orders-app: cache miss, buscando do banco
+2026-08-15T17:57:45.358Z [WARN] orders-app: conexão com banco reestabelecida
+2026-08-15T17:57:47.338Z [DEBUG] orders-app: conexão com banco reestabelecida
+2026-08-15T17:57:49.547Z [ERROR] orders-app: usuário autenticado
+2026-08-15T17:57:52.295Z [DEBUG] orders-app: cache miss, buscando do banco
+2026-08-15T17:57:54.905Z [INFO] orders-app: payload inválido recebido
+2026-08-15T17:57:56.849Z [ERROR] orders-app: conexão com banco reestabelecida
+2026-08-15T17:57:58.986Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T17:58:01.942Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T17:58:03.541Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T17:58:04.890Z [DEBUG] orders-app: requisição processada com sucesso
+2026-08-15T17:58:07.619Z [ERROR] orders-app: requisição processada com sucesso
+2026-08-15T17:58:08.928Z [WARN] orders-app: usuário autenticado
+2026-08-15T17:58:11.147Z [WARN] orders-app: usuário autenticado
+2026-08-15T17:58:13.365Z [INFO] orders-app: fila de processamento com atraso
+2026-08-15T17:58:14.927Z [INFO] orders-app: job agendado executado
+2026-08-15T17:58:17.231Z [INFO] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:58:19.449Z [DEBUG] orders-app: conexão com banco reestabelecida
+2026-08-15T17:58:22.304Z [INFO] orders-app: usuário autenticado
+2026-08-15T17:58:24.115Z [INFO] orders-app: usuário autenticado
+2026-08-15T17:58:26.446Z [DEBUG] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:58:29.126Z [WARN] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:58:31.153Z [DEBUG] orders-app: conexão com banco reestabelecida
+2026-08-15T17:58:33.704Z [ERROR] orders-app: fila de processamento com atraso
+2026-08-15T17:58:35.402Z [ERROR] orders-app: conexão com banco reestabelecida
+2026-08-15T17:58:36.408Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T17:58:38.735Z [ERROR] orders-app: usuário autenticado
+2026-08-15T17:58:41.619Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T17:58:43.019Z [INFO] orders-app: job agendado executado
+2026-08-15T17:58:44.754Z [DEBUG] orders-app: cache miss, buscando do banco
+2026-08-15T17:58:46.883Z [INFO] orders-app: job agendado executado
+2026-08-15T17:58:49.248Z [ERROR] orders-app: fila de processamento com atraso
+2026-08-15T17:58:52.109Z [DEBUG] orders-app: conexão com banco reestabelecida
+2026-08-15T17:58:54.837Z [ERROR] orders-app: usuário autenticado
+2026-08-15T17:58:55.927Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T17:58:58.548Z [INFO] orders-app: job agendado executado
+2026-08-15T17:58:59.786Z [INFO] orders-app: fila de processamento com atraso
+2026-08-15T17:59:01.357Z [INFO] orders-app: requisição processada com sucesso
+2026-08-15T17:59:03.332Z [INFO] orders-app: requisição processada com sucesso
+2026-08-15T17:59:06.226Z [DEBUG] orders-app: cache miss, buscando do banco
+2026-08-15T17:59:08.121Z [ERROR] orders-app: payload inválido recebido
+2026-08-15T17:59:10.079Z [ERROR] orders-app: requisição processada com sucesso
+2026-08-15T17:59:11.393Z [ERROR] orders-app: cache miss, buscando do banco
+2026-08-15T17:59:13.638Z [INFO] orders-app: conexão com banco reestabelecida
+2026-08-15T17:59:14.670Z [ERROR] orders-app: timeout ao chamar serviço externo
+2026-08-15T17:59:16.696Z [INFO] orders-app: payload inválido recebido
+2026-08-15T17:59:19.039Z [INFO] orders-app: requisição processada com sucesso
+2026-08-15T17:59:20.229Z [DEBUG] orders-app: conexão com banco reestabelecida
+2026-08-15T17:59:21.816Z [DEBUG] orders-app: usuário autenticado
+2026-08-15T17:59:23.090Z [WARN] orders-app: job agendado executado
+2026-08-15T17:59:24.664Z [INFO] orders-app: payload inválido recebido
+2026-08-15T17:59:26.509Z [ERROR] orders-app: requisição processada com sucesso
+2026-08-15T17:59:29.485Z [DEBUG] orders-app: job agendado executado
+2026-08-15T17:59:31.055Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T17:59:32.607Z [INFO] orders-app: conexão com banco reestabelecida
+2026-08-15T17:59:34.839Z [INFO] orders-app: requisição processada com sucesso
+2026-08-15T17:59:36.631Z [INFO] orders-app: requisição processada com sucesso
+2026-08-15T17:59:39.064Z [DEBUG] orders-app: conexão com banco reestabelecida
+2026-08-15T17:59:41.098Z [ERROR] orders-app: job agendado executado
+2026-08-15T17:59:43.832Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T17:59:45.405Z [WARN] orders-app: cache miss, buscando do banco
+2026-08-15T17:59:47.608Z [ERROR] orders-app: cache miss, buscando do banco
+2026-08-15T17:59:50.232Z [INFO] orders-app: conexão com banco reestabelecida
+2026-08-15T17:59:52.694Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T17:59:55.459Z [DEBUG] orders-app: fila de processamento com atraso
+2026-08-15T17:59:58.065Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T18:00:01.039Z [DEBUG] orders-app: usuário autenticado
+2026-08-15T18:00:02.815Z [INFO] orders-app: usuário autenticado
+2026-08-15T18:00:04.745Z [WARN] orders-app: timeout ao chamar serviço externo
+2026-08-15T18:00:06.893Z [WARN] orders-app: requisição processada com sucesso
+2026-08-15T18:00:07.911Z [DEBUG] orders-app: payload inválido recebido
+2026-08-15T18:00:10.146Z [INFO] orders-app: job agendado executado
+2026-08-15T18:00:12.013Z [INFO] orders-app: conexão com banco reestabelecida
+2026-08-15T18:00:13.686Z [DEBUG] orders-app: requisição processada com sucesso
+2026-08-15T18:00:15.840Z [INFO] orders-app: job agendado executado
+2026-08-15T18:00:17.784Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T18:00:20.476Z [INFO] orders-app: fila de processamento com atraso
+2026-08-15T18:00:22.378Z [WARN] orders-app: timeout ao chamar serviço externo
+2026-08-15T18:00:24.928Z [INFO] orders-app: job agendado executado
+2026-08-15T18:00:26.924Z [INFO] orders-app: timeout ao chamar serviço externo
+2026-08-15T18:00:28.120Z [DEBUG] orders-app: usuário autenticado
+2026-08-15T18:00:30.040Z [DEBUG] orders-app: job agendado executado
+2026-08-15T18:00:32.864Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T18:00:34.358Z [DEBUG] orders-app: fila de processamento com atraso
+2026-08-15T18:00:36.027Z [DEBUG] orders-app: conexão com banco reestabelecida
+2026-08-15T18:00:37.675Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T18:00:39.735Z [WARN] orders-app: conexão com banco reestabelecida
+2026-08-15T18:00:41.118Z [ERROR] orders-app: payload inválido recebido
+2026-08-15T18:00:42.905Z [WARN] orders-app: cache miss, buscando do banco
+2026-08-15T18:00:45.622Z [INFO] orders-app: usuário autenticado
+2026-08-15T18:00:47.484Z [DEBUG] orders-app: requisição processada com sucesso
+2026-08-15T18:00:48.745Z [WARN] orders-app: cache miss, buscando do banco
+2026-08-15T18:00:50.154Z [INFO] orders-app: conexão com banco reestabelecida
+2026-08-15T18:00:52.659Z [ERROR] orders-app: conexão com banco reestabelecida
+2026-08-15T18:00:54.386Z [WARN] orders-app: conexão com banco reestabelecida
+2026-08-15T18:00:57.240Z [DEBUG] orders-app: job agendado executado
+2026-08-15T18:01:00.077Z [INFO] orders-app: payload inválido recebido
+2026-08-15T18:01:01.398Z [DEBUG] orders-app: cache miss, buscando do banco
+2026-08-15T18:01:03.331Z [INFO] orders-app: job agendado executado
+2026-08-15T18:01:06.316Z [WARN] orders-app: cache miss, buscando do banco
+2026-08-15T18:01:09.163Z [INFO] orders-app: payload inválido recebido
+2026-08-15T18:01:12.032Z [INFO] orders-app: timeout ao chamar serviço externo
+2026-08-15T18:01:13.693Z [INFO] orders-app: conexão com banco reestabelecida
+2026-08-15T18:01:16.615Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T18:01:19.370Z [INFO] orders-app: usuário autenticado
+2026-08-15T18:01:21.474Z [INFO] orders-app: payload inválido recebido
+2026-08-15T18:01:23.786Z [WARN] orders-app: conexão com banco reestabelecida
+2026-08-15T18:01:24.911Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T18:01:27.192Z [INFO] orders-app: timeout ao chamar serviço externo
+2026-08-15T18:01:28.364Z [INFO] orders-app: timeout ao chamar serviço externo
+2026-08-15T18:01:31.342Z [WARN] orders-app: conexão com banco reestabelecida
+2026-08-15T18:01:32.618Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T18:01:35.547Z [WARN] orders-app: cache miss, buscando do banco
+2026-08-15T18:01:37.169Z [INFO] orders-app: conexão com banco reestabelecida
+2026-08-15T18:01:38.901Z [INFO] orders-app: job agendado executado
+2026-08-15T18:01:40.761Z [WARN] orders-app: cache miss, buscando do banco
+2026-08-15T18:01:42.164Z [INFO] orders-app: payload inválido recebido
+2026-08-15T18:01:45.123Z [DEBUG] orders-app: usuário autenticado
+2026-08-15T18:01:47.251Z [INFO] orders-app: timeout ao chamar serviço externo
+2026-08-15T18:01:48.335Z [INFO] orders-app: requisição processada com sucesso
+2026-08-15T18:01:49.618Z [INFO] orders-app: fila de processamento com atraso
+2026-08-15T18:01:52.606Z [WARN] orders-app: fila de processamento com atraso
+2026-08-15T18:01:54.045Z [INFO] orders-app: conexão com banco reestabelecida
+2026-08-15T18:01:56.482Z [ERROR] orders-app: timeout ao chamar serviço externo
+2026-08-15T18:01:57.721Z [DEBUG] orders-app: timeout ao chamar serviço externo
+2026-08-15T18:01:58.747Z [INFO] orders-app: conexão com banco reestabelecida
+2026-08-15T18:02:00.154Z [INFO] orders-app: usuário autenticado
+2026-08-15T18:02:02.847Z [DEBUG] orders-app: job agendado executado
+2026-08-15T18:02:04.101Z [ERROR] orders-app: fila de processamento com atraso
+2026-08-15T18:02:05.925Z [INFO] orders-app: fila de processamento com atraso
+2026-08-15T18:02:07.822Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T18:02:09.274Z [DEBUG] orders-app: cache miss, buscando do banco
+2026-08-15T18:02:11.406Z [INFO] orders-app: conexão com banco reestabelecida
+2026-08-15T18:02:12.688Z [INFO] orders-app: timeout ao chamar serviço externo
+2026-08-15T18:02:14.617Z [DEBUG] orders-app: payload inválido recebido
+2026-08-15T18:02:17.123Z [WARN] orders-app: usuário autenticado
+2026-08-15T18:02:19.353Z [WARN] orders-app: requisição processada com sucesso
+2026-08-15T18:02:20.401Z [ERROR] orders-app: job agendado executado
+2026-08-15T18:02:22.200Z [INFO] orders-app: fila de processamento com atraso
+2026-08-15T18:02:25.198Z [INFO] orders-app: usuário autenticado
+2026-08-15T18:02:26.856Z [INFO] orders-app: fila de processamento com atraso
+2026-08-15T18:02:29.107Z [DEBUG] orders-app: payload inválido recebido
+2026-08-15T18:02:31.404Z [DEBUG] orders-app: cache miss, buscando do banco
+2026-08-15T18:02:33.915Z [INFO] orders-app: requisição processada com sucesso
+2026-08-15T18:02:36.457Z [INFO] orders-app: job agendado executado
+2026-08-15T18:02:38.153Z [INFO] orders-app: fila de processamento com atraso
+2026-08-15T18:02:39.184Z [ERROR] orders-app: job agendado executado
+2026-08-15T18:02:41.199Z [INFO] orders-app: timeout ao chamar serviço externo
+2026-08-15T18:02:44.185Z [INFO] orders-app: payload inválido recebido
+2026-08-15T18:02:45.872Z [INFO] orders-app: timeout ao chamar serviço externo
+2026-08-15T18:02:47.261Z [ERROR] orders-app: job agendado executado
+2026-08-15T18:02:49.458Z [INFO] orders-app: requisição processada com sucesso
+2026-08-15T18:02:51.040Z [INFO] orders-app: conexão com banco reestabelecida
+2026-08-15T18:02:52.972Z [ERROR] orders-app: conexão com banco reestabelecida
+2026-08-15T18:02:55.758Z [INFO] orders-app: payload inválido recebido
+2026-08-15T18:02:58.493Z [INFO] orders-app: payload inválido recebido
+2026-08-15T18:03:01.150Z [INFO] orders-app: job agendado executado
+2026-08-15T18:03:02.803Z [WARN] orders-app: fila de processamento com atraso
+2026-08-15T18:03:03.843Z [INFO] orders-app: requisição processada com sucesso
+2026-08-15T18:03:05.360Z [ERROR] orders-app: timeout ao chamar serviço externo
+2026-08-15T18:03:08.130Z [DEBUG] orders-app: job agendado executado
+2026-08-15T18:03:10.068Z [INFO] orders-app: job agendado executado
+2026-08-15T18:03:11.087Z [INFO] orders-app: conexão com banco reestabelecida
+2026-08-15T18:03:13.131Z [INFO] orders-app: requisição processada com sucesso
+2026-08-15T18:03:14.974Z [DEBUG] orders-app: cache miss, buscando do banco
+2026-08-15T18:03:16.541Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T18:03:19.104Z [INFO] orders-app: fila de processamento com atraso
+2026-08-15T18:03:21.978Z [INFO] orders-app: conexão com banco reestabelecida
+2026-08-15T18:03:23.586Z [WARN] orders-app: cache miss, buscando do banco
+2026-08-15T18:03:25.006Z [DEBUG] orders-app: timeout ao chamar serviço externo
+2026-08-15T18:03:26.657Z [INFO] orders-app: payload inválido recebido
+2026-08-15T18:03:28.528Z [ERROR] orders-app: job agendado executado
+2026-08-15T18:03:30.330Z [INFO] orders-app: conexão com banco reestabelecida
+2026-08-15T18:03:33.081Z [INFO] orders-app: conexão com banco reestabelecida
+2026-08-15T18:03:35.388Z [ERROR] orders-app: job agendado executado
+2026-08-15T18:03:37.643Z [INFO] orders-app: usuário autenticado
+2026-08-15T18:03:40.582Z [WARN] orders-app: usuário autenticado
+2026-08-15T18:03:43.055Z [INFO] orders-app: conexão com banco reestabelecida
+2026-08-15T18:03:45.240Z [INFO] orders-app: usuário autenticado
+2026-08-15T18:03:48.011Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T18:03:49.957Z [WARN] orders-app: fila de processamento com atraso
+2026-08-15T18:03:52.751Z [DEBUG] orders-app: payload inválido recebido
+2026-08-15T18:03:54.895Z [ERROR] orders-app: conexão com banco reestabelecida
+2026-08-15T18:03:57.219Z [INFO] orders-app: fila de processamento com atraso
+2026-08-15T18:03:58.730Z [ERROR] orders-app: timeout ao chamar serviço externo
+2026-08-15T18:04:01.156Z [ERROR] orders-app: requisição processada com sucesso
+2026-08-15T18:04:02.633Z [ERROR] orders-app: timeout ao chamar serviço externo
+2026-08-15T18:04:04.550Z [DEBUG] orders-app: conexão com banco reestabelecida
+2026-08-15T18:04:07.013Z [INFO] orders-app: requisição processada com sucesso
+2026-08-15T18:04:09.518Z [DEBUG] orders-app: payload inválido recebido
+2026-08-15T18:04:10.736Z [DEBUG] orders-app: fila de processamento com atraso
+2026-08-15T18:04:12.305Z [INFO] orders-app: payload inválido recebido
+2026-08-15T18:04:15.008Z [ERROR] orders-app: cache miss, buscando do banco
+2026-08-15T18:04:16.733Z [INFO] orders-app: conexão com banco reestabelecida
+2026-08-15T18:04:19.306Z [INFO] orders-app: requisição processada com sucesso
+2026-08-15T18:04:20.657Z [INFO] orders-app: timeout ao chamar serviço externo
+2026-08-15T18:04:21.704Z [WARN] orders-app: requisição processada com sucesso
+2026-08-15T18:04:23.006Z [WARN] orders-app: payload inválido recebido
+2026-08-15T18:04:25.439Z [INFO] orders-app: cache miss, buscando do banco
+2026-08-15T18:04:28.437Z [DEBUG] orders-app: payload inválido recebido
+2026-08-15T18:04:30.775Z [DEBUG] orders-app: fila de processamento com atraso
+2026-08-15T18:04:32.457Z [INFO] orders-app: timeout ao chamar serviço externo
+2026-08-15T18:04:34.262Z [WARN] orders-app: payload inválido recebido
+2026-08-15T18:04:35.838Z [INFO] orders-app: payload inválido recebido
+2026-08-15T18:04:38.383Z [INFO] orders-app: job agendado executado
+2026-08-15T18:04:39.921Z [INFO] orders-app: requisição processada com sucesso
+2026-08-15T18:04:42.563Z [DEBUG] orders-app: conexão com banco reestabelecida
+2026-08-15T18:04:44.724Z [ERROR] orders-app: timeout ao chamar serviço externo
+2026-08-15T18:04:46.324Z [INFO] orders-app: requisição processada com sucesso
+2026-08-15T18:04:48.407Z [DEBUG] orders-app: usuário autenticado
+2026-08-15T18:04:50.316Z [DEBUG] orders-app: usuário autenticado
