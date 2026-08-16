@@ -1,0 +1,13 @@
+---
+# Collections do Galaxy necessárias por vector-provision.yml e pelas roles
+# em roles/. Hoje: nenhuma — todas as tasks usam módulos builtin
+# (dnf, user, group, file, template, unarchive, systemd, assert), que já
+# vêm com qualquer instalação do ansible-core, sem precisar instalar nada
+# a mais.
+#
+# Este arquivo existe pra ser o lugar certo de declarar se isso mudar (ex.
+# uma role passar a precisar de community.general). Instalar (idempotente,
+# hoje é um no-op já que a lista está vazia):
+#
+#   ansible-galaxy collection install -r requirements.yml
+collections: []

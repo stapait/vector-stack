@@ -19,6 +19,10 @@
     name:
       - tar
       - gzip
+      # findutils não vem por padrão em toda instalação mínima de AL2023
+      # (confirmado testando em container) — log-metrics.sh e
+      # archive-logs.sh dependem de `find`.
+      - findutils
     state: present
 
 - name: Criar grupo de sistema

@@ -1,0 +1,21 @@
+#%PAM-1.0
+# Substitui o /etc/pam.d/sshd padrão do Amazon Linux 2023 por um mínimo e
+# permissivo, só pra este container de teste descartável (não replicar em
+# nada que precise de autenticação de verdade).
+#
+# Motivo: o pam_unix.so padrão (fase "account") invoca o helper setuid
+# unix_chkpwd pra ler /etc/shadow. Em hosts Ubuntu isso esbarra num perfil
+# AppArmor do HOST vinculado ao path /usr/sbin/unix_chkpwd (perfil
+# "unix-chkpwd", carregado no kernel do host, não isolado por container) —
+# ele nega dac_override/dac_read_search e o SSH recusa a conexão mesmo com
+# a chave pública correta ("Access denied ... by PAM account
+# configuration"). --security-opt apparmor=unconfined no container não
+# resolve, porque a transição de perfil é por path do binário, não por
+# confinamento do processo chamador.
+#
+# Como aqui a autenticação real já é feita pelo próprio sshd via chave
+# pública (não passa pelo PAM "auth"), simplificar pra pam_permit é seguro
+# neste contexto — não há login por senha nem múltiplos usuários reais.
+auth       required     pam_permit.so
+account    required     pam_permit.so
+session    required     pam_permit.so

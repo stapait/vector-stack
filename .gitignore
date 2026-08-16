@@ -1,3 +1,7 @@
 # Dados gerados em runtime pelo ambiente Docker local (logs recebidos pelo
 # Vector, métricas do textfile collector) — não é conteúdo versionável.
 docker/concentrador/data/
+
+# Chave SSH efêmera do container "EC2 local" (docker/local-ec2) — gerada
+# por generate-ssh-key.sh, descartável, nunca deve ir pro repo.
+docker/local-ec2/ssh/

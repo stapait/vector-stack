@@ -118,7 +118,7 @@ são independentes:
 1. **`common`**: confirma que `vector_data_root` (`/mnt/vector`) já é um
    ponto de montagem real (`ansible_facts['mounts']`) — falha cedo com uma
    mensagem clara se não for, em vez de gravar sem querer no disco raiz da
-   instância; instala pacotes base (`tar`, `gzip`); cria usuário/grupo de
+   instância; instala pacotes base (`tar`, `gzip`, `findutils`); cria usuário/grupo de
    sistema `vector`.
 2. **`vector`**: cria `/mnt/vector/logs`; baixa e instala o Vector (binário
    do release oficial, versionado — symlink `/usr/local/bin/vector`
@@ -186,6 +186,34 @@ ansible-playbook -i "<IP_DA_EC2>," vector-provision.yml \
 Pré-requisitos: chave SSH com acesso `ec2-user` na instância, Security
 Group liberando 22/tcp de onde o Ansible roda, e o volume EBS já montado em
 `/mnt/vector` (o playbook falha no primeiro task se não estiver).
+
+### Testando localmente, sem AWS
+
+[`docker/local-ec2/`](../docker/local-ec2/) sobe um container com Amazon
+Linux 2023 de verdade (`systemd` como init, `sshd` ativo) e roda
+`vector-provision.yml` contra ele — dá pra validar a automação inteira
+(dnf, systemd, logrotate, o assert do mount, tudo) sem precisar de conta
+AWS nem de uma EC2 de verdade:
+
+```bash
+cd docker/local-ec2
+./test.sh
+```
+
+Foi assim que a automação inteira deste documento foi validada de ponta a
+ponta (não só lida/revisada) antes de existir uma EC2 real rodando isso —
+inclusive pegou dois bugs reais que só apareceram rodando contra um SO de
+verdade: `findutils` não vem em toda instalação mínima do AL2023 (`find` é
+usado por `log-metrics.sh` e `archive-logs.sh` — corrigido, agora faz parte
+dos pacotes base instalados pela role `common`) e um PAM não-trivial pra
+fazer o SSH funcionar dentro de um container (ver
+`docker/local-ec2/README.md` e o comentário em `docker/local-ec2/pam-sshd`
+— é uma simplificação específica desse container de teste, não muda nada
+em como a automação trata uma EC2 real).
+
+Detalhes, limitações da simulação, e por que não foi usado LocalStack (a
+versão free não sobe uma EC2 de verdade pra conectar via SSH) estão no
+README daquela pasta.
 
 ### Nota sobre o logrotate (decisões descobertas testando de verdade)
 
