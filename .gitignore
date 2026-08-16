@@ -5,3 +5,14 @@ docker/concentrador/data/
 # Chave SSH efêmera do container "EC2 local" (docker/local-ec2) — gerada
 # por generate-ssh-key.sh, descartável, nunca deve ir pro repo.
 docker/local-ec2/ssh/
+
+# Estado local do Vagrant (vagrant/) — inclui a chave privada gerada por
+# `vagrant up`, específica de cada VM/host, nunca deve ir pro repo.
+vagrant/.vagrant/
+
+# Apps NestJS rodando direto no host (apps/) — diferente de docker/apps
+# (build/log ficam dentro do container), aqui node_modules/dist/logs são
+# gerados direto no repo.
+apps/*/node_modules/
+apps/*/dist/
+apps/*/logs/

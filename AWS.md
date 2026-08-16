@@ -211,6 +211,19 @@ fazer o SSH funcionar dentro de um container (ver
 — é uma simplificação específica desse container de teste, não muda nada
 em como a automação trata uma EC2 real).
 
+Existe também [`vagrant/`](../vagrant/) — mesma ideia, mas numa VM de
+verdade (VirtualBox, box `bento/amazonlinux-2023`) em vez de container,
+kernel próprio da imagem em vez do kernel do host:
+
+```bash
+cd vagrant
+./test.sh
+```
+
+Rodado de ponta a ponta contra essa VM sem encontrar nenhuma
+incompatibilidade nova (os bugs reais já tinham sido pegos e corrigidos
+rodando contra o `local-ec2`) — detalhes em `vagrant/README.md`.
+
 Detalhes, limitações da simulação, e por que não foi usado LocalStack (a
 versão free não sobe uma EC2 de verdade pra conectar via SSH) estão no
 README daquela pasta.

@@ -39,6 +39,51 @@ Decisões de arquitetura completas, com as alternativas consideradas e o
 porquê de cada escolha (Vector vs. Logstash, sem TLS por ora, etc.), estão
 em [`arquitetura.md`](./arquitetura.md).
 
+## Por que Vector, e não Logstash
+
+A concentradora recebe eventos no protocolo Beats/Logstash (o mesmo que o
+Filebeat já fala) e só precisa fazer uma coisa com cada um: gravar a linha
+no arquivo certo, decidido pelos campos `app`/`instance` que vieram no
+evento. Isso é pouco processamento, mas roda continuamente numa EC2
+dedicada — então o custo de operar a ferramenta que faz isso importa tanto
+quanto o que ela faz. Se a escolha tivesse sido Logstash no lugar do
+Vector, para o mesmo trabalho:
+
+- **Performance e footprint de recursos**: Vector é um binário único em
+  Rust, sem garbage collector, e fica na casa de poucas dezenas de MB de
+  RAM em repouso. Logstash roda sobre uma JVM — o `jvm.options` que vem no
+  pacote já sobe com heap de 1GB por padrão (`-Xms1g -Xmx1g`), e a própria
+  documentação da Elastic recomenda 4-8GB de heap para cenários de
+  ingestão típicos em produção — bem acima do que uma pipeline
+  "recebe e grava em arquivo" precisaria. Some a isso o tempo de
+  start/warm-up da JVM (vários segundos) contra o início praticamente
+  instantâneo do Vector. Numa EC2 pequena que também roda `node_exporter` e
+  o textfile collector, esse overhead de JVM é recurso que sobra para o
+  resto do sistema não ter, sem ganho de throughput proporcional para um
+  pipeline tão simples quanto este.
+- **Configuração**: o modelo do Vector (source → sink, TOML/YAML
+  declarativo) é direto para esse caso de uso. Logstash usa uma DSL própria
+  (blocos `input`/`filter`/`output`, sintaxe Ruby-like, tipicamente com
+  `grok` para parsear texto livre) — poder que não é necessário aqui, já
+  que não há nenhum parsing de mensagem a fazer: o Filebeat já entrega os
+  campos prontos, e a concentradora só decide o path do arquivo a partir
+  deles. Carregar a maquinaria de filtro do Logstash para um pipeline que
+  não filtra nada é complexidade sem retorno.
+- **Nova aplicação sem tocar na concentradora**: aqui vale uma correção —
+  isso **não é exclusividade do Vector**. O output `file` do Logstash
+  também aceita path dinâmico via referência a campo do evento (sintaxe
+  `%{[fields][app]}`, equivalente ao `{{ app }}` do sink `file` do Vector),
+  então tecnicamente o Logstash também conseguiria gravar
+  `/mnt/vector/logs/{app}/...` sem reconfiguração por app nova. A vantagem
+  prática do Vector aqui não é capacidade, é superfície operacional: com
+  Logstash, manter essa promessa de "zero-touch" em produção significa
+  também manter uma JVM saudável (heap, GC pauses, tempo de reload de
+  pipeline) e uma pipeline com estágio de filtro que, mesmo vazio, ainda é
+  outro ponto de configuração para errar. No Vector, o pipeline inteiro é
+  literalmente `source` (recebe Beats) → `sink` (grava com path templado) —
+  menos peça girando para essa garantia continuar valendo conforme o
+  número de aplicações cresce.
+
 ## Estrutura do repositório
 
 ```

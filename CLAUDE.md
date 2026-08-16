@@ -33,15 +33,38 @@ fechadas (ex.: por que Vector em vez de Logstash, por que sem TLS por ora).
   que `UID`/`GID` precisam ser passados ao `docker compose up` do
   concentrador — sem isso o Vector grava `data/logs` como `root` e o host
   não consegue ler/mover esses arquivos depois).
+- Automação Ansible (`ansible/vector-provision.yml`, detalhes em `AWS.md`)
+  provisiona a EC2 concentradora real (Vector, node_exporter, textfile
+  collector, logrotate, arquivamento) — validada de ponta a ponta contra
+  Amazon Linux 2023 real de duas formas, sem depender de conta AWS:
+  `docker/local-ec2/` (container com systemd) e `vagrant/` (VM VirtualBox,
+  box `bento/amazonlinux-2023` — mais fiel, kernel próprio da imagem).
+  Nenhuma incompatibilidade nova apareceu na VM Vagrant; os bugs reais
+  (ex. `findutils` faltando) já tinham sido pegos e corrigidos rodando
+  contra o `local-ec2` antes.
+- `apps/`: equivalente ao `docker/apps/`, mas rodando direto no host (sem
+  Docker) — 3 apps NestJS autocontidas (`app1/`, `app2/`, `app3/`, cada
+  uma sua própria pasta com `APP_NAME` fixo no código, já que aqui não há
+  `docker-compose` para parametrizar uma imagem só por env var), cada uma
+  escrevendo em `apps/<nome>/logs/<nome>.log`. `apps/filebeat/filebeat.yml`
+  é a cópia versionada do config usado pelo Filebeat instalado no host
+  (`/home/fabio/filebeat-9.5.1-linux-x86_64`), com um input por app,
+  enviando para o Vector da VM Vagrant (`192.168.56.20:5044`). Ainda não
+  executado (nem o Filebeat nem as apps) — só o ambiente/instruções foram
+  criados, ver `apps/README.md`. Bloqueio conhecido: **Node.js não está
+  instalado neste host**.
 
 ## Próximo passo
+
+- Instalar Node.js no host, rodar as 3 apps de `apps/` e o Filebeat
+  apontado para elas (`apps/README.md`), e confirmar na VM Vagrant que os
+  logs chegam via rede real (não só o evento de teste sintético usado até
+  agora).
 
 Itens ainda em aberto (ver "Pendências conhecidas" em
 `docker/concentrador/README.md`):
 - Alertas no Grafana (thresholds já descritos em `arquitetura.md`).
 - TLS entre Filebeat e Vector (adiado por decisão de arquitetura).
-- Validar em ambiente real (EC2/Nomad) — tudo hoje foi testado só localmente
-  via Docker Compose.
 
 ## Convenção
 

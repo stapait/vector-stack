@@ -1,0 +1,50 @@
+# Filebeat rodando direto no host (instalação em
+# /home/fabio/filebeat-9.5.1-linux-x86_64), lendo o log de cada app em
+# apps/<nome>/logs/<nome>.log e enviando para o Vector da VM Vagrant
+# (vagrant/, vector-provision.yml) na porta 5044 — mesmo protocolo
+# (output.logstash) usado pelas apps em docker/apps, só que aqui é um único
+# processo Filebeat com um input por app, em vez de um Filebeat por
+# container.
+#
+# Esta é a cópia versionada — a que o Filebeat de fato lê é
+# /home/fabio/filebeat-9.5.1-linux-x86_64/filebeat.yml (fora do repo,
+# path do host). Ver apps/README.md para instruções de uso.
+#
+# type: filestream (não "log") — Filebeat 9.x removeu o input "log" usado
+# no docker/apps (lá é Filebeat 8.x via apt, que ainda aceita "log").
+# filestream exige um "id" único por input (chave de rastreio do estado de
+# leitura no registry — não pode repetir entre inputs nem mudar depois,
+# senão o Filebeat re-lê o arquivo do zero na próxima vez que subir).
+filebeat.inputs:
+  - type: filestream
+    id: app1
+    paths:
+      - /home/fabio/projects/vector-stack/apps/app1/logs/app1.log
+    fields:
+      app: app1
+      instance: pc
+    fields_under_root: false
+
+  - type: filestream
+    id: app2
+    paths:
+      - /home/fabio/projects/vector-stack/apps/app2/logs/app2.log
+    fields:
+      app: app2
+      instance: pc
+    fields_under_root: false
+
+  - type: filestream
+    id: app3
+    paths:
+      - /home/fabio/projects/vector-stack/apps/app3/logs/app3.log
+    fields:
+      app: app3
+      instance: pc
+    fields_under_root: false
+
+output.logstash:
+  hosts: ["192.168.56.20:5044"]
+
+logging.to_files: false
+logging.to_stderr: true
