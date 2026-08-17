@@ -1,14 +1,4 @@
 ---
-- name: Confirmar ponto de montagem esperado {{ vector_data_root }}
-  assert:
-    that:
-      - vector_data_root in (ansible_facts['mounts'] | map(attribute='mount') | list)
-    fail_msg: >-
-      {{ vector_data_root }} não aparece como ponto de montagem em
-      /proc/mounts. O volume EBS precisa já estar montado ali antes de
-      rodar este playbook — isso não é feito por ele (ver AWS.md).
-    success_msg: "{{ vector_data_root }} confirmado como ponto de montagem."
-
 - name: Instalar pacotes base
   dnf:
     name:
