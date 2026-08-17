@@ -1,8 +1,4 @@
 ---
-# Depende da role common (usuário vector) e da role vector (diretório
-# {{ vector_data_root }}/logs já existir) — ordem garantida pela lista de
-# roles em vector-provision.yml.
-
 - name: Criar diretório de archive
   file:
     path: "{{ vector_data_root }}/archive"

@@ -38,7 +38,7 @@ ansible-galaxy collection install -r "$ANSIBLE_DIR/requirements.yml"
 echo "==> Rodando vector-provision.yml contra o EC2 local..."
 (
   cd "$ANSIBLE_DIR"
-  ansible-playbook -i inventory/local-ec2.ini vector-provision.yml -e @vars/vector.yml
+  ansible-playbook -i inventory/local-ec2.ini vector-provision.yml
 )
 
 echo

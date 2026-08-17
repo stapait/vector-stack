@@ -1,0 +1,24 @@
+---
+aws_region: us-east-1
+aws_vpc_id: "vpc-CHANGE_ME"
+aws_subnet_id: "subnet-CHANGE_ME"
+aws_security_group_id: "sg-CHANGE_ME"
+aws_instance_id: "i-CHANGE_ME"
+
+vector_system_user: vector
+vector_system_group: vector
+
+vector_data_root: /mnt/vector
+vector_ebs_device: /dev/nvme1n1
+
+vector_version: "0.43.0"
+vector_target: "x86_64-unknown-linux-musl"
+vector_listen_port: 5044
+
+node_exporter_version: "1.8.2"
+node_exporter_arch: "amd64"
+node_exporter_port: 9100
+textfile_collector_dir: /var/lib/node_exporter/textfile_collector
+metrics_interval_seconds: 900
+
+log_archive_retention_days: 30

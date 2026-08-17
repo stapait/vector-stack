@@ -1,12 +1,5 @@
 #!/bin/bash
 # Gerado pelo Ansible (vector-provision.yml) — não editar manualmente.
-#
-# Mesma lógica do textfile-collector do ambiente Docker
-# (docker/concentrador/textfile-collector/log-metrics.sh): calcula, por app,
-# tamanho em disco e timestamp do log mais recente, escrevendo métricas
-# custom lidas pelo node_exporter (--collector.textfile.directory). Como
-# escaneia o diretório dinamicamente, uma app nova aparece nas métricas
-# sozinha, sem precisar reconfigurar nada aqui.
 set -euo pipefail
 
 LOG_ROOT="{{ vector_data_root }}/logs"

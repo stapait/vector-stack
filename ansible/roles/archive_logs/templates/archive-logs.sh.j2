@@ -1,11 +1,5 @@
 #!/bin/bash
 # Gerado pelo Ansible (vector-provision.yml) — não editar manualmente.
-#
-# Move para {{ vector_data_root }}/archive os .gz de pastas de data com mais
-# de {{ log_archive_retention_days }} dias, mantendo a estrutura
-# {app}/{data}/{instancia}/ — mesma lógica do ambiente Docker
-# (docker/concentrador/scripts/archive-logs.sh), adaptada para rodar direto
-# no host via systemd timer (vector-archive.timer) em vez de script avulso.
 set -euo pipefail
 
 LOG_ROOT="{{ vector_data_root }}/logs"

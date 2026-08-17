@@ -1,8 +1,4 @@
 ---
-# Depende da role common (usuário vector) e da role vector (diretórios
-# /etc/vector e {{ vector_data_root }}/logs já existirem) — ordem garantida
-# pela lista de roles em vector-provision.yml.
-
 - name: Instalar pacote logrotate
   dnf:
     name: logrotate

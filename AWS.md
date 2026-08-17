@@ -70,7 +70,7 @@ nessa config.
 | Recurso | Detalhe |
 |---|---|
 | SO | Amazon Linux 2023 |
-| Binário Vector | versão `0.43.0` por padrão (`vector_version` em `vars/vector.yml`), baixado do release oficial, roda como serviço systemd |
+| Binário Vector | versão `0.43.0` por padrão (`vector_version` em `group_vars/vector.yml`), baixado do release oficial, roda como serviço systemd |
 | Usuário dedicado | `vector` (system user, sem shell), dono dos dados e dos processos |
 | Volume de dados | EBS montado em `/mnt/vector` **antes** do provisionamento (fora do escopo do Ansible — ver seção 3) |
 | Estrutura de pastas | `/mnt/vector/logs/{app}/{YYYY-MM-DD}/{instancia}/{app}.log` (atual) e `/mnt/vector/archive/{app}/{YYYY-MM-DD}/{instancia}/{app}-{HH}.log.gz` (arquivado após 30 dias) |
@@ -98,7 +98,7 @@ responsabilidade:
 ansible/
 ├── vector-provision.yml         # playbook único, só declara a ordem das roles
 ├── inventory/hosts.ini          # 1 host (edite o IP, ou passe -i "IP," na linha de comando)
-├── vars/vector.yml              # arquivo único de variáveis (compartilhado por todas as roles)
+├── group_vars/vector.yml        # variáveis do grupo "vector" — carregadas automaticamente
 └── roles/
     ├── common/              # pacotes base, usuário/grupo "vector", valida o mount do EBS
     ├── vector/               # binário + config + systemd do Vector, cria .../logs
@@ -111,7 +111,7 @@ ansible/
 ### O que o playbook faz
 
 Idempotente — rodar de novo (ex. depois de mudar `vector_version` em
-`vars/vector.yml`) atualiza só o que mudou e reinicia só os serviços
+`group_vars/vector.yml`) atualiza só o que mudou e reinicia só os serviços
 afetados. A ordem das roles em `vector-provision.yml` importa — elas não
 são independentes:
 
@@ -142,11 +142,11 @@ são independentes:
 
 - **Não mexe no volume EBS**: não anexa, não formata, não monta — assume
   que a instância já sobe com `/mnt/vector` montado (responsabilidade do
-  provisionamento de infraestrutura, fora do Ansible). `vars/vector.yml`
+  provisionamento de infraestrutura, fora do Ansible). `group_vars/vector.yml`
   tem um campo `vector_ebs_device` só para referência/conferência manual
   (`lsblk`/`df`), nenhuma task usa esse valor.
 - **Não chama a API da AWS**: os IDs (`aws_vpc_id`, `aws_subnet_id`,
-  `aws_security_group_id`, `aws_instance_id`) ficam em `vars/vector.yml`
+  `aws_security_group_id`, `aws_instance_id`) ficam em `group_vars/vector.yml`
   como documentação central do ambiente, não como entrada de nenhuma task —
   o Ansible só faz SSH na instância e mexe no SO. Segurança de rede
   (liberar 5044/9100 no Security Group) é gerenciada fora deste playbook.
@@ -174,14 +174,17 @@ profile `shared` (34 avisos de estilo `fqcn`, nada funcional). Se
 cd ansible
 
 # opção A: editar o IP em inventory/hosts.ini, depois
-ansible-playbook -i inventory/hosts.ini vector-provision.yml \
-  -e @vars/vector.yml
+ansible-playbook -i inventory/hosts.ini vector-provision.yml
 
 # opção B: sem editar nada, IP direto na linha de comando
 ansible-playbook -i "<IP_DA_EC2>," vector-provision.yml \
-  -u ec2-user --private-key ~/.ssh/minha-chave.pem \
-  -e @vars/vector.yml
+  -u ec2-user --private-key ~/.ssh/minha-chave.pem
 ```
+
+Não é preciso passar variáveis por `-e` — `group_vars/vector.yml` é
+carregado automaticamente para hosts do grupo `[vector]`. Detalhes
+completos da automação (variáveis, ordem das roles, gotchas de logrotate)
+em [`ansible/README.md`](./ansible/README.md).
 
 Pré-requisitos: chave SSH com acesso `ec2-user` na instância, Security
 Group liberando 22/tcp de onde o Ansible roda, e o volume EBS já montado em

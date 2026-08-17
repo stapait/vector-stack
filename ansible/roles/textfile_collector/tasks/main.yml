@@ -1,8 +1,4 @@
 ---
-# Depende da role node_exporter já ter criado {{ textfile_collector_dir }}
-# e da role vector já ter criado {{ vector_data_root }}/logs — ordem
-# garantida pela lista de roles em vector-provision.yml.
-
 - name: Instalar script de métricas por app
   template:
     src: log-metrics.sh.j2

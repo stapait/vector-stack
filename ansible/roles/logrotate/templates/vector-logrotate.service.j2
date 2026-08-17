@@ -4,14 +4,4 @@ Description=Rotação horária dos logs do Vector (logrotate)
 
 [Service]
 Type=oneshot
-# Roda como root de propósito: a diretiva "su {{ vector_system_user }} {{ vector_system_group }}"
-# dentro do logrotate-vector.conf exige que o logrotate tenha sido
-# iniciado como root para poder trocar de usuário nas operações de
-# arquivo — ele mesmo faz o drop de privilégio por dentro.
-#
-# --force é necessário: sem diretiva de frequência (daily/weekly) no conf,
-# o logrotate cai no critério padrão de tamanho (~1 MiB) em vez de girar a
-# cada execução — testado que, sem --force, um log pequeno nunca rotaciona
-# mesmo rodando este timer de hora em hora. --force ignora esse critério e
-# sempre rotaciona (respeitando notifempty, que continua pulando logs vazios).
 ExecStart=/usr/sbin/logrotate --force --state /var/lib/vector-logrotate/state /etc/vector/logrotate-vector.conf

@@ -1,9 +1,4 @@
 ---
-# Pré-requisitos compartilhados por todas as outras roles: confirma que o
-# volume EBS já está montado, pacotes base usados nos downloads (vector e
-# node_exporter), e o usuário/grupo de sistema que vector, node_exporter,
-# textfile_collector e o logrotate (via diretiva "su") usam.
-
 - name: Confirmar ponto de montagem esperado {{ vector_data_root }}
   assert:
     that:
@@ -19,9 +14,6 @@
     name:
       - tar
       - gzip
-      # findutils não vem por padrão em toda instalação mínima de AL2023
-      # (confirmado testando em container) — log-metrics.sh e
-      # archive-logs.sh dependem de `find`.
       - findutils
     state: present
 
