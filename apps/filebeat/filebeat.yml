@@ -26,7 +26,7 @@ filebeat.inputs:
   - type: filestream
     id: app1
     paths:
-      - /home/fabio/projects/vector-stack/apps/app1/logs/app1.log
+      - /home/fpedarnig/projects/vector-stack/apps/app1/logs/app1.log
     fields:
       app: app1
       instance: ${HOSTNAME}
@@ -35,23 +35,14 @@ filebeat.inputs:
   - type: filestream
     id: app2
     paths:
-      - /home/fabio/projects/vector-stack/apps/app2/logs/app2.log
+      - /home/fpedarnig/projects/vector-stack/apps/app2/logs/app2.log
     fields:
       app: app2
       instance: ${HOSTNAME}
     fields_under_root: false
 
-  - type: filestream
-    id: app3
-    paths:
-      - /home/fabio/projects/vector-stack/apps/app3/logs/app3.log
-    fields:
-      app: app3
-      instance: ${HOSTNAME}
-    fields_under_root: false
-
 output.logstash:
-  hosts: ["192.168.56.20:5044"]
+  hosts: ["0.0.0.0:5044"]
 
 logging.to_files: false
 logging.to_stderr: true
