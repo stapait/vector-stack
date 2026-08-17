@@ -1,6 +1,3 @@
-Gostaria que, na pasta Ansible, retirasse todos os comentários internos, deixe os arquivos mais limpos possível.
-E ao invés de comentários internos, crie um README.md na pasta ansible com as explicações mais detalhadas.
-
-Outra coisa, gostaria que não precisássemos passar como argumento o arquivo de variáveis, geralmente eu uso group_vars e isso não é necessário. Caso precise pode alterar.
-
-O restante permanece o mesmo.
+Modifique a automação docker
+Quero que remova tudo exceto o Vector, quero apenas subir o vector e que a porta 5044 esteja disponível.
+Pode manter os volumes com as apps específicas, pois a minha intenção é rodar as apps no host, apontar o filebeat para localhost:5044 e ver os logs chegando na pasta docker/data/logs

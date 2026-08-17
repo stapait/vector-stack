@@ -1,1 +1,0 @@
-0 * * * * /usr/local/bin/rotate-logs.sh >> /var/log/rotate-logs.log 2>&1

@@ -89,8 +89,8 @@ Vector, para o mesmo trabalho:
 ```
 arquitetura.md              # decisões de design completas
 docker/
-├── concentrador/           # Vector, rotator, node-exporter, Prometheus, Grafana
-│   └── README.md           # detalhes de cada serviço, endpoints, rotação/retenção
+├── concentrador/           # Vector (porta 5044), local só — sem rotação/métricas
+│   └── README.md           # detalhes do serviço, endpoint, como enviar logs
 └── apps/                   # apps fictícias que geram log (NestJS + Filebeat)
     └── README.md           # como rodar e como adicionar uma nova app
 ```
@@ -105,19 +105,18 @@ Docker (`vector-stack`) usada pelas apps para alcançar o Vector.
 
 ```bash
 cd docker/concentrador
-UID=$(id -u) GID=$(id -g) docker compose up -d --build
+UID=$(id -u) GID=$(id -g) docker compose up -d
 ```
 
-Isso sobe: Vector (porta `5044`, recepção de logs), `rotator` (rotação
-horária), `node-exporter` (`:9100`), Prometheus (`:9091`) e Grafana
-(`:3001`, sem login).
+Isso sobe só o Vector, escutando na porta `5044`. Este compose local é
+propositalmente mínimo — sem rotação, arquivamento ou métricas/dashboard
+(essas peças existem na automação Ansible real, ver [`AWS.md`](./AWS.md)).
 
-O `UID`/`GID` na frente do comando faz o Vector e o `rotator` gravarem os
-arquivos em `data/logs` com o dono/grupo do seu usuário — sem isso eles
-rodam como `root` dentro do container e você não consegue ler/mover esses
-arquivos do host depois (ex. o `archive-logs.sh` do passo 5 falharia com
-"Permission denied"). Repita esse prefixo em qualquer `docker compose`
-rodado nesta pasta (`up`, `restart` etc.).
+O `UID`/`GID` na frente do comando faz o Vector gravar os arquivos em
+`data/logs` com o dono/grupo do seu usuário — sem isso ele roda como
+`root` dentro do container e você não consegue ler/mover esses arquivos do
+host depois. Repita esse prefixo em qualquer `docker compose` rodado nesta
+pasta (`up`, `restart` etc.).
 
 ### 2. Subir as apps geradoras de log
 
@@ -141,35 +140,21 @@ multitail data/logs/*/*/*/*.log
 Em poucos segundos deve aparecer log das 3 apps, um arquivo por
 app/dia/instância.
 
-### 4. Ver métricas no Grafana
-
-Abra http://localhost:3001 — o dashboard **"Concentrador de Logs — Visão
-Geral"** já vem carregado, mostrando as apps enviando log, disco usado,
-inodes, load, etc.
-
-### 5. Testar a rotação e o arquivamento manualmente
-
-Sem esperar uma hora/30 dias de verdade:
-
-```bash
-# roda a rotação (copytruncate + gzip) agora, fora do horário do cron
-docker exec concentrador-rotator rotate-logs.sh
-
-# roda o arquivamento (move .gz de pastas com +30 dias para /archive)
-./scripts/archive-logs.sh
-```
-
-### 6. Adicionar uma app nova (validar "zero mudança no servidor")
+### 4. Adicionar uma app nova (validar "zero mudança no servidor")
 
 Veja o passo a passo em [`docker/apps/README.md`](./docker/apps/README.md)
 — copiar um bloco de serviço no compose + um arquivo de Filebeat, sem
 mexer em nada do lado do Vector.
 
-### 7. Parar tudo
+Alternativa: rodar a app direto no host (fora de container), com o
+Filebeat apontando `output.logstash.hosts` para `localhost:5044` — chega
+igual em `data/logs`, sem mudar nada do lado do Vector.
+
+### 5. Parar tudo
 
 ```bash
 cd docker/apps && docker compose down
-cd ../concentrador && docker compose down   # +  -v para também apagar os volumes nomeados (Prometheus/Grafana)
+cd ../concentrador && docker compose down
 ```
 
 Os logs em `docker/concentrador/data/logs` são bind mount e continuam no

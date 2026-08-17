@@ -10,14 +10,16 @@ fechadas (ex.: por que Vector em vez de Logstash, por que sem TLS por ora).
 
 ## Estado atual
 
-- Implementação local (Docker Compose) da arquitetura completa, funcionando
-  ponta a ponta e validada manualmente:
-  - `docker/concentrador/`: Vector (recebe Filebeat/Logstash na 5044, grava
-    `{app}.log` estável por app/dia/instância), `rotator` (rotação horária
-    via copytruncate + gzip — requisito 5), `node-exporter` +
-    `textfile-collector` + Prometheus + Grafana (dashboard provisionado),
-    script avulso `scripts/archive-logs.sh` (arquivamento após 30 dias —
-    requisito 6, não é serviço contínuo).
+- Implementação local (Docker Compose) simplificada para só o Vector —
+  rotação, métricas e dashboard (Grafana/Prometheus) foram removidos deste
+  sandbox local a pedido do usuário; essas peças só existem de verdade na
+  automação Ansible (`ansible/`, `AWS.md`):
+  - `docker/concentrador/`: só o serviço `vector` (recebe Filebeat/Logstash
+    na 5044, grava `{app}.log` estável por app/dia/instância), mais
+    `scripts/send-test-log.py` (simula um Filebeat) e
+    `scripts/archive-logs.sh` (script avulso, mantido mas sem nada
+    gerando `.gz` neste sandbox simplificado — a rotação real está só no
+    Ansible).
   - `docker/apps/`: 3 apps fictícias (`orders-app`, `payments-app`,
     `shipping-app`), cada uma um container com NestJS simples (gera log
     aleatório em arquivo local) + Filebeat no mesmo container, todas usando
