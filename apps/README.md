@@ -81,12 +81,22 @@ E rodar (não executei isso por você — só as instruções, como pedido):
 
 ```bash
 cd /home/fabio/filebeat-9.5.1-linux-x86_64
+export HOSTNAME=$(hostname)
 ./filebeat -e -c filebeat.yml
 ```
 
 `-e` manda o log do próprio Filebeat para stderr (fica visível no
 terminal, útil para ver os 3 inputs conectando e os eventos sendo
 enviados). `Ctrl+C` para parar.
+
+O `export HOSTNAME=$(hostname)` é necessário porque `fields.instance` no
+`filebeat.yml` usa `${HOSTNAME}` (substituição de variável de ambiente do
+próprio Filebeat) em vez de um valor fixo — assim `instance` sempre reflete
+o hostname da máquina onde o Filebeat está rodando, sem precisar editar o
+config a cada host novo. Sem esse `export`, o Filebeat recusa subir com um
+erro de variável não encontrada (o `$HOSTNAME` que o bash mostra em
+`echo $HOSTNAME` é uma variável interna do shell, não fica automaticamente
+disponível para o processo do Filebeat).
 
 Se o Filebeat recusar subir por causa de permissão do arquivo de config
 (`config file ... needs to be owned by ...`), rode com
@@ -102,8 +112,9 @@ vagrant ssh -c 'tail -f /mnt/vector/logs/*/*/*/*.log'
 ```
 
 Em poucos segundos devem aparecer as 3 apps
-(`/mnt/vector/logs/app1/<data>/pc/app1.log` etc. — `pc` é o hostname deste
-host, usado como `instance`).
+(`/mnt/vector/logs/app1/<data>/<hostname>/app1.log` etc. — `<hostname>` é
+o valor de `$HOSTNAME` exportado antes de subir o Filebeat, usado como
+`instance`).
 
 ## Adicionando uma 4ª app
 
@@ -123,7 +134,7 @@ host, usado como `instance`).
          - /home/fabio/projects/vector-stack/apps/app4/logs/app4.log
        fields:
          app: app4
-         instance: pc
+         instance: ${HOSTNAME}
        fields_under_root: false
    ```
 
