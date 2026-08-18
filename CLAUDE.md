@@ -21,9 +21,12 @@ fechadas (ex.: por que Vector em vez de Logstash, por que sem TLS por ora).
     `textfile-collector` (gera `log_app_disk_bytes` e
     `log_app_last_write_timestamp_seconds` por app, varrendo `data/logs` a
     cada 15 min), `prometheus` (`:9091` — não `9090`, já ocupada neste
-    host) e `grafana` (`:3001` — não `3000`, mesmo motivo; dashboard
-    "Concentrador de Logs - Visão Geral" provisionado automaticamente via
-    `grafana/provisioning/`, sem import manual). Sem script de simulação de
+    host) e `grafana` (`:3001` — não `3000`, mesmo motivo; dois dashboards
+    provisionados automaticamente via `grafana/provisioning/`, sem import
+    manual: "Concentrador de Logs - Visão Geral" (apps) e "Concentrador -
+    Saúde da Instância" (CPU/memória/disco/rede/inodes do node_exporter,
+    focado em identificar gargalo quando muitos apps enviam log ao mesmo
+    tempo)). Sem script de simulação de
     Filebeat (removido — os logs de verdade vêm das apps de `apps/` via
     Filebeat no host) e sem rotação nem arquivamento de propósito — este
     ambiente Docker é só para visualizar

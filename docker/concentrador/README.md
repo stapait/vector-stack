@@ -19,7 +19,7 @@ containers em vez de systemd.
 | `node-exporter` | `prom/node-exporter` | Métricas padrão da máquina (disco, CPU, memória, load, inodes, file descriptors, I/O) + lê os `.prom` gerados pelo `textfile-collector` |
 | `textfile-collector` | build local (`textfile-collector/`) | A cada 15 min (`INTERVAL_SECONDS`), varre `data/logs/{app}` e escreve `log_app_disk_bytes` e `log_app_last_write_timestamp_seconds` por app em `data/textfile/log_app_metrics.prom` |
 | `prometheus` | `prom/prometheus` | Faz scrape do `node-exporter` (que inclui as métricas custom acima) |
-| `grafana` | `grafana/grafana` | Dashboard "Concentrador de Logs - Visão Geral", provisionado automaticamente (datasource + dashboard JSON em `grafana/provisioning/`) — nada para importar manualmente |
+| `grafana` | `grafana/grafana` | Dois dashboards provisionados automaticamente (datasource + dashboard JSON em `grafana/provisioning/`) — nada para importar manualmente: "Concentrador de Logs - Visão Geral" (apps) e "Concentrador - Saúde da Instância" (node_exporter) |
 
 ## Endpoints (host)
 
@@ -122,9 +122,12 @@ tail -f data/logs/*/*/*/*.log
 
 ## Dashboard no Grafana
 
-Um único dashboard, "Concentrador de Logs - Visão Geral", carregado
-automaticamente ao subir o `grafana` (provisioning em
-`grafana/provisioning/`, sem import manual):
+Dois dashboards, carregados automaticamente ao subir o `grafana`
+(provisioning em `grafana/provisioning/`, sem import manual):
+
+### "Concentrador de Logs - Visão Geral" (`concentrador.json`)
+
+Foco nas apps que enviam log:
 
 - **Aplicações enviando logs** (tabela): uma linha por app, com tamanho em
   disco (`log_app_disk_bytes`, soma de todos os dias/instâncias daquela
@@ -135,17 +138,40 @@ automaticamente ao subir o `grafana` (provisioning em
   (ver nota abaixo sobre o que fica de fora).
 - **Disco usado**, **inodes livres** e **file descriptors usados**
   (gauges com threshold verde/amarelo/vermelho) e **memória disponível**
-  (stat) — saúde geral da máquina que hospeda `data/logs`.
+  (stat) — resumo rápido de saúde da máquina, sem entrar em detalhe (isso
+  fica para o segundo dashboard).
 - **Load average** e **CPU usada** (séries temporais, load normalizado
-  pelo número de cores) e **I/O de disco** — sinais de que o volume de
-  logs recebido pode estar sobrecarregando a máquina.
+  pelo número de cores) e **I/O de disco**.
 
-Os thresholds de alerta (disco 85%/95%, inodes 85%, etc.) estão descritos
-em `arquitetura.md` § Métricas, mas os **alertas do Grafana em si não
-estão configurados neste compose** — só os dashboards/painéis. Também fora
-de escopo (mesma decisão registrada em `arquitetura.md`): alerta de uma
-app individual crescendo com taxa anormal — o sinal disponível aqui é
-"parou de enviar" (staleness), não "está crescendo rápido demais".
+### "Concentrador - Saúde da Instância" (`instancia.json`)
+
+Dashboard dedicado à máquina em si — tudo que pode "gargalar" quando
+muitos apps estão enviando log ao mesmo tempo (CPU, memória, disco, rede,
+inodes), com mais detalhe que o resumo do primeiro dashboard:
+
+- **Visão rápida** (stat/gauge): CPU usada, memória usada, swap usado,
+  disco usado, inodes livres, file descriptors usados, conexões TCP
+  estabelecidas (relevante porque cada Filebeat cliente mantém uma conexão
+  TCP com o Vector) e uptime da máquina.
+- **CPU por modo** (série temporal empilhada: user/system/iowait/etc.) —
+  `iowait` alto é o sinal mais direto de que o disco está sendo o gargalo
+  da ingestão de log, não a CPU em si.
+- **Load average por core** (série temporal, com linha de threshold em
+  1.0 e 1.5 — mesmo limiar de `arquitetura.md` § Métricas: alerta se
+  `load1` passar de 1.5x o número de cores).
+- **Memória detalhada** (total/disponível/cache/buffers).
+- **Disco**: tempo ocupado (%), throughput de leitura/escrita (bytes/s) e
+  operações por segundo — por dispositivo.
+- **Rede**: tráfego recebido/enviado e erros/descartes — por interface
+  (loopback e interfaces virtuais do Docker filtradas).
+
+Os thresholds de alerta (disco 85%/95%, inodes 85%, load 1.5x cores, etc.)
+estão descritos em `arquitetura.md` § Métricas e aparecem como cor/linha
+nos painéis acima, mas os **alertas do Grafana em si não estão
+configurados neste compose** — só os dashboards/painéis. Também fora de
+escopo (mesma decisão registrada em `arquitetura.md`): alerta de uma app
+individual crescendo com taxa anormal — o sinal disponível aqui é "parou
+de enviar" (staleness), não "está crescendo rápido demais".
 
 ## Estrutura de pastas
 
@@ -158,7 +184,8 @@ docker/concentrador/
 │   ├── datasources/datasource.yml              # datasource Prometheus, auto-provisionado
 │   └── dashboards/
 │       ├── dashboard.yml                       # provider que aponta pra esta pasta
-│       └── concentrador.json                   # dashboard "Concentrador de Logs - Visão Geral"
+│       ├── concentrador.json                   # dashboard "Concentrador de Logs - Visão Geral"
+│       └── instancia.json                      # dashboard "Concentrador - Saúde da Instância"
 ├── textfile-collector/
 │   ├── Dockerfile                              # alpine + bash/coreutils/findutils
 │   └── log-metrics.sh                          # gera log_app_disk_bytes / log_app_last_write_timestamp_seconds

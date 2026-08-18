@@ -83,6 +83,29 @@ Vector, para o mesmo trabalho:
   literalmente `source` (recebe Beats) → `sink` (grava com path templado) —
   menos peça girando para essa garantia continuar valendo conforme o
   número de aplicações cresce.
+- **Comportamento sob carga/backpressure**: este é o ponto onde a
+  diferença de arquitetura mais aparece em produção, não só em benchmark.
+  O Logstash roda sobre uma JVM e usa, entre os estágios do pipeline
+  (`input → filter → output`), uma fila interna bloqueante — se qualquer
+  estágio downstream fica momentaneamente lento (disco, Elasticsearch,
+  etc.), a fila enche e o Logstash **para de ler de todos os inputs ao
+  mesmo tempo**, não só do que está lento. Combinado com heap mal
+  dimensionado, isso tende a produzir GC longo, e em cenários extremos o
+  host inteiro entra em swap sob a pressão de memória — um caso real e
+  comum é uma concentradora recebendo de 50+ instâncias que funciona
+  normalmente por um tempo e então trava por completo, exigindo reboot
+  (não só restart do serviço), tipicamente por essa combinação de fila
+  bloqueante + GC + swap, às vezes agravada por fila persistida num disco
+  com IOPS de burst limitado (ex. EBS `gp2`) que se esgota sob carga
+  sustentada. O Vector, por ser Rust sem garbage collector, não tem esse
+  modo de falha por GC/heap; os buffers entre componentes são configuráveis
+  por sink (memória ou disco, com comportamento explícito de overflow —
+  `block` ou `drop_newest`), então uma saída lenta não necessariamente trava
+  todas as fontes do mesmo jeito. E o Vector expõe métricas internas
+  próprias (`vector_buffer_events_total`, erros por componente etc.) via
+  Prometheus, o que dá visibilidade direta de qual estágio está sob pressão
+  antes que vire um travamento — exatamente o tipo de sinal que falta
+  diagnosticar depois que a máquina já travou.
 
 ## Estrutura do repositório
 
