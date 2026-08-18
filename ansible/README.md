@@ -1,10 +1,10 @@
 # Ansible
 
-Provisiona (ou atualiza) a EC2 concentradora de logs: Vector, rotação
-(logrotate), arquivamento e métricas (node_exporter + textfile collector).
-A instância já precisa existir (Amazon Linux 2023) e já ter o volume EBS
-montado — isso é responsabilidade de quem provisiona a infraestrutura, não
-deste playbook.
+Provisiona (ou atualiza) a EC2 concentradora de logs: tuning de SO para
+alta carga, Vector, rotação (logrotate), arquivamento e métricas
+(node_exporter + textfile collector). A instância já precisa existir
+(Amazon Linux 2023) e já ter o volume EBS montado — isso é
+responsabilidade de quem provisiona a infraestrutura, não deste playbook.
 
 Contexto de arquitetura completo (por que Vector, por que sem TLS, diagrama
 do fluxo cliente → concentradora) em [`../AWS.md`](../AWS.md) — este README
@@ -19,8 +19,9 @@ ansible/
 ├── inventory/
 │   └── hosts.ini                 # inventário de exemplo para uma EC2 real
 └── roles/
+    ├── os_tuning/            # sysctl (rede, memória, disco) para alta carga
     ├── common/               # pacotes base, usuário/grupo "vector", valida o mount do EBS
-    ├── vector/                # binário + config + systemd do Vector, cria .../logs
+    ├── vector/                # binário + config + systemd do Vector, cria .../logs e .../state
     ├── node_exporter/         # binário + systemd do node_exporter, cria o dir do textfile collector
     ├── textfile_collector/    # log-metrics.sh + timer de 15 em 15 min
     ├── logrotate/             # logrotate-vector.conf + timer de hora em hora
@@ -47,6 +48,16 @@ Vector), basta editar este arquivo e rodar o playbook de novo.
 | `textfile_collector_dir` | Diretório lido pelo node_exporter (`--collector.textfile.directory`) onde `log-metrics.sh` escreve as métricas custom. |
 | `metrics_interval_seconds` | Intervalo do timer que roda `log-metrics.sh` (900s = 15 min, igual ao ambiente Docker). |
 | `log_archive_retention_days` | Dias de retenção antes do `archive-logs.sh` mover um `.gz` para `.../archive`. |
+| `os_tuning_vm_swappiness` | Quão agressivo o kernel é para trocar memória por swap (0-100). `1` evita swap salvo pressão extrema — importante porque, sob memória apertada, um host que começa a fazer swap fica lento por inteiro (não só o processo com pressão), a ponto de exigir reboot. |
+| `os_tuning_vm_dirty_background_ratio`, `os_tuning_vm_dirty_ratio` | % da RAM que pode ficar como página suja (ainda não gravada em disco) antes do kernel começar a escrever em background (`dirty_background_ratio`) ou bloquear escritores até liberar (`dirty_ratio`). Baixados dos ~10/20% padrão porque esta máquina escreve log o tempo todo — deixar acumular muita página suja significa um flush gigante e súbito depois, que trava I/O justo quando mais chega log. |
+| `os_tuning_fs_file_max` | Teto de file descriptors abertos simultaneamente **no sistema inteiro** (não confundir com o limite por processo, que é `vector_limit_nofile`). Precisa ser maior que qualquer `LimitNOFILE` de serviço individual. |
+| `os_tuning_net_somaxconn`, `os_tuning_net_tcp_max_syn_backlog` | Tamanho da fila de conexões TCP pendentes de aceitar/handshake. Com 50+ Filebeats reconectando ao mesmo tempo (deploy, restart do Vector, blip de rede), o valor padrão do kernel (128) é pequeno demais e causa conexões recusadas/retry. |
+| `os_tuning_net_netdev_max_backlog` | Fila de pacotes de rede recebidos aguardando o kernel processar, antes de chegar à aplicação — evita descarte de pacote sob rajada de tráfego. |
+| `os_tuning_net_rmem_max`, `os_tuning_net_wmem_max` | Teto de buffer de recepção/envio por socket TCP — usado também para compor `tcp_rmem`/`tcp_wmem` (mín/padrão/máx) no template. Relevante para sustentar throughput alto com muitas conexões simultâneas sem o kernel limitar a janela TCP. |
+| `vector_limit_nofile` | `LimitNOFILE` da unit systemd do Vector — file descriptors abertos só por ele. O Vector mantém um arquivo aberto por combinação ativa de app/dia/instância (ver `arquitetura.md` § Métricas), então isso cresce com o número de apps/instâncias enviando log ao mesmo tempo. |
+| `vector_connection_limit` | Máximo de conexões TCP simultâneas aceitas pelo source `logstash` do Vector — uma por Filebeat cliente conectado. |
+| `vector_receive_buffer_bytes` | Tamanho do buffer de recepção (`SO_RCVBUF`) por conexão do source `logstash`. |
+| `vector_sink_buffer_max_size` | Tamanho do buffer em disco do sink `file` (bytes) — absorve picos de escrita sem aplicar backpressure imediata nos Filebeats conectados. Mínimo aceito pelo Vector para buffer em disco é ~256MB; o buffer é gravado em `data_dir` (`{{ vector_data_root }}/state`, criado pela role `vector`). |
 
 ## O que o playbook faz
 
@@ -55,27 +66,33 @@ Idempotente — rodar de novo (ex. depois de mudar `vector_version` em
 afetados. A ordem das roles em `vector-provision.yml` importa — elas não
 são independentes:
 
-1. **`common`**: confirma que `vector_data_root` já é um ponto de montagem
+1. **`os_tuning`**: gera `/etc/sysctl.d/99-vector-concentrador.conf`
+   (swappiness, dirty ratio, backlog de conexão, buffers de socket — ver
+   tabela de variáveis acima) e aplica com `sysctl --system`. Roda primeiro
+   porque é tuning de SO independente de qualquer outro serviço, e o Vector
+   já deve subir sob os parâmetros finais.
+2. **`common`**: confirma que `vector_data_root` já é um ponto de montagem
    real (`ansible_facts['mounts']`); instala pacotes base (`tar`, `gzip`,
    `findutils` — este último não vem por padrão em toda instalação mínima
    de AL2023, e é usado por `log-metrics.sh`/`archive-logs.sh`); cria
    usuário/grupo de sistema `vector`.
-2. **`vector`**: cria `{{ vector_data_root }}/logs`; baixa e instala o
-   Vector (binário do release oficial, versionado — symlink
-   `/usr/local/bin/vector` apontando pra versão corrente, troca limpa ao
-   atualizar `vector_version`); gera `/etc/vector/vector.yaml` e a unit
-   systemd; habilita e sobe o serviço. Precisa rodar antes de
-   `textfile_collector`, `logrotate` e `archive_logs` (todas leem/escrevem
-   em `.../logs`).
-3. **`node_exporter`**: cria `{{ textfile_collector_dir }}`; baixa e
+3. **`vector`**: cria `{{ vector_data_root }}/logs` e
+   `{{ vector_data_root }}/state` (usado por `data_dir`, onde o Vector
+   persiste o buffer em disco do sink); baixa e instala o Vector (binário
+   do release oficial, versionado — symlink `/usr/local/bin/vector`
+   apontando pra versão corrente, troca limpa ao atualizar
+   `vector_version`); gera `/etc/vector/vector.yaml` e a unit systemd;
+   habilita e sobe o serviço. Precisa rodar antes de `textfile_collector`,
+   `logrotate` e `archive_logs` (todas leem/escrevem em `.../logs`).
+4. **`node_exporter`**: cria `{{ textfile_collector_dir }}`; baixa e
    instala o `node_exporter`; unit systemd; habilita e sobe. Precisa rodar
    antes de `textfile_collector`.
-4. **`textfile_collector`**: instala `log-metrics.sh` + unit/timer de 15
+5. **`textfile_collector`**: instala `log-metrics.sh` + unit/timer de 15
    em 15 min.
-5. **`logrotate`**: instala o pacote `logrotate`; gera
+6. **`logrotate`**: instala o pacote `logrotate`; gera
    `/etc/vector/logrotate-vector.conf` e a unit/timer que o invoca de hora
    em hora.
-6. **`archive_logs`**: cria `{{ vector_data_root }}/archive`; instala
+7. **`archive_logs`**: cria `{{ vector_data_root }}/archive`; instala
    `archive-logs.sh` e o timer diário de arquivamento.
 
 ## O que **não** faz
@@ -88,6 +105,36 @@ são independentes:
   fora deste playbook.
 - **Não descobre nada sozinho**: sem inventário dinâmico, sem lookup de
   instância por tag — o IP é fornecido (inventário ou `-i "IP,"`).
+
+## Tuning para alta carga (produção)
+
+Pensado para uma concentradora recebendo de muitas fontes ao mesmo tempo
+(dezenas de instâncias/containers enviando log simultaneamente), dois
+níveis de ajuste:
+
+- **SO (role `os_tuning`)**: sysctl de rede (fila de conexão/handshake TCP,
+  buffers de socket, backlog de pacote) e de memória/disco (`swappiness`
+  baixo, `dirty_ratio`/`dirty_background_ratio` reduzidos para não deixar
+  acumular uma escrita gigante e súbita num host que grava log o tempo
+  todo). Ver a tabela de variáveis acima para o racional de cada valor.
+- **Vector (role `vector`)**: `LimitNOFILE` da unit systemd elevado (o
+  Vector mantém um arquivo aberto por combinação ativa de
+  app/dia/instância — cresce com o número de fontes simultâneas, ver
+  `arquitetura.md` § Métricas), `connection_limit`/`receive_buffer_bytes`
+  no source `logstash`, e um **buffer em disco** (`buffer.type: disk`) no
+  sink `file` — absorve picos de escrita sem aplicar backpressure
+  imediata nos Filebeats conectados. Por ser Rust sem garbage collector, o
+  Vector não tem o modo de falha de "GC longo → fila trava → conexões se
+  acumulam" que existe em coletores baseados em JVM sob carga alta (ver
+  `README.md` § "Por que Vector, e não Logstash" na raiz do repo).
+
+**Ainda não validado end-to-end contra a EC2 real** (diferente do resto do
+playbook, ver "Validação" abaixo) — os valores vêm de práticas gerais de
+tuning de Linux/Vector para ingestão de log em alta carga, não de um
+incidente reproduzido nesta automação. Vale re-rodar o playbook e observar
+o comportamento (`sysctl -a`, `systemctl status vector`,
+`journalctl -u vector`, e o dashboard "Concentrador - Saúde da Instância"
+do Grafana) numa carga real antes de considerar esses valores definitivos.
 
 ## Detalhes técnicos (gotchas descobertos testando de verdade)
 
@@ -119,8 +166,8 @@ são independentes:
 ## Compatibilidade
 
 Só usa módulos builtin estáveis há vários anos (`dnf`, `user`, `group`,
-`file`, `template`, `unarchive`, `systemd`, `assert`) — sem depender de
-nenhuma collection externa. Testado com `ansible-core` 2.21
+`file`, `template`, `unarchive`, `systemd`, `assert`, `command`) — sem
+depender de nenhuma collection externa. Testado com `ansible-core` 2.21
 (`--syntax-check` limpo).
 
 Os módulos são chamados pelo nome curto (`file`, `template`, ...), sem o

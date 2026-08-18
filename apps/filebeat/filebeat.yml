@@ -21,7 +21,7 @@ filebeat.inputs:
   - type: filestream
     id: app1
     paths:
-      - /home/fabio/projects/vector-stack/apps/app1/logs/app1.log
+      - /home/fpedarnig/projects/vector-stack/apps/app1/logs/app1.log
     fields:
       app: app1
     fields_under_root: false
@@ -29,7 +29,7 @@ filebeat.inputs:
   - type: filestream
     id: app2
     paths:
-      - /home/fabio/projects/vector-stack/apps/app2/logs/app2.log
+      - /home/fpedarnig/projects/vector-stack/apps/app2/logs/app2.log
     fields:
       app: app2
     fields_under_root: false

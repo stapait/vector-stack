@@ -47,10 +47,14 @@ fechadas (ex.: por que Vector em vez de Logstash, por que sem TLS por ora).
   `textfile-collector` gravam essas pastas como `root` e o host não
   consegue ler/mover/apagar esses arquivos depois).
 - Automação Ansible (`ansible/vector-provision.yml`, detalhes em `AWS.md`
-  e em `ansible/README.md`) provisiona a EC2 concentradora real (Vector,
-  node_exporter, textfile collector, logrotate, arquivamento) — validada de
+  e em `ansible/README.md`) provisiona a EC2 concentradora real (tuning de
+  SO/Vector para alta carga, Vector, node_exporter, textfile collector,
+  logrotate, arquivamento). A base (tudo exceto o tuning) foi validada de
   ponta a ponta direto contra uma EC2 real (Amazon Linux 2023), não só
-  lida/revisada. Antes disso existir, tinha sido validada localmente sem
+  lida/revisada — a role `os_tuning` é nova (sysctl de rede/memória/disco +
+  `LimitNOFILE`/buffer em disco no Vector, pensados para muitas fontes
+  enviando log ao mesmo tempo) e ainda não passou por essa validação, ver
+  `ansible/README.md` § "Tuning para alta carga". Antes disso existir, tinha sido validada localmente sem
   conta AWS via `docker/local-ec2/` (container com systemd) e `vagrant/`
   (VM VirtualBox, box `bento/amazonlinux-2023`) — ambas as pastas foram
   removidas do repo depois que a validação passou a ser feita direto na
@@ -92,6 +96,9 @@ Itens ainda em aberto (ver "Pendências conhecidas" em
 - Alerta de app individual crescendo com taxa anormal (fora de escopo por
   decisão já registrada em `arquitetura.md` § Métricas).
 - TLS entre Filebeat e Vector (adiado por decisão de arquitetura).
+- Validar a role `os_tuning` (sysctl + `LimitNOFILE`/buffer em disco do
+  Vector) contra a EC2 real, sob carga — ainda não testada de ponta a
+  ponta como o resto do playbook.
 
 ## Convenção
 

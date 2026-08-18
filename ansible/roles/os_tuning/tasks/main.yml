@@ -1,0 +1,9 @@
+---
+- name: Configurar sysctl para alta carga
+  template:
+    src: 99-vector-concentrador.conf.j2
+    dest: /etc/sysctl.d/99-vector-concentrador.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Aplicar sysctl

@@ -1,8 +1,14 @@
 # Gerado pelo Ansible (vector-provision.yml) — não editar manualmente.
+data_dir: "{{ vector_data_root }}/state"
+
 sources:
   filebeat:
     type: logstash
     address: 0.0.0.0:{{ vector_listen_port }}
+    connection_limit: {{ vector_connection_limit }}
+    receive_buffer_bytes: {{ vector_receive_buffer_bytes }}
+    keepalive:
+      time_secs: 60
 
 sinks:
   logs_por_app:
@@ -14,3 +20,7 @@ sinks:
       codec: text
     healthcheck:
       enabled: true
+    buffer:
+      type: disk
+      max_size: {{ vector_sink_buffer_max_size }}
+      when_full: block

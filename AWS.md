@@ -100,8 +100,9 @@ ansible/
 ├── inventory/hosts.ini          # 1 host (edite o IP, ou passe -i "IP," na linha de comando)
 ├── group_vars/vector.yml        # variáveis do grupo "vector" — carregadas automaticamente
 └── roles/
+    ├── os_tuning/           # sysctl (rede, memória, disco) para alta carga
     ├── common/              # pacotes base, usuário/grupo "vector", valida o mount do EBS
-    ├── vector/               # binário + config + systemd do Vector, cria .../logs
+    ├── vector/               # binário + config + systemd do Vector, cria .../logs e .../state
     ├── node_exporter/        # binário + systemd do node_exporter, cria o dir do textfile collector
     ├── textfile_collector/   # log-metrics.sh + timer de 15 em 15 min
     ├── logrotate/            # logrotate-vector.conf + timer de hora em hora
@@ -115,27 +116,36 @@ Idempotente — rodar de novo (ex. depois de mudar `vector_version` em
 afetados. A ordem das roles em `vector-provision.yml` importa — elas não
 são independentes:
 
-1. **`common`**: confirma que `vector_data_root` (`/mnt/vector`) já é um
+1. **`os_tuning`**: gera `/etc/sysctl.d/99-vector-concentrador.conf`
+   (swappiness, dirty ratio, backlog de conexão TCP, buffers de socket —
+   pensado para muitas fontes enviando log ao mesmo tempo) e aplica com
+   `sysctl --system`. Roda primeiro para o Vector já subir sob os
+   parâmetros finais.
+2. **`common`**: confirma que `vector_data_root` (`/mnt/vector`) já é um
    ponto de montagem real (`ansible_facts['mounts']`) — falha cedo com uma
    mensagem clara se não for, em vez de gravar sem querer no disco raiz da
    instância; instala pacotes base (`tar`, `gzip`, `findutils`); cria usuário/grupo de
    sistema `vector`.
-2. **`vector`**: cria `/mnt/vector/logs`; baixa e instala o Vector (binário
-   do release oficial, versionado — symlink `/usr/local/bin/vector`
-   apontando pra versão corrente, troca limpa ao atualizar
-   `vector_version`); gera `/etc/vector/vector.yaml` e a unit systemd;
-   habilita e sobe o serviço. Precisa rodar antes de `textfile_collector`,
-   `logrotate` e `archive_logs` (todas leem/escrevem em
-   `.../logs`).
-3. **`node_exporter`**: cria o diretório do textfile collector; baixa e
+3. **`vector`**: cria `/mnt/vector/logs` e `/mnt/vector/state` (usado por
+   `data_dir`, onde o Vector persiste o buffer em disco do sink); baixa e
+   instala o Vector (binário do release oficial, versionado — symlink
+   `/usr/local/bin/vector` apontando pra versão corrente, troca limpa ao
+   atualizar `vector_version`); gera `/etc/vector/vector.yaml` (com
+   `LimitNOFILE` elevado, `connection_limit`/`receive_buffer_bytes` no
+   source e buffer em disco no sink — detalhes em
+   [`ansible/README.md`](./ansible/README.md) § "Tuning para alta carga")
+   e a unit systemd; habilita e sobe o serviço. Precisa rodar antes de
+   `textfile_collector`, `logrotate` e `archive_logs` (todas leem/escrevem
+   em `.../logs`).
+4. **`node_exporter`**: cria o diretório do textfile collector; baixa e
    instala o `node_exporter`; unit systemd; habilita e sobe. Precisa rodar
    antes de `textfile_collector`.
-4. **`textfile_collector`**: script `log-metrics.sh` + unit/timer de 15 em
+5. **`textfile_collector`**: script `log-metrics.sh` + unit/timer de 15 em
    15 min.
-5. **`logrotate`**: instala o pacote `logrotate`; gera
+6. **`logrotate`**: instala o pacote `logrotate`; gera
    `/etc/vector/logrotate-vector.conf` e a unit/timer que o invoca de hora
    em hora.
-6. **`archive_logs`**: cria `/mnt/vector/archive`; instala
+7. **`archive_logs`**: cria `/mnt/vector/archive`; instala
    `archive-logs.sh` e o timer diário de arquivamento.
 
 ### O que **não** faz (por decisão, ver histórico da conversa)
@@ -193,7 +203,12 @@ Group liberando 22/tcp de onde o Ansible roda, e o volume EBS já montado em
 ### Validação
 
 A automação (`vector-provision.yml`) foi validada de ponta a ponta direto
-contra uma EC2 real (Amazon Linux 2023) — não só lida/revisada.
+contra uma EC2 real (Amazon Linux 2023) — não só lida/revisada. Exceção: a
+role `os_tuning` (tuning de SO/Vector para alta carga) é nova e ainda não
+passou por essa validação — os valores vêm de práticas gerais de tuning de
+Linux/Vector para ingestão de log em alta carga, não de um incidente
+reproduzido nesta automação (ver `ansible/README.md` § "Tuning para alta
+carga").
 
 Antes de existir essa EC2 real, a automação tinha sido validada localmente
 sem conta AWS, primeiro contra um container com Amazon Linux 2023

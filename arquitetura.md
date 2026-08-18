@@ -131,6 +131,15 @@ output.logstash:
   estrutura — mantém a pasta principal só com os logs mais recentes.
   Implementado só na automação Ansible real (role `archive_logs`, ver
   `ansible/README.md`) — mesma razão acima, fora do ambiente Docker local.
+- **Tuning para alta carga** (muitas fontes enviando log ao mesmo tempo):
+  sysctl de rede/memória/disco (backlog de conexão TCP, buffers de socket,
+  swappiness, dirty ratio) e, no próprio Vector, `LimitNOFILE` elevado
+  (relevante porque um arquivo fica aberto por combinação ativa de
+  app/dia/instância, ver § Métricas abaixo) e buffer em disco no sink
+  `file` para absorver picos de escrita sem aplicar backpressure imediata
+  nas fontes. Implementado só na automação Ansible real (role `os_tuning`,
+  ver `ansible/README.md`) — o ambiente Docker local não precisa lidar com
+  essa escala.
 
 ## Tempo real
 

@@ -1,0 +1,4 @@
+---
+- name: Aplicar sysctl
+  command: sysctl --system
+  changed_when: true

@@ -12,7 +12,7 @@ Group={{ vector_system_group }}
 ExecStart=/usr/local/bin/vector --config /etc/vector/vector.yaml
 Restart=on-failure
 RestartSec=5
-LimitNOFILE=65536
+LimitNOFILE={{ vector_limit_nofile }}
 
 [Install]
 WantedBy=multi-user.target

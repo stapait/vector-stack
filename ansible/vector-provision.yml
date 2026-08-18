@@ -4,6 +4,7 @@
   become: true
   gather_facts: true
   roles:
+    - os_tuning
     - common
     - vector
     - node_exporter

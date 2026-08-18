@@ -21,3 +21,18 @@ textfile_collector_dir: /var/lib/node_exporter/textfile_collector
 metrics_interval_seconds: 900
 
 log_archive_retention_days: 30
+
+os_tuning_vm_swappiness: 1
+os_tuning_vm_dirty_background_ratio: 5
+os_tuning_vm_dirty_ratio: 10
+os_tuning_fs_file_max: 2097152
+os_tuning_net_somaxconn: 4096
+os_tuning_net_tcp_max_syn_backlog: 4096
+os_tuning_net_netdev_max_backlog: 5000
+os_tuning_net_rmem_max: 16777216
+os_tuning_net_wmem_max: 16777216
+
+vector_limit_nofile: 1048576
+vector_connection_limit: 4096
+vector_receive_buffer_bytes: 262144
+vector_sink_buffer_max_size: 536870912

@@ -9,6 +9,7 @@
   loop:
     - { path: /etc/vector, owner: root, group: root }
     - { path: "{{ vector_data_root }}/logs", owner: "{{ vector_system_user }}", group: "{{ vector_system_group }}" }
+    - { path: "{{ vector_data_root }}/state", owner: "{{ vector_system_user }}", group: "{{ vector_system_group }}" }
 
 - name: "Baixar e extrair Vector {{ vector_version }}"
   unarchive:

@@ -1,1 +1,0 @@
-Pensando em produção agora, atualize a automação Ansible para configurar parâmetros de uma máquina de produção, para receber alta carga.
