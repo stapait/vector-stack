@@ -1,14 +1,8 @@
 # Ansible
 
-Provisiona (ou atualiza) a EC2 concentradora de logs: tuning de SO para
-alta carga, Vector, rotação (logrotate), arquivamento e métricas
-(node_exporter + textfile collector). A instância já precisa existir
-(Amazon Linux 2023) e já ter o volume EBS montado — isso é
-responsabilidade de quem provisiona a infraestrutura, não deste playbook.
+Provisiona (ou atualiza) a EC2 concentradora de logs: tuning de SO para alta carga, Vector, rotação (logrotate), arquivamento e métricas (node_exporter + textfile collector). A instância já precisa existir (Amazon Linux 2023) e já ter o volume EBS montado — isso é responsabilidade de quem provisiona a infraestrutura, não deste playbook.
 
-Contexto de arquitetura completo (por que Vector, por que sem TLS, diagrama
-do fluxo cliente → concentradora) em [`../AWS.md`](../AWS.md) — este README
-cobre só o funcionamento interno da automação.
+Contexto de arquitetura completo (por que Vector, por que sem TLS, diagrama do fluxo cliente → concentradora) em [`../AWS.md`](../AWS.md) — este README cobre só o funcionamento interno da automação.
 
 ## Estrutura
 
@@ -30,10 +24,7 @@ ansible/
 
 ## Variáveis (`group_vars/vector.yml`)
 
-Como `hosts.ini` usa o grupo `[vector]`, o Ansible carrega
-`group_vars/vector.yml` automaticamente — não é preciso passar `-e` na
-linha de comando. Para editar uma variável (ex. atualizar a versão do
-Vector), basta editar este arquivo e rodar o playbook de novo.
+Como `hosts.ini` usa o grupo `[vector]`, o Ansible carrega `group_vars/vector.yml` automaticamente — não é preciso passar `-e` na linha de comando. Para editar uma variável (ex. atualizar a versão do Vector), basta editar este arquivo e rodar o playbook de novo.
 
 | Variável | Uso |
 |---|---|
@@ -61,122 +52,44 @@ Vector), basta editar este arquivo e rodar o playbook de novo.
 
 ## O que o playbook faz
 
-Idempotente — rodar de novo (ex. depois de mudar `vector_version` em
-`group_vars/vector.yml`) atualiza só o que mudou e reinicia só os serviços
-afetados. A ordem das roles em `vector-provision.yml` importa — elas não
-são independentes:
+Idempotente — rodar de novo (ex. depois de mudar `vector_version` em `group_vars/vector.yml`) atualiza só o que mudou e reinicia só os serviços afetados. A ordem das roles em `vector-provision.yml` importa — elas não são independentes:
 
-1. **`os_tuning`**: gera `/etc/sysctl.d/99-vector-concentrador.conf`
-   (swappiness, dirty ratio, backlog de conexão, buffers de socket — ver
-   tabela de variáveis acima) e aplica com `sysctl --system`. Roda primeiro
-   porque é tuning de SO independente de qualquer outro serviço, e o Vector
-   já deve subir sob os parâmetros finais.
-2. **`common`**: confirma que `vector_data_root` já é um ponto de montagem
-   real (`ansible_facts['mounts']`); instala pacotes base (`tar`, `gzip`,
-   `findutils` — este último não vem por padrão em toda instalação mínima
-   de AL2023, e é usado por `log-metrics.sh`/`archive-logs.sh`); cria
-   usuário/grupo de sistema `vector`.
-3. **`vector`**: cria `{{ vector_data_root }}/logs` e
-   `{{ vector_data_root }}/state` (usado por `data_dir`, onde o Vector
-   persiste o buffer em disco do sink); baixa e instala o Vector (binário
-   do release oficial, versionado — symlink `/usr/local/bin/vector`
-   apontando pra versão corrente, troca limpa ao atualizar
-   `vector_version`); gera `/etc/vector/vector.yaml` e a unit systemd;
-   habilita e sobe o serviço. Precisa rodar antes de `textfile_collector`,
-   `logrotate` e `archive_logs` (todas leem/escrevem em `.../logs`).
-4. **`node_exporter`**: cria `{{ textfile_collector_dir }}`; baixa e
-   instala o `node_exporter`; unit systemd; habilita e sobe. Precisa rodar
-   antes de `textfile_collector`.
-5. **`textfile_collector`**: instala `log-metrics.sh` + unit/timer de 15
-   em 15 min.
-6. **`logrotate`**: instala o pacote `logrotate`; gera
-   `/etc/vector/logrotate-vector.conf` e a unit/timer que o invoca de hora
-   em hora.
-7. **`archive_logs`**: cria `{{ vector_data_root }}/archive`; instala
-   `archive-logs.sh` e o timer diário de arquivamento.
+1. **`os_tuning`**: gera `/etc/sysctl.d/99-vector-concentrador.conf` (swappiness, dirty ratio, backlog de conexão, buffers de socket — ver tabela de variáveis acima) e aplica com `sysctl --system`. Roda primeiro porque é tuning de SO independente de qualquer outro serviço, e o Vector já deve subir sob os parâmetros finais.
+2. **`common`**: confirma que `vector_data_root` já é um ponto de montagem real (`ansible_facts['mounts']`); instala pacotes base (`tar`, `gzip`, `findutils` — este último não vem por padrão em toda instalação mínima de AL2023, e é usado por `log-metrics.sh`/`archive-logs.sh`); cria usuário/grupo de sistema `vector`.
+3. **`vector`**: cria `{{ vector_data_root }}/logs` e `{{ vector_data_root }}/state` (usado por `data_dir`, onde o Vector persiste o buffer em disco do sink); baixa e instala o Vector (binário do release oficial, versionado — symlink `/usr/local/bin/vector` apontando pra versão corrente, troca limpa ao atualizar `vector_version`); gera `/etc/vector/vector.yaml` e a unit systemd; habilita e sobe o serviço. Precisa rodar antes de `textfile_collector`, `logrotate` e `archive_logs` (todas leem/escrevem em `.../logs`).
+4. **`node_exporter`**: cria `{{ textfile_collector_dir }}`; baixa e instala o `node_exporter`; unit systemd; habilita e sobe. Precisa rodar antes de `textfile_collector`.
+5. **`textfile_collector`**: instala `log-metrics.sh` + unit/timer de 15 em 15 min.
+6. **`logrotate`**: instala o pacote `logrotate`; gera `/etc/vector/logrotate-vector.conf` e a unit/timer que o invoca de hora em hora.
+7. **`archive_logs`**: cria `{{ vector_data_root }}/archive`; instala `archive-logs.sh` e o timer diário de arquivamento.
 
 ## O que **não** faz
 
-- **Não mexe no volume EBS**: não anexa, não formata, não monta — assume
-  que a instância já sobe com `vector_data_root` montado.
-- **Não chama a API da AWS**: os `aws_*` em `group_vars/vector.yml` são só
-  documentação do ambiente — o Ansible só faz SSH na instância e mexe no
-  SO. Segurança de rede (liberar 5044/9100 no Security Group) é gerenciada
-  fora deste playbook.
-- **Não descobre nada sozinho**: sem inventário dinâmico, sem lookup de
-  instância por tag — o IP é fornecido (inventário ou `-i "IP,"`).
+- **Não mexe no volume EBS**: não anexa, não formata, não monta — assume que a instância já sobe com `vector_data_root` montado.
+- **Não chama a API da AWS**: os `aws_*` em `group_vars/vector.yml` são só documentação do ambiente — o Ansible só faz SSH na instância e mexe no SO. Segurança de rede (liberar 5044/9100 no Security Group) é gerenciada fora deste playbook.
+- **Não descobre nada sozinho**: sem inventário dinâmico, sem lookup de instância por tag — o IP é fornecido (inventário ou `-i "IP,"`).
 
 ## Tuning para alta carga (produção)
 
-Pensado para uma concentradora recebendo de muitas fontes ao mesmo tempo
-(dezenas de instâncias/containers enviando log simultaneamente), dois
-níveis de ajuste:
+Pensado para uma concentradora recebendo de muitas fontes ao mesmo tempo (dezenas de instâncias/containers enviando log simultaneamente), dois níveis de ajuste:
 
-- **SO (role `os_tuning`)**: sysctl de rede (fila de conexão/handshake TCP,
-  buffers de socket, backlog de pacote) e de memória/disco (`swappiness`
-  baixo, `dirty_ratio`/`dirty_background_ratio` reduzidos para não deixar
-  acumular uma escrita gigante e súbita num host que grava log o tempo
-  todo). Ver a tabela de variáveis acima para o racional de cada valor.
-- **Vector (role `vector`)**: `LimitNOFILE` da unit systemd elevado (o
-  Vector mantém um arquivo aberto por combinação ativa de
-  app/dia/instância — cresce com o número de fontes simultâneas, ver
-  `arquitetura.md` § Métricas), `connection_limit`/`receive_buffer_bytes`
-  no source `logstash`, e um **buffer em disco** (`buffer.type: disk`) no
-  sink `file` — absorve picos de escrita sem aplicar backpressure
-  imediata nos Filebeats conectados. Por ser Rust sem garbage collector, o
-  Vector não tem o modo de falha de "GC longo → fila trava → conexões se
-  acumulam" que existe em coletores baseados em JVM sob carga alta (ver
-  `README.md` § "Por que Vector, e não Logstash" na raiz do repo).
+- **SO (role `os_tuning`)**: sysctl de rede (fila de conexão/handshake TCP, buffers de socket, backlog de pacote) e de memória/disco (`swappiness` baixo, `dirty_ratio`/`dirty_background_ratio` reduzidos para não deixar acumular uma escrita gigante e súbita num host que grava log o tempo todo). Ver a tabela de variáveis acima para o racional de cada valor.
+- **Vector (role `vector`)**: `LimitNOFILE` da unit systemd elevado (o Vector mantém um arquivo aberto por combinação ativa de app/dia/instância — cresce com o número de fontes simultâneas, ver `arquitetura.md` § Métricas), `connection_limit`/`receive_buffer_bytes` no source `logstash`, e um **buffer em disco** (`buffer.type: disk`) no sink `file` — absorve picos de escrita sem aplicar backpressure imediata nos Filebeats conectados. Por ser Rust sem garbage collector, o Vector não tem o modo de falha de "GC longo → fila trava → conexões se acumulam" que existe em coletores baseados em JVM sob carga alta (ver `README.md` § "Por que Vector, e não Logstash" na raiz do repo).
 
-**Ainda não validado end-to-end contra a EC2 real** (diferente do resto do
-playbook, ver "Validação" abaixo) — os valores vêm de práticas gerais de
-tuning de Linux/Vector para ingestão de log em alta carga, não de um
-incidente reproduzido nesta automação. Vale re-rodar o playbook e observar
-o comportamento (`sysctl -a`, `systemctl status vector`,
-`journalctl -u vector`, e o dashboard "Concentrador - Saúde da Instância"
-do Grafana) numa carga real antes de considerar esses valores definitivos.
+**Ainda não validado end-to-end contra a EC2 real** (diferente do resto do playbook, ver "Validação" abaixo) — os valores vêm de práticas gerais de tuning de Linux/Vector para ingestão de log em alta carga, não de um incidente reproduzido nesta automação. Vale re-rodar o playbook e observar o comportamento (`sysctl -a`, `systemctl status vector`, `journalctl -u vector`, e o dashboard "Concentrador - Saúde da Instância" do Grafana) numa carga real antes de considerar esses valores definitivos.
 
 ## Detalhes técnicos (gotchas descobertos testando de verdade)
 
-- **`vector-logrotate.service`** roda como `root` de propósito: a diretiva
-  `su {{ vector_system_user }} {{ vector_system_group }}` dentro de
-  `logrotate-vector.conf` exige que o logrotate tenha sido iniciado como
-  root para poder trocar de usuário nas operações de arquivo — ele mesmo
-  faz o drop de privilégio por dentro.
-- **`--force`** no `ExecStart` do mesmo service é necessário: sem uma
-  diretiva de frequência (`daily`/`weekly`) no `.conf`, o logrotate cai no
-  critério padrão de tamanho (~1 MiB) em vez de girar a cada execução —
-  testado que, sem `--force`, um log pequeno nunca rotaciona mesmo rodando
-  o timer de hora em hora. `--force` ignora esse critério (mas ainda
-  respeita `notifempty`, então apps sem log novo não geram `.gz` vazio).
-- **`rotate 100000`** em `logrotate-vector.conf.j2`: `copytruncate` +
-  `dateext` sem uma diretiva `rotate N` explícita falha silenciosamente
-  (pula a cópia, gera erro tentando comprimir um arquivo que nunca foi
-  criado). O número é só uma trava de segurança bem folgada — quem decide
-  apagar (na prática, mover para `.../archive`) é o `archive-logs.sh`, não
-  o logrotate.
-- **Path glob dinâmico** em `logrotate-vector.conf.j2`
-  (`.../logs/*/*/*/*.log`): cobre qualquer app/data/instância que já
-  exista, inclusive apps novas, sem precisar de nenhuma alteração aqui —
-  resolvido a cada execução do logrotate.
-- **`log-metrics.sh`** e **`archive-logs.sh`** escaneiam os diretórios
-  existentes a cada execução — uma app nova aparece nas métricas e no
-  arquivamento sozinha, sem precisar reconfigurar nada.
+- **`vector-logrotate.service`** roda como `root` de propósito: a diretiva `su {{ vector_system_user }} {{ vector_system_group }}` dentro de `logrotate-vector.conf` exige que o logrotate tenha sido iniciado como root para poder trocar de usuário nas operações de arquivo — ele mesmo faz o drop de privilégio por dentro.
+- **`--force`** no `ExecStart` do mesmo service é necessário: sem uma diretiva de frequência (`daily`/`weekly`) no `.conf`, o logrotate cai no critério padrão de tamanho (~1 MiB) em vez de girar a cada execução — testado que, sem `--force`, um log pequeno nunca rotaciona mesmo rodando o timer de hora em hora. `--force` ignora esse critério (mas ainda respeita `notifempty`, então apps sem log novo não geram `.gz` vazio).
+- **`rotate 100000`** em `logrotate-vector.conf.j2`: `copytruncate` + `dateext` sem uma diretiva `rotate N` explícita falha silenciosamente (pula a cópia, gera erro tentando comprimir um arquivo que nunca foi criado). O número é só uma trava de segurança bem folgada — quem decide apagar (na prática, mover para `.../archive`) é o `archive-logs.sh`, não o logrotate.
+- **Path glob dinâmico** em `logrotate-vector.conf.j2` (`.../logs/*/*/*/*.log`): cobre qualquer app/data/instância que já exista, inclusive apps novas, sem precisar de nenhuma alteração aqui — resolvido a cada execução do logrotate.
+- **`log-metrics.sh`** e **`archive-logs.sh`** escaneiam os diretórios existentes a cada execução — uma app nova aparece nas métricas e no arquivamento sozinha, sem precisar reconfigurar nada.
 
 ## Compatibilidade
 
-Só usa módulos builtin estáveis há vários anos (`dnf`, `user`, `group`,
-`file`, `template`, `unarchive`, `systemd`, `assert`, `command`) — sem
-depender de nenhuma collection externa. Testado com `ansible-core` 2.21
-(`--syntax-check` limpo).
+Só usa módulos builtin estáveis há vários anos (`dnf`, `user`, `group`, `file`, `template`, `unarchive`, `systemd`, `assert`, `command`) — sem depender de nenhuma collection externa. Testado com `ansible-core` 2.21 (`--syntax-check` limpo).
 
-Os módulos são chamados pelo nome curto (`file`, `template`, ...), sem o
-prefixo `ansible.builtin.` — funciona igual, o Ansible resolve módulos
-builtin por nome curto desde sempre. A única diferença prática: o
-`ansible-lint` no profile `production` exige FQCN (`ansible.builtin.file`
-etc.) e reclama sem ele — rodando aqui sem o prefixo, o lint cai pro
-profile `shared` (avisos de estilo `fqcn`, nada funcional). Se `production`
-for importante pro time, é só voltar o prefixo.
+Os módulos são chamados pelo nome curto (`file`, `template`, ...), sem o prefixo `ansible.builtin.` — funciona igual, o Ansible resolve módulos builtin por nome curto desde sempre. A única diferença prática: o `ansible-lint` no profile `production` exige FQCN (`ansible.builtin.file` etc.) e reclama sem ele — rodando aqui sem o prefixo, o lint cai pro profile `shared` (avisos de estilo `fqcn`, nada funcional). Se `production` for importante pro time, é só voltar o prefixo.
 
 ## Como rodar
 
@@ -191,20 +104,10 @@ ansible-playbook -i "<IP_DA_EC2>," vector-provision.yml \
   -u ec2-user --private-key ~/.ssh/minha-chave.pem
 ```
 
-Não é preciso passar `-e @group_vars/vector.yml` — o Ansible carrega
-`group_vars/<nome-do-grupo>.yml` automaticamente para hosts do grupo
-`[vector]`.
+Não é preciso passar `-e @group_vars/vector.yml` — o Ansible carrega `group_vars/<nome-do-grupo>.yml` automaticamente para hosts do grupo `[vector]`.
 
-Pré-requisitos: chave SSH com acesso `ec2-user` na instância, Security
-Group liberando 22/tcp de onde o Ansible roda, e o volume EBS já montado em
-`vector_data_root` (o playbook falha no primeiro task se não estiver).
+Pré-requisitos: chave SSH com acesso `ec2-user` na instância, Security Group liberando 22/tcp de onde o Ansible roda, e o volume EBS já montado em `vector_data_root` (o playbook falha no primeiro task se não estiver).
 
 ## Validação
 
-Validado de ponta a ponta direto contra uma EC2 real — não só lida/
-revisada. Antes disso existir, foi validado localmente sem conta AWS
-(container com Amazon Linux 2023 e depois uma VM VirtualBox com a mesma
-imagem); esse ambiente de teste local foi removido do repo depois que a
-validação passou a ser feita direto na EC2 real. Detalhes e os bugs reais
-que essa validação local pegou (ex. `findutils` faltando) em
-[`../AWS.md`](../AWS.md).
+Validado de ponta a ponta direto contra uma EC2 real — não só lida/ revisada. Antes disso existir, foi validado localmente sem conta AWS (container com Amazon Linux 2023 e depois uma VM VirtualBox com a mesma imagem); esse ambiente de teste local foi removido do repo depois que a validação passou a ser feita direto na EC2 real. Detalhes e os bugs reais que essa validação local pegou (ex. `findutils` faltando) em [`../AWS.md`](../AWS.md).

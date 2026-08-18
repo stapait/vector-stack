@@ -1,18 +1,10 @@
 # Deploy na AWS
 
-Este documento descreve o deploy da arquitetura de centralização de logs
-(ver [`arquitetura.md`](./arquitetura.md)) num ambiente real de teste na
-AWS — separado do ambiente local Docker (documentado em
-[`README.md`](./README.md) e [`CLAUDE.md`](./CLAUDE.md), que continuam
-focados só em Docker).
+Este documento descreve o deploy da arquitetura de centralização de logs (ver [`arquitetura.md`](./arquitetura.md)) num ambiente real de teste na AWS — separado do ambiente local Docker (documentado em [`README.md`](./README.md) e [`CLAUDE.md`](./CLAUDE.md), que continuam focados só em Docker).
 
 ## 1. Arquitetura
 
-Uma única EC2 concentradora roda o Vector e recebe logs de N clientes — EC2
-"normais" ou containers Nomad — cada um enviando via Filebeat. Do lado do
-cliente nada muda em relação ao que já foi validado localmente: mesmo
-Filebeat, mesmos campos `app`/`instance`, mesmo protocolo (Beats/Logstash)
-na porta 5044.
+Uma única EC2 concentradora roda o Vector e recebe logs de N clientes — EC2 "normais" ou containers Nomad — cada um enviando via Filebeat. Do lado do cliente nada muda em relação ao que já foi validado localmente: mesmo Filebeat, mesmos campos `app`/`instance`, mesmo protocolo (Beats/Logstash) na porta 5044.
 
 ```
 [Cliente 1: EC2]                [Cliente 2: task Nomad]        [Cliente N: ...]
@@ -52,16 +44,9 @@ na porta 5044.
                        Grafana (já existente) exibe dashboards
 ```
 
-Ponto central do design, que se mantém igual ao ambiente local: **a EC2 do
-Vector é intocável** depois de provisionada. Uma aplicação nova só precisa
-rodar um Filebeat configurado corretamente — nenhuma mudança na
-concentradora, seja no Vector, no logrotate (path glob dinâmico) ou nas
-métricas (script escaneia os diretórios existentes a cada execução).
+Ponto central do design, que se mantém igual ao ambiente local: **a EC2 do Vector é intocável** depois de provisionada. Uma aplicação nova só precisa rodar um Filebeat configurado corretamente — nenhuma mudança na concentradora, seja no Vector, no logrotate (path glob dinâmico) ou nas métricas (script escaneia os diretórios existentes a cada execução).
 
-IP fixo ou DNS interno (a definir qual dos dois pelo time de infra) é o que
-os clientes usam em `output.logstash.hosts` — o Ansible não gerencia
-Route53/Elastic IP, só assume que existe um endereço estável para colocar
-nessa config.
+IP fixo ou DNS interno (a definir qual dos dois pelo time de infra) é o que os clientes usam em `output.logstash.hosts` — o Ansible não gerencia Route53/Elastic IP, só assume que existe um endereço estável para colocar nessa config.
 
 ## 2. Recursos necessários
 
@@ -91,8 +76,7 @@ nessa config.
 
 ## 3. Provisionamento com Ansible
 
-Tudo em [`ansible/`](./ansible/), organizado em roles — uma por
-responsabilidade:
+Tudo em [`ansible/`](./ansible/), organizado em roles — uma por responsabilidade:
 
 ```
 ansible/
@@ -111,72 +95,27 @@ ansible/
 
 ### O que o playbook faz
 
-Idempotente — rodar de novo (ex. depois de mudar `vector_version` em
-`group_vars/vector.yml`) atualiza só o que mudou e reinicia só os serviços
-afetados. A ordem das roles em `vector-provision.yml` importa — elas não
-são independentes:
+Idempotente — rodar de novo (ex. depois de mudar `vector_version` em `group_vars/vector.yml`) atualiza só o que mudou e reinicia só os serviços afetados. A ordem das roles em `vector-provision.yml` importa — elas não são independentes:
 
-1. **`os_tuning`**: gera `/etc/sysctl.d/99-vector-concentrador.conf`
-   (swappiness, dirty ratio, backlog de conexão TCP, buffers de socket —
-   pensado para muitas fontes enviando log ao mesmo tempo) e aplica com
-   `sysctl --system`. Roda primeiro para o Vector já subir sob os
-   parâmetros finais.
-2. **`common`**: confirma que `vector_data_root` (`/mnt/vector`) já é um
-   ponto de montagem real (`ansible_facts['mounts']`) — falha cedo com uma
-   mensagem clara se não for, em vez de gravar sem querer no disco raiz da
-   instância; instala pacotes base (`tar`, `gzip`, `findutils`); cria usuário/grupo de
-   sistema `vector`.
-3. **`vector`**: cria `/mnt/vector/logs` e `/mnt/vector/state` (usado por
-   `data_dir`, onde o Vector persiste o buffer em disco do sink); baixa e
-   instala o Vector (binário do release oficial, versionado — symlink
-   `/usr/local/bin/vector` apontando pra versão corrente, troca limpa ao
-   atualizar `vector_version`); gera `/etc/vector/vector.yaml` (com
-   `LimitNOFILE` elevado, `connection_limit`/`receive_buffer_bytes` no
-   source e buffer em disco no sink — detalhes em
-   [`ansible/README.md`](./ansible/README.md) § "Tuning para alta carga")
-   e a unit systemd; habilita e sobe o serviço. Precisa rodar antes de
-   `textfile_collector`, `logrotate` e `archive_logs` (todas leem/escrevem
-   em `.../logs`).
-4. **`node_exporter`**: cria o diretório do textfile collector; baixa e
-   instala o `node_exporter`; unit systemd; habilita e sobe. Precisa rodar
-   antes de `textfile_collector`.
-5. **`textfile_collector`**: script `log-metrics.sh` + unit/timer de 15 em
-   15 min.
-6. **`logrotate`**: instala o pacote `logrotate`; gera
-   `/etc/vector/logrotate-vector.conf` e a unit/timer que o invoca de hora
-   em hora.
-7. **`archive_logs`**: cria `/mnt/vector/archive`; instala
-   `archive-logs.sh` e o timer diário de arquivamento.
+1. **`os_tuning`**: gera `/etc/sysctl.d/99-vector-concentrador.conf` (swappiness, dirty ratio, backlog de conexão TCP, buffers de socket — pensado para muitas fontes enviando log ao mesmo tempo) e aplica com `sysctl --system`. Roda primeiro para o Vector já subir sob os parâmetros finais.
+2. **`common`**: confirma que `vector_data_root` (`/mnt/vector`) já é um ponto de montagem real (`ansible_facts['mounts']`) — falha cedo com uma mensagem clara se não for, em vez de gravar sem querer no disco raiz da instância; instala pacotes base (`tar`, `gzip`, `findutils`); cria usuário/grupo de sistema `vector`.
+3. **`vector`**: cria `/mnt/vector/logs` e `/mnt/vector/state` (usado por `data_dir`, onde o Vector persiste o buffer em disco do sink); baixa e instala o Vector (binário do release oficial, versionado — symlink `/usr/local/bin/vector` apontando pra versão corrente, troca limpa ao atualizar `vector_version`); gera `/etc/vector/vector.yaml` (com `LimitNOFILE` elevado, `connection_limit`/`receive_buffer_bytes` no source e buffer em disco no sink — detalhes em [`ansible/README.md`](./ansible/README.md) § "Tuning para alta carga") e a unit systemd; habilita e sobe o serviço. Precisa rodar antes de `textfile_collector`, `logrotate` e `archive_logs` (todas leem/escrevem em `.../logs`).
+4. **`node_exporter`**: cria o diretório do textfile collector; baixa e instala o `node_exporter`; unit systemd; habilita e sobe. Precisa rodar antes de `textfile_collector`.
+5. **`textfile_collector`**: script `log-metrics.sh` + unit/timer de 15 em 15 min.
+6. **`logrotate`**: instala o pacote `logrotate`; gera `/etc/vector/logrotate-vector.conf` e a unit/timer que o invoca de hora em hora.
+7. **`archive_logs`**: cria `/mnt/vector/archive`; instala `archive-logs.sh` e o timer diário de arquivamento.
 
 ### O que **não** faz (por decisão, ver histórico da conversa)
 
-- **Não mexe no volume EBS**: não anexa, não formata, não monta — assume
-  que a instância já sobe com `/mnt/vector` montado (responsabilidade do
-  provisionamento de infraestrutura, fora do Ansible). `group_vars/vector.yml`
-  tem um campo `vector_ebs_device` só para referência/conferência manual
-  (`lsblk`/`df`), nenhuma task usa esse valor.
-- **Não chama a API da AWS**: os IDs (`aws_vpc_id`, `aws_subnet_id`,
-  `aws_security_group_id`, `aws_instance_id`) ficam em `group_vars/vector.yml`
-  como documentação central do ambiente, não como entrada de nenhuma task —
-  o Ansible só faz SSH na instância e mexe no SO. Segurança de rede
-  (liberar 5044/9100 no Security Group) é gerenciada fora deste playbook.
-- **Não descobre nada sozinho**: sem inventário dinâmico, sem lookup de
-  instância por tag — o IP é fornecido (inventário ou `-i "IP,"`).
+- **Não mexe no volume EBS**: não anexa, não formata, não monta — assume que a instância já sobe com `/mnt/vector` montado (responsabilidade do provisionamento de infraestrutura, fora do Ansible). `group_vars/vector.yml` tem um campo `vector_ebs_device` só para referência/conferência manual (`lsblk`/`df`), nenhuma task usa esse valor.
+- **Não chama a API da AWS**: os IDs (`aws_vpc_id`, `aws_subnet_id`, `aws_security_group_id`, `aws_instance_id`) ficam em `group_vars/vector.yml` como documentação central do ambiente, não como entrada de nenhuma task — o Ansible só faz SSH na instância e mexe no SO. Segurança de rede (liberar 5044/9100 no Security Group) é gerenciada fora deste playbook.
+- **Não descobre nada sozinho**: sem inventário dinâmico, sem lookup de instância por tag — o IP é fornecido (inventário ou `-i "IP,"`).
 
 ### Compatibilidade
 
-Só usa módulos builtin estáveis há vários anos (`dnf`, `user`, `group`,
-`file`, `template`, `unarchive`, `systemd`, `assert`) — sem depender de
-nenhuma collection externa nem de recurso exclusivo das últimas releases do
-Ansible. Testado com `ansible-core` 2.21 (`--syntax-check` limpo).
+Só usa módulos builtin estáveis há vários anos (`dnf`, `user`, `group`, `file`, `template`, `unarchive`, `systemd`, `assert`) — sem depender de nenhuma collection externa nem de recurso exclusivo das últimas releases do Ansible. Testado com `ansible-core` 2.21 (`--syntax-check` limpo).
 
-Os módulos são chamados pelo nome curto (`file`, `template`, ...), sem o
-prefixo `ansible.builtin.` — funciona igual, o Ansible resolve módulos
-builtin por nome curto desde sempre. A única diferença prática: o
-`ansible-lint` no profile `production` exige FQCN (`ansible.builtin.file`
-etc.) e reclama sem ele — rodando aqui sem o prefixo, o lint cai pro
-profile `shared` (34 avisos de estilo `fqcn`, nada funcional). Se
-`production` for importante pro time, é só voltar o prefixo.
+Os módulos são chamados pelo nome curto (`file`, `template`, ...), sem o prefixo `ansible.builtin.` — funciona igual, o Ansible resolve módulos builtin por nome curto desde sempre. A única diferença prática: o `ansible-lint` no profile `production` exige FQCN (`ansible.builtin.file` etc.) e reclama sem ele — rodando aqui sem o prefixo, o lint cai pro profile `shared` (34 avisos de estilo `fqcn`, nada funcional). Se `production` for importante pro time, é só voltar o prefixo.
 
 ### Como rodar
 
@@ -191,59 +130,26 @@ ansible-playbook -i "<IP_DA_EC2>," vector-provision.yml \
   -u ec2-user --private-key ~/.ssh/minha-chave.pem
 ```
 
-Não é preciso passar variáveis por `-e` — `group_vars/vector.yml` é
-carregado automaticamente para hosts do grupo `[vector]`. Detalhes
-completos da automação (variáveis, ordem das roles, gotchas de logrotate)
-em [`ansible/README.md`](./ansible/README.md).
+Não é preciso passar variáveis por `-e` — `group_vars/vector.yml` é carregado automaticamente para hosts do grupo `[vector]`. Detalhes completos da automação (variáveis, ordem das roles, gotchas de logrotate) em [`ansible/README.md`](./ansible/README.md).
 
-Pré-requisitos: chave SSH com acesso `ec2-user` na instância, Security
-Group liberando 22/tcp de onde o Ansible roda, e o volume EBS já montado em
-`/mnt/vector` (o playbook falha no primeiro task se não estiver).
+Pré-requisitos: chave SSH com acesso `ec2-user` na instância, Security Group liberando 22/tcp de onde o Ansible roda, e o volume EBS já montado em `/mnt/vector` (o playbook falha no primeiro task se não estiver).
 
 ### Validação
 
-A automação (`vector-provision.yml`) foi validada de ponta a ponta direto
-contra uma EC2 real (Amazon Linux 2023) — não só lida/revisada. Exceção: a
-role `os_tuning` (tuning de SO/Vector para alta carga) é nova e ainda não
-passou por essa validação — os valores vêm de práticas gerais de tuning de
-Linux/Vector para ingestão de log em alta carga, não de um incidente
-reproduzido nesta automação (ver `ansible/README.md` § "Tuning para alta
-carga").
+A automação (`vector-provision.yml`) foi validada de ponta a ponta direto contra uma EC2 real (Amazon Linux 2023) — não só lida/revisada. Exceção: a role `os_tuning` (tuning de SO/Vector para alta carga) é nova e ainda não passou por essa validação — os valores vêm de práticas gerais de tuning de Linux/Vector para ingestão de log em alta carga, não de um incidente reproduzido nesta automação (ver `ansible/README.md` § "Tuning para alta carga").
 
-Antes de existir essa EC2 real, a automação tinha sido validada localmente
-sem conta AWS, primeiro contra um container com Amazon Linux 2023
-(`systemd` como init, `sshd` ativo) e depois contra uma VM VirtualBox com a
-mesma imagem (kernel próprio em vez do kernel do host) — essas duas pastas
-de teste (`docker/local-ec2/`, `vagrant/`) foram removidas do repo depois
-que a validação passou a ser feita direto na EC2 real, mas os bugs reais
-que elas pegaram continuam corrigidos no código: `findutils` não vem em
-toda instalação mínima do AL2023 (`find` é usado por `log-metrics.sh` e
-`archive-logs.sh` — corrigido, agora faz parte dos pacotes base instalados
-pela role `common`) e um PAM não-trivial que era necessário só para o SSH
-funcionar dentro do container de teste (não se aplica a uma EC2 real).
+Antes de existir essa EC2 real, a automação tinha sido validada localmente sem conta AWS, primeiro contra um container com Amazon Linux 2023 (`systemd` como init, `sshd` ativo) e depois contra uma VM VirtualBox com a mesma imagem (kernel próprio em vez do kernel do host) — essas duas pastas de teste (`docker/local-ec2/`, `vagrant/`) foram removidas do repo depois que a validação passou a ser feita direto na EC2 real, mas os bugs reais que elas pegaram continuam corrigidos no código: `findutils` não vem em toda instalação mínima do AL2023 (`find` é usado por `log-metrics.sh` e `archive-logs.sh` — corrigido, agora faz parte dos pacotes base instalados pela role `common`) e um PAM não-trivial que era necessário só para o SSH funcionar dentro do container de teste (não se aplica a uma EC2 real).
 
 ### Nota sobre o logrotate (decisões descobertas testando de verdade)
 
-Duas pegadinhas do `logrotate` que só apareceram testando o config
-gerado, e que valem registrar porque não são óbvias lendo a documentação:
+Duas pegadinhas do `logrotate` que só apareceram testando o config gerado, e que valem registrar porque não são óbvias lendo a documentação:
 
-- Sem uma diretiva de frequência (`daily`/`weekly`) — necessário aqui, já
-  que rotação horária não existe nativamente no logrotate —, ele cai no
-  critério padrão de **tamanho** (~1 MiB) em vez de rotacionar a cada
-  execução. Por isso o serviço roda `logrotate --force`, que ignora esse
-  critério (mas ainda respeita `notifempty`, então apps sem log novo desde
-  a última rotação não geram `.gz` vazio).
-- `copytruncate` + `dateext` **sem** uma diretiva `rotate N` explícita
-  falha silenciosamente (pula a cópia, gera um erro tentando comprimir um
-  arquivo que nunca foi criado). Por isso o config tem `rotate 100000` — um
-  número alto só para nunca bater no limite, já que quem decide apagar (na
-  prática, mover para `/archive`) é o `archive-logs.sh`, não o logrotate.
+- Sem uma diretiva de frequência (`daily`/`weekly`) — necessário aqui, já que rotação horária não existe nativamente no logrotate —, ele cai no critério padrão de **tamanho** (~1 MiB) em vez de rotacionar a cada execução. Por isso o serviço roda `logrotate --force`, que ignora esse critério (mas ainda respeita `notifempty`, então apps sem log novo desde a última rotação não geram `.gz` vazio).
+- `copytruncate` + `dateext` **sem** uma diretiva `rotate N` explícita falha silenciosamente (pula a cópia, gera um erro tentando comprimir um arquivo que nunca foi criado). Por isso o config tem `rotate 100000` — um número alto só para nunca bater no limite, já que quem decide apagar (na prática, mover para `/archive`) é o `archive-logs.sh`, não o logrotate.
 
 ## 4. Configurando um cliente
 
-Uma aplicação nova só precisa de duas coisas: escrever seu log num arquivo
-local, e rodar um Filebeat apontando pra esse arquivo. Nenhuma mudança do
-lado da concentradora.
+Uma aplicação nova só precisa de duas coisas: escrever seu log num arquivo local, e rodar um Filebeat apontando pra esse arquivo. Nenhuma mudança do lado da concentradora.
 
 ```yaml
 # /etc/filebeat/filebeat.yml (na EC2 cliente, ou dentro do container/task Nomad)
@@ -260,20 +166,7 @@ output.logstash:
   hosts: ["vector.interno:5044"]     # IP fixo ou DNS da concentradora
 ```
 
-- `fields.app` é o único campo que precisa ser exclusivo por aplicação —
-  vira literalmente o nome da pasta em `/mnt/vector/logs/`. Duas apps
-  usando o mesmo valor de `app` teriam os logs misturados na mesma pasta.
-- `instance` identifica a origem dentro da mesma app (várias EC2/tasks
-  rodando a mesma app) — hostname, EC2 instance-id (`$(ec2-metadata
-  --instance-id)` ou variável de ambiente já injetada) ou `NOMAD_ALLOC_ID`
-  em containers Nomad, o mesmo padrão já usado no `arquitetura.md` e no
-  ambiente Docker local.
-- **Acesso de rede necessário**: porta **5044/tcp** de saída do cliente
-  até a concentradora (Security Group da concentradora precisa liberar
-  entrada nessa porta a partir da subnet/SG dos clientes). Sem TLS nesta
-  fase — mesma decisão já registrada em `arquitetura.md` (rede privada
-  considerada confiável por ora).
-- Depois de configurado, `systemctl enable --now filebeat` (ou o
-  equivalente na imagem do container Nomad) — em segundos os logs devem
-  aparecer em `/mnt/vector/logs/minha-app/.../minha-app.log` na
-  concentradora, sem precisar reiniciar nem reconfigurar o Vector.
+- `fields.app` é o único campo que precisa ser exclusivo por aplicação — vira literalmente o nome da pasta em `/mnt/vector/logs/`. Duas apps usando o mesmo valor de `app` teriam os logs misturados na mesma pasta.
+- `instance` identifica a origem dentro da mesma app (várias EC2/tasks rodando a mesma app) — hostname, EC2 instance-id (`$(ec2-metadata --instance-id)` ou variável de ambiente já injetada) ou `NOMAD_ALLOC_ID` em containers Nomad, o mesmo padrão já usado no `arquitetura.md` e no ambiente Docker local.
+- **Acesso de rede necessário**: porta **5044/tcp** de saída do cliente até a concentradora (Security Group da concentradora precisa liberar entrada nessa porta a partir da subnet/SG dos clientes). Sem TLS nesta fase — mesma decisão já registrada em `arquitetura.md` (rede privada considerada confiável por ora).
+- Depois de configurado, `systemctl enable --now filebeat` (ou o equivalente na imagem do container Nomad) — em segundos os logs devem aparecer em `/mnt/vector/logs/minha-app/.../minha-app.log` na concentradora, sem precisar reiniciar nem reconfigurar o Vector.
