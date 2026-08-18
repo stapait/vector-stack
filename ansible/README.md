@@ -17,9 +17,7 @@ ansible/
 ├── vector-provision.yml         # playbook único, só declara a ordem das roles
 ├── group_vars/vector.yml        # variáveis do grupo "vector" — carregadas automaticamente
 ├── inventory/
-│   ├── hosts.ini                 # inventário de exemplo para uma EC2 real
-│   ├── local-ec2.ini              # inventário do container docker/local-ec2
-│   └── vagrant.ini                # inventário da VM vagrant/
+│   └── hosts.ini                 # inventário de exemplo para uma EC2 real
 └── roles/
     ├── common/               # pacotes base, usuário/grupo "vector", valida o mount do EBS
     ├── vector/                # binário + config + systemd do Vector, cria .../logs
@@ -31,9 +29,8 @@ ansible/
 
 ## Variáveis (`group_vars/vector.yml`)
 
-Como todas as três inventories (`hosts.ini`, `local-ec2.ini`, `vagrant.ini`)
-usam o mesmo grupo `[vector]`, o Ansible carrega `group_vars/vector.yml`
-automaticamente para qualquer uma delas — não é preciso passar `-e` na
+Como `hosts.ini` usa o grupo `[vector]`, o Ansible carrega
+`group_vars/vector.yml` automaticamente — não é preciso passar `-e` na
 linha de comando. Para editar uma variável (ex. atualizar a versão do
 Vector), basta editar este arquivo e rodar o playbook de novo.
 
@@ -149,29 +146,18 @@ ansible-playbook -i "<IP_DA_EC2>," vector-provision.yml \
 
 Não é preciso passar `-e @group_vars/vector.yml` — o Ansible carrega
 `group_vars/<nome-do-grupo>.yml` automaticamente para hosts do grupo
-`[vector]`, em qualquer uma das três inventories.
+`[vector]`.
 
 Pré-requisitos: chave SSH com acesso `ec2-user` na instância, Security
 Group liberando 22/tcp de onde o Ansible roda, e o volume EBS já montado em
 `vector_data_root` (o playbook falha no primeiro task se não estiver).
 
-## Testando localmente, sem AWS
+## Validação
 
-[`../docker/local-ec2/`](../docker/local-ec2/) sobe um container com Amazon
-Linux 2023 de verdade (`systemd` como init, `sshd` ativo) e roda
-`vector-provision.yml` contra ele:
-
-```bash
-cd docker/local-ec2
-./test.sh
-```
-
-[`../vagrant/`](../vagrant/) faz o mesmo numa VM VirtualBox de verdade (box
-`bento/amazonlinux-2023`) em vez de container:
-
-```bash
-cd vagrant
-./test.sh
-```
-
-Detalhes de cada ambiente de teste nos READMEs das respectivas pastas.
+Validado de ponta a ponta direto contra uma EC2 real — não só lida/
+revisada. Antes disso existir, foi validado localmente sem conta AWS
+(container com Amazon Linux 2023 e depois uma VM VirtualBox com a mesma
+imagem); esse ambiente de teste local foi removido do repo depois que a
+validação passou a ser feita direto na EC2 real. Detalhes e os bugs reais
+que essa validação local pegou (ex. `findutils` faltando) em
+[`../AWS.md`](../AWS.md).

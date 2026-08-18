@@ -89,73 +89,75 @@ Vector, para o mesmo trabalho:
 ```
 arquitetura.md              # decisões de design completas
 docker/
-├── concentrador/           # Vector (porta 5044), local só — sem rotação/métricas
-│   └── README.md           # detalhes do serviço, endpoint, como enviar logs
-└── apps/                   # apps fictícias que geram log (NestJS + Filebeat)
-    └── README.md           # como rodar e como adicionar uma nova app
+└── concentrador/           # Vector (5044) + node_exporter + Prometheus + Grafana
+    └── README.md           # detalhes dos serviços, endpoints, dashboard, como enviar logs
+apps/                       # apps de teste que geram log (NestJS + Filebeat, direto no host)
+└── README.md               # como rodar e como adicionar uma nova app
 ```
 
-## Como executar e testar com Docker
+## Como executar e testar localmente
 
-Tudo roda localmente via Docker Compose, em dois compose files separados —
-o do concentrador **precisa subir primeiro**, pois é ele quem cria a rede
-Docker (`vector-stack`) usada pelas apps para alcançar o Vector.
+O concentrador (Vector + observabilidade) roda via Docker Compose; as
+apps de teste rodam direto no host (sem Docker) e enviam pra ele via
+Filebeat.
 
 ### 1. Subir a concentradora
 
 ```bash
 cd docker/concentrador
+mkdir -p data/logs data/textfile
 UID=$(id -u) GID=$(id -g) docker compose up -d
 ```
 
-Isso sobe só o Vector, escutando na porta `5044`. Este compose local é
-propositalmente mínimo — sem rotação, arquivamento ou métricas/dashboard
-(essas peças existem na automação Ansible real, ver [`AWS.md`](./AWS.md)).
+Isso sobe o Vector (porta `5044`) e a observabilidade em torno dele:
+`node_exporter` + coletor de métricas por app, Prometheus (`:9091`) e
+Grafana (`:3001`, dashboard já provisionado, sem login) — ver detalhes e
+os endpoints completos em
+[`docker/concentrador/README.md`](./docker/concentrador/README.md).
+Rotação e arquivamento continuam fora deste compose (só existem na
+automação Ansible real, ver [`AWS.md`](./AWS.md)).
 
-O `UID`/`GID` na frente do comando faz o Vector gravar os arquivos em
-`data/logs` com o dono/grupo do seu usuário — sem isso ele roda como
-`root` dentro do container e você não consegue ler/mover esses arquivos do
-host depois. Repita esse prefixo em qualquer `docker compose` rodado nesta
-pasta (`up`, `restart` etc.).
+O `mkdir -p` precisa vir antes do `docker compose up` (senão o Docker cria
+essas pastas como `root`); o `UID`/`GID` na frente do comando faz os
+serviços que escrevem em `data/logs`/`data/textfile` gravar com o dono/
+grupo do seu usuário — sem isso rodam como `root` dentro do container e
+você não consegue ler/mover esses arquivos do host depois. Repita esse
+prefixo em qualquer `docker compose` rodado nesta pasta (`up`, `restart`
+etc.).
 
 ### 2. Subir as apps geradoras de log
 
-```bash
-cd ../apps
-docker compose up -d --build
-```
-
-Sobe 3 apps fictícias (`orders-app`, `payments-app`, `shipping-app`), cada
-uma escrevendo log local e enviando via Filebeat para o Vector.
+Veja o passo a passo em [`apps/README.md`](./apps/README.md) — 3 apps
+NestJS rodando direto no host, com um Filebeat apontando
+`output.logstash.hosts` para `localhost:5044`.
 
 ### 3. Acompanhar os logs chegando
 
 ```bash
-cd ../concentrador
+cd docker/concentrador
 tail -f data/logs/*/*/*/*.log
 # ou, com multitail instalado:
 multitail data/logs/*/*/*/*.log
 ```
 
 Em poucos segundos deve aparecer log das 3 apps, um arquivo por
-app/dia/instância.
+app/dia/instância. Para ver as mesmas apps num dashboard (tamanho em
+disco, há quanto tempo mandaram log pela última vez), abra
+`http://localhost:3001`.
 
 ### 4. Adicionar uma app nova (validar "zero mudança no servidor")
 
-Veja o passo a passo em [`docker/apps/README.md`](./docker/apps/README.md)
-— copiar um bloco de serviço no compose + um arquivo de Filebeat, sem
-mexer em nada do lado do Vector.
-
-Alternativa: rodar a app direto no host (fora de container), com o
-Filebeat apontando `output.logstash.hosts` para `localhost:5044` — chega
-igual em `data/logs`, sem mudar nada do lado do Vector.
+Veja "Adicionando uma 4ª app" em [`apps/README.md`](./apps/README.md) —
+copiar uma pasta de app + um input no Filebeat, sem mexer em nada do lado
+do Vector. Ela aparece sozinha na tabela de apps do Grafana na próxima
+varredura do `textfile-collector` (a cada 15 min).
 
 ### 5. Parar tudo
 
 ```bash
-cd docker/apps && docker compose down
-cd ../concentrador && docker compose down
+cd docker/concentrador && docker compose down
 ```
 
-Os logs em `docker/concentrador/data/logs` são bind mount e continuam no
-disco mesmo depois do `down -v`.
+Os dados em `docker/concentrador/data/` (logs e métricas) são bind mount e
+continuam no disco mesmo depois do `down`; `prometheus`/`grafana` usam
+volumes nomeados próprios, que também sobrevivem — só `down -v` os apaga.

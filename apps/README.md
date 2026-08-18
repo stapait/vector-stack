@@ -1,16 +1,14 @@
 # Apps de exemplo (host) — geradoras de log
 
-Equivalente ao [`docker/apps/`](../docker/apps/README.md), mas rodando
-**direto no host** (sem Docker) e enviando para o Vector da
-[VM Vagrant](../vagrant/README.md) em vez do concentrador Docker. Cada app é
+3 apps de teste rodando **direto no host** (sem Docker), cada uma
+enviando log via Filebeat para o Vector local de
+[`docker/concentrador`](../docker/concentrador/README.md). Cada app é
 uma NestJS mínima (`NestFactory.createApplicationContext`, sem servidor
 HTTP) que só fica escrevendo linhas de log genéricas em arquivo.
 
-Diferença de estrutura em relação ao `docker/apps`: lá as 3 apps
-compartilham uma única imagem/pasta `app/`, parametrizada por env var — aqui,
-sem `docker-compose` para injetar essa variação, cada app é a sua própria
-pasta autocontida (`app1/`, `app2/`, `app3/`), com o nome da app fixado no
-código (`APP_NAME` em `src/log-generator.service.ts`).
+Cada app é a sua própria pasta autocontida (`app1/`, `app2/`, `app3/`),
+sem imagem/compose compartilhado — o nome da app é fixado no código
+(`APP_NAME` em `src/log-generator.service.ts`).
 
 ## Estrutura
 
@@ -57,12 +55,13 @@ done
 Cada app cria `apps/<nome>/logs/<nome>.log` e escreve uma linha a cada
 1-3s. Confira com `tail -f apps/app1/logs/app1.log`.
 
-## 2. Apontar o Filebeat do host para o Vector da VM Vagrant
+## 2. Apontar o Filebeat do host para o Vector local
 
-A [VM Vagrant](../vagrant/README.md) precisa estar de pé
-(`cd vagrant && vagrant up`, se ainda não estiver — `vagrant status` para
-checar) e alcançável em `192.168.56.20:5044` (IP fixo definido no
-`vagrant/Vagrantfile`).
+O [`docker/concentrador`](../docker/concentrador/README.md) precisa estar
+de pé (`cd docker/concentrador && mkdir -p data/logs data/textfile &&
+UID=$(id -u) GID=$(id -g) docker compose up -d`, se ainda não estiver) e
+alcançável em `localhost:5044` (porta publicada pelo compose).
+`apps/filebeat/filebeat.yml` já aponta pra lá.
 
 O arquivo que o Filebeat de fato lê é
 `/home/fabio/filebeat-9.5.1-linux-x86_64/filebeat.yml` — **fora deste
@@ -81,7 +80,6 @@ E rodar (não executei isso por você — só as instruções, como pedido):
 
 ```bash
 cd /home/fabio/filebeat-9.5.1-linux-x86_64
-export HOSTNAME=$(hostname)
 ./filebeat -e -c filebeat.yml
 ```
 
@@ -89,32 +87,33 @@ export HOSTNAME=$(hostname)
 terminal, útil para ver os 3 inputs conectando e os eventos sendo
 enviados). `Ctrl+C` para parar.
 
-O `export HOSTNAME=$(hostname)` é necessário porque `fields.instance` no
-`filebeat.yml` usa `${HOSTNAME}` (substituição de variável de ambiente do
-próprio Filebeat) em vez de um valor fixo — assim `instance` sempre reflete
-o hostname da máquina onde o Filebeat está rodando, sem precisar editar o
-config a cada host novo. Sem esse `export`, o Filebeat recusa subir com um
-erro de variável não encontrada (o `$HOSTNAME` que o bash mostra em
-`echo $HOSTNAME` é uma variável interna do shell, não fica automaticamente
-disponível para o processo do Filebeat).
+Não precisa exportar `HOSTNAME` nem nenhum field `instance`: o libbeat
+(motor do Filebeat) já inclui um `host.name` (hostname da máquina) em todo
+evento, por padrão, independente de config — é isso que o Vector usa para
+organizar os logs por instância.
 
 Se o Filebeat recusar subir por causa de permissão do arquivo de config
 (`config file ... needs to be owned by ...`), rode com
-`--strict.perms=false` (mesma flag usada no `docker/apps`, motivo
-documentado lá) — não deveria ser necessário aqui já que o arquivo
+`--strict.perms=false` — não deveria ser necessário aqui já que o arquivo
 pertence ao seu próprio usuário, mas fica registrado caso apareça.
 
-## 3. Ver os logs chegando na VM Vagrant
+## 3. Ver os logs chegando no concentrador
 
 ```bash
-cd vagrant
-vagrant ssh -c 'tail -f /mnt/vector/logs/*/*/*/*.log'
+tail -f docker/concentrador/data/logs/*/*/*/*.log
 ```
 
 Em poucos segundos devem aparecer as 3 apps
-(`/mnt/vector/logs/app1/<data>/<hostname>/app1.log` etc. — `<hostname>` é
-o valor de `$HOSTNAME` exportado antes de subir o Filebeat, usado como
-`instance`).
+(`docker/concentrador/data/logs/app1/<data>/<hostname>/app1.log` etc. —
+`<hostname>` é o `host.name` que o libbeat inclui sozinho em todo evento).
+
+As mesmas 3 apps também aparecem no dashboard do Grafana
+(`http://localhost:3001`, sem login) — tabela "Aplicações enviando logs"
+com tamanho em disco e há quanto tempo cada uma mandou log pela última
+vez. Essa tabela só atualiza a cada varredura do `textfile-collector`
+(15 min por padrão), então pode demorar para as apps aparecerem lá mesmo
+já enviando log normalmente — ver
+[`docker/concentrador/README.md`](../docker/concentrador/README.md).
 
 ## Adicionando uma 4ª app
 
@@ -134,7 +133,6 @@ o valor de `$HOSTNAME` exportado antes de subir o Filebeat, usado como
          - /home/fabio/projects/vector-stack/apps/app4/logs/app4.log
        fields:
          app: app4
-         instance: ${HOSTNAME}
        fields_under_root: false
    ```
 
@@ -146,5 +144,5 @@ o valor de `$HOSTNAME` exportado antes de subir o Filebeat, usado como
 6. Reinicie o Filebeat (`Ctrl+C` e rode de novo) para pegar o novo input —
    Filebeat só lê `filebeat.inputs` na inicialização.
 
-Nenhuma mudança do lado do Vector/VM é necessária — ele só lê os `fields`
-que chegam no evento, igual ao `docker/apps`.
+Nenhuma mudança do lado do Vector é necessária — ele só lê os `fields`
+que chegam no evento.

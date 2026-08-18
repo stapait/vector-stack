@@ -122,13 +122,15 @@ output.logstash:
   em hora) faz *copytruncate* do `{app}.log` corrente — copia para
   `{app}-{HH}.log`, trunca o original no lugar (o Vector continua escrevendo
   no mesmo arquivo sem interrupção, pois escreve em modo append) — e
-  compacta a cópia para `{app}-{HH}.log.gz`. Implementado em Docker pelo
-  serviço `rotator` (`docker/concentrador/rotator/`).
+  compacta a cópia para `{app}-{HH}.log.gz`. Implementado só na automação
+  Ansible real (role `logrotate`, ver `ansible/README.md`) — o ambiente
+  Docker local é só para visualizar logs e dashboards, sem rotação.
 - **Retenção/arquivamento** (requisito 6): job separado (cron/systemd timer,
   diário) move os `.gz` de pastas de data com mais de 30 dias para
   `/mnt/logs/archive/{app}/{YYYY-MM-DD}/{instancia}/`, mantendo a mesma
   estrutura — mantém a pasta principal só com os logs mais recentes.
-  Implementado como script avulso: `docker/concentrador/scripts/archive-logs.sh`.
+  Implementado só na automação Ansible real (role `archive_logs`, ver
+  `ansible/README.md`) — mesma razão acima, fora do ambiente Docker local.
 
 ## Tempo real
 

@@ -1,1 +1,0 @@
-No arquivo de configuração do filebeat, em apps/filebeat/filebeat.yml, como fazer para que o field instance pegue automaticamente o hostname?

@@ -8,7 +8,7 @@ sinks:
     type: file
     inputs:
       - filebeat
-    path: "/mnt/logs/{{ fields.app }}/%Y-%m-%d/{{ fields.instance }}/{{ fields.app }}.log"
+    path: "/mnt/logs/{{ fields.app }}/%Y-%m-%d/{{ host.name }}/{{ fields.app }}.log"
     encoding:
       codec: text
     healthcheck:

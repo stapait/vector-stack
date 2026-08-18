@@ -1,27 +1,22 @@
 # Filebeat rodando direto no host (instalação em
 # /home/fabio/filebeat-9.5.1-linux-x86_64), lendo o log de cada app em
-# apps/<nome>/logs/<nome>.log e enviando para o Vector da VM Vagrant
-# (vagrant/, vector-provision.yml) na porta 5044 — mesmo protocolo
-# (output.logstash) usado pelas apps em docker/apps, só que aqui é um único
-# processo Filebeat com um input por app, em vez de um Filebeat por
-# container.
+# apps/<nome>/logs/<nome>.log e enviando para o Vector local de
+# docker/concentrador na porta 5044, um único processo Filebeat com um
+# input por app.
 #
 # Esta é a cópia versionada — a que o Filebeat de fato lê é
 # /home/fabio/filebeat-9.5.1-linux-x86_64/filebeat.yml (fora do repo,
 # path do host). Ver apps/README.md para instruções de uso.
 #
-# type: filestream (não "log") — Filebeat 9.x removeu o input "log" usado
-# no docker/apps (lá é Filebeat 8.x via apt, que ainda aceita "log").
+# type: filestream (não "log") — Filebeat 9.x removeu o input "log".
 # filestream exige um "id" único por input (chave de rastreio do estado de
 # leitura no registry — não pode repetir entre inputs nem mudar depois,
 # senão o Filebeat re-lê o arquivo do zero na próxima vez que subir).
 #
-# instance: ${HOSTNAME} — resolvido pelo Filebeat a partir da variável de
-# ambiente HOSTNAME no momento em que ele sobe (substituição nativa do
-# formato de config, não precisa de plugin). O Filebeat (binário Go) só
-# enxerga variáveis realmente exportadas para o processo — o $HOSTNAME que
-# o bash preenche sozinho para si mesmo não é exportado por padrão, então é
-# preciso exportar antes de rodar (ver apps/README.md, passo 2).
+# Não é preciso um field "instance": o libbeat (motor do Filebeat) já
+# inclui um host.name (hostname da máquina) em todo evento, por padrão,
+# independente de config — é isso que o Vector usa no path do sink em vez
+# de um field custom (ver docker/concentrador/vector/vector.yaml).
 filebeat.inputs:
   - type: filestream
     id: app1
@@ -29,7 +24,6 @@ filebeat.inputs:
       - /home/fabio/projects/vector-stack/apps/app1/logs/app1.log
     fields:
       app: app1
-      instance: ${HOSTNAME}
     fields_under_root: false
 
   - type: filestream
@@ -38,7 +32,6 @@ filebeat.inputs:
       - /home/fabio/projects/vector-stack/apps/app2/logs/app2.log
     fields:
       app: app2
-      instance: ${HOSTNAME}
     fields_under_root: false
 
   - type: filestream
@@ -47,11 +40,10 @@ filebeat.inputs:
       - /home/fabio/projects/vector-stack/apps/app3/logs/app3.log
     fields:
       app: app3
-      instance: ${HOSTNAME}
     fields_under_root: false
 
 output.logstash:
-  hosts: ["192.168.56.20:5044"]
+  hosts: ["localhost:5044"]
 
 logging.to_files: false
 logging.to_stderr: true
